@@ -1025,16 +1025,13 @@ function SellersPage({ go, addToast }) {
       </section>
 
       <section className="py-20" style={{ background: C.bg2 }}>
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <Reveal><div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-5">
-              <Eyebrow>Editorial Marketing</Eyebrow>
-              <h2 className="font-display mt-6 text-balance" style={{ fontSize: 'clamp(32px, 4.5vw, 56px)', lineHeight: 1.05 }}>Properties presented like the publications that cover them.</h2>
-              <p className="mt-8" style={{ color: C.ink2, lineHeight: 1.65 }}>Every listing benefits from in-house design, professional photography, drone cinematography, editorial copy, and distribution across the channels where qualified buyers actually look.</p>
-              <ul className="mt-10 space-y-4">{['Editorial photography & cinematic video', 'Drone & aerial coverage', 'Curated print + digital placement', 'Targeted buyer activation campaigns', 'White-glove showing concierge'].map((x) => (<li key={x} className="flex items-start gap-3 text-sm"><span style={{ color: C.gold, marginTop: 3 }}><Check size={16} /></span><span>{x}</span></li>))}</ul>
-            </div>
-            <div className="lg:col-span-7"><div className="grid grid-cols-2 gap-3">{[0, 1, 2, 3].map((i) => (<div key={i} className="aspect-[4/5] relative overflow-hidden grain" style={{ background: i === 0 ? `linear-gradient(135deg, #2a2622 0%, ${C.goldDeep} 100%)` : i === 1 ? `linear-gradient(135deg, #1a1a1a 0%, #3a342a 100%)` : i === 2 ? `linear-gradient(135deg, #3a342a 0%, #5a5a4a 100%)` : `linear-gradient(135deg, ${C.goldDeep} 0%, #2a2622 100%)`, gridColumn: i === 0 ? 'span 2' : 'auto' }}><div className="absolute inset-0 flex items-end p-8"><div><div className="ui-eyebrow" style={{ color: 'rgba(255,255,255,0.5)' }}>Listing 0{i + 1}</div><div className="font-display text-white mt-2" style={{ fontSize: i === 0 ? 28 : 20, fontWeight: 500 }}>{['Ocean Estate', 'City Penthouse', 'Historic Villa', 'Modern Retreat'][i]}</div></div></div></div>))}</div></div>
-          </div></Reveal>
+        <div className="max-w-[1100px] mx-auto px-6 lg:px-10">
+          <Reveal>
+            <Eyebrow>Editorial Marketing</Eyebrow>
+            <h2 className="font-display mt-6 text-balance" style={{ fontSize: 'clamp(32px, 4.5vw, 56px)', lineHeight: 1.05, maxWidth: 820 }}>Properties presented like the publications that cover them.</h2>
+            <p className="mt-8" style={{ color: C.ink2, lineHeight: 1.65, maxWidth: 720, fontSize: 17 }}>Every listing benefits from in-house design, professional photography, drone cinematography, editorial copy, and distribution across the channels where qualified buyers actually look.</p>
+            <ul className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">{['Editorial photography & cinematic video', 'Drone & aerial coverage', 'Curated print + digital placement', 'Targeted buyer activation campaigns', 'White-glove showing concierge'].map((x) => (<li key={x} className="flex items-start gap-3 text-sm"><span style={{ color: C.gold, marginTop: 3 }}><Check size={16} /></span><span>{x}</span></li>))}</ul>
+          </Reveal>
         </div>
       </section>
 
