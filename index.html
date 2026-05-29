@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0A0A0A" />
+
+    <!-- Primary SEO -->
+    <title>Dennis &amp; Jaelly Prieto · Epique Realty · South Florida Luxury Real Estate</title>
+    <meta name="description" content="South Florida real estate representation for clients, investors, and professionals who value strategy, discretion, and long-term relationships. Dennis &amp; Jaelly Prieto · Epique Realty." />
+    <link rel="canonical" href="https://prietoreal.estate/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://prietoreal.estate/" />
+    <meta property="og:title" content="Dennis &amp; Jaelly Prieto · Epique Realty" />
+    <meta property="og:description" content="South Florida luxury real estate representation. Built on relationships. Driven by standards." />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Dennis &amp; Jaelly Prieto · Epique Realty" />
+    <meta name="twitter:description" content="South Florida luxury real estate representation. Built on relationships. Driven by standards." />
+
+    <!-- Favicon (inline SVG monogram, gold P on warm white) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23FAF9F7'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Georgia,serif' font-size='40' font-weight='400' fill='%23C6A972'%3EP%3C/text%3E%3C/svg%3E" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap"
+    />
+
+    <!-- Tailwind CDN (Play CDN — fine for production at this scale) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ['"Playfair Display"', 'Georgia', 'serif'],
+              sans: ['Inter', 'system-ui', 'sans-serif'],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      html, body, #root { height: 100%; margin: 0; }
+      body {
+        font-family: 'Inter', system-ui, sans-serif;
+        background: #FAF9F7;
+        color: #111111;
+        -webkit-font-smoothing: antialiased;
+      }
+      .font-display { font-family: 'Playfair Display', Georgia, serif; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
