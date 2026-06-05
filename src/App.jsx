@@ -858,14 +858,14 @@ function HomePage({ go }) {
       <section className="py-20 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <Reveal><div className="lg:col-span-6">
+            <Reveal className="lg:col-span-6">
               <Eyebrow>Private Consultation</Eyebrow>
               <h2 className="font-display mt-8" style={{ fontSize: 'clamp(36px, 5vw, 64px)', lineHeight: 1.05 }}>A 30-minute<br />conversation that can<br /><em style={{ color: C.gold, fontStyle: 'italic' }}>redefine your decade.</em></h2>
               <p className="mt-8" style={{ color: C.ink2, fontSize: 17, lineHeight: 1.65, maxWidth: 520 }}>Whether you're considering representation, exploring the agent ecosystem, or comparing your current brokerage — book a confidential, unhurried conversation. No pitch. No pressure.</p>
               <div className="mt-10 space-y-4">{['A custom model of your current vs future economics', 'Honest answers about the agent platform', 'A no-obligation review of your goals'].map((x) => (<div key={x} className="flex items-start gap-3"><span style={{ color: C.gold, marginTop: 4 }}><Check size={16} /></span><span style={{ color: C.ink2 }}>{x}</span></div>))}</div>
               <button onClick={() => window.open('https://calendly.com/dennisprieto/private-consultation', '_blank', 'noopener,noreferrer')} className="lux-btn lux-btn-primary mt-12">Schedule on Calendly <ArrowUpRight size={14} /></button>
-            </div></Reveal>
-            <Reveal delay={120}><div className="lg:col-span-6"><CalendlyPreview onClick={() => window.open('https://calendly.com/dennisprieto/private-consultation', '_blank', 'noopener,noreferrer')} /></div></Reveal>
+            </Reveal>
+            <Reveal delay={120} className="lg:col-span-6"><CalendlyPreview onClick={() => window.open('https://calendly.com/dennisprieto/private-consultation', '_blank', 'noopener,noreferrer')} /></Reveal>
           </div>
         </div>
       </section>
@@ -1075,13 +1075,13 @@ function AgentEcosystemPage({ go }) {
       <section className="py-20">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-            <Reveal><div className="lg:col-span-5">
+            <Reveal className="lg:col-span-5">
               <Eyebrow>Declining Cap</Eyebrow>
               <h2 className="font-display mt-6 text-balance" style={{ fontSize: 'clamp(32px, 4vw, 56px)', lineHeight: 1.05 }}>Your cap drops $1,000 every year — to a $10,000 floor.</h2>
               <p className="mt-8" style={{ color: C.ink2, lineHeight: 1.65 }}>Your annual cap decreases by $1,000 for each year you're with Epique, until it reaches $10,000 — where it stays for the rest of your time. The longer you stay, the less you pay.</p>
               <ul className="mt-8 space-y-3 text-sm" style={{ color: C.ink2 }}><li className="flex items-start gap-3"><span style={{ color: C.gold, marginTop: 3 }}>—</span> Starts at $15,000 in your first year</li><li className="flex items-start gap-3"><span style={{ color: C.gold, marginTop: 3 }}>—</span> Reduces $1,000 each year thereafter</li><li className="flex items-start gap-3"><span style={{ color: C.gold, marginTop: 3 }}>—</span> Floors at $10,000 and holds permanently</li></ul>
-            </div></Reveal>
-            <Reveal delay={120}><div className="lg:col-span-7"><div className="card-soft p-2"><div className="p-8">
+            </Reveal>
+            <Reveal delay={120} className="lg:col-span-7"><div className="card-soft p-2"><div className="p-8">
               <div className="ui-eyebrow" style={{ color: C.ink2 }}>Year-over-year cap</div>
               <ResponsiveContainer width="100%" height={280}>
                 <BarChart data={[{ y: 'Year 1', cap: 15000 }, { y: 'Year 2', cap: 14000 }, { y: 'Year 3', cap: 13000 }, { y: 'Year 4', cap: 12000 }, { y: 'Year 5', cap: 11000 }, { y: 'Year 6+', cap: 10000 }]}>
@@ -1091,7 +1091,7 @@ function AgentEcosystemPage({ go }) {
                 </BarChart>
               </ResponsiveContainer>
               <p className="text-xs mt-4" style={{ color: C.ink2 }}>* Cap reduces $1,000 per year to a $10,000 floor, then holds.</p>
-            </div></div></div></Reveal>
+            </div></div></Reveal>
           </div>
         </div>
       </section>
@@ -1852,7 +1852,7 @@ function RevenueSharePage({ go }) {
       {/* PERCENTAGE BY LEVEL + POWER AWARD */}
       <section className="py-20"><div className="max-w-[1400px] mx-auto px-6 lg:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-          <Reveal><div className="lg:col-span-5">
+          <Reveal className="lg:col-span-5">
             <Eyebrow>Revenue Share by Level</Eyebrow>
             <h2 className="font-display mt-6 text-balance" style={{ fontSize: 'clamp(30px, 4vw, 52px)', lineHeight: 1.05 }}>10% of company revenue — on all five levels.</h2>
             <p className="mt-8" style={{ color: C.ink2, lineHeight: 1.65 }}>
@@ -1870,8 +1870,8 @@ function RevenueSharePage({ go }) {
                 </button>
               </div>
             </div>
-          </div></Reveal>
-          <Reveal delay={120}><div className="lg:col-span-7">
+          </Reveal>
+          <Reveal delay={120} className="lg:col-span-7">
             <div className="card-soft overflow-hidden">
               <div className="grid grid-cols-12 px-6 py-5 ui-eyebrow" style={{ color: C.ink2, background: C.bg2 }}>
                 <div className="col-span-2">Level</div>
@@ -1894,7 +1894,7 @@ function RevenueSharePage({ go }) {
                 );
               })}
             </div>
-          </div></Reveal>
+          </Reveal>
         </div>
       </div></section>
 
