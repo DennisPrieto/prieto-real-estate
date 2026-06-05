@@ -593,21 +593,19 @@ function AboutPage({ go }) {
             </h2>
           </Reveal>
           <div className="mt-14 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-            <Reveal>
-              <div className="lg:col-span-7 space-y-6" style={{ color: C.ink2, fontSize: 18, lineHeight: 1.7 }}>
+            <Reveal className="lg:col-span-7">
+              <div className="space-y-6" style={{ color: C.ink2, fontSize: 18, lineHeight: 1.7 }}>
                 <p>What started as a shared passion for service evolved into a partnership built around real estate, leadership, and community.</p>
                 <p>Today, Dennis and Jaelly Prieto guide buyers, sellers, investors, and agents throughout South Florida while helping build one of the fastest-growing real estate communities in the industry.</p>
                 <p>Their approach is simple: relationships first, transactions second.</p>
               </div>
             </Reveal>
-            <Reveal delay={120}>
-              <div className="lg:col-span-5">
-                <div className="ink-card p-10 grain h-full flex flex-col justify-center">
-                  <div className="ui-eyebrow" style={{ color: C.gold }}>Every decision answers to one question</div>
-                  <p className="font-display mt-6 text-balance" style={{ fontSize: 'clamp(22px, 2.6vw, 30px)', lineHeight: 1.2, fontWeight: 400, color: '#F1EFE9' }}>
-                    What's best for the person sitting across the table?
-                  </p>
-                </div>
+            <Reveal delay={120} className="lg:col-span-5">
+              <div className="ink-card p-10 grain h-full flex flex-col justify-center">
+                <div className="ui-eyebrow" style={{ color: C.gold }}>Every decision answers to one question</div>
+                <p className="font-display mt-6 text-balance" style={{ fontSize: 'clamp(22px, 2.6vw, 30px)', lineHeight: 1.2, fontWeight: 400, color: '#F1EFE9' }}>
+                  What's best for the person sitting across the table?
+                </p>
               </div>
             </Reveal>
           </div>
