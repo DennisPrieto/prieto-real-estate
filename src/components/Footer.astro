@@ -1,0 +1,71 @@
+---
+import { SITE, PEOPLE } from '../data/site.js';
+const year = new Date().getFullYear();
+const cols = [
+  { h: 'Residential', links: [['/residential', 'Luxury residential'], ['/sellers', 'Selling'], ['/buyers', 'Buying'], ['/international', 'International buyers']] },
+  { h: 'Commercial & Land', links: [['/commercial', 'Overview'], ['/commercial/land-and-assemblages', 'Land and assemblages'], ['/commercial/industrial', 'Industrial'], ['/commercial/live-local-act', 'Transit and Live Local Act sites']] },
+  { h: 'Neighborhoods', links: [['/neighborhoods/coral-gables', 'Coral Gables'], ['/neighborhoods/coconut-grove', 'Coconut Grove'], ['/neighborhoods/brickell', 'Brickell'], ['/neighborhoods/edgewater', 'Edgewater'], ['/neighborhoods/pinecrest', 'Pinecrest']] },
+];
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <img src="/brand/epique-realty-gold.png" alt="Epique Realty" width="200" height="66" />
+        <p class="team">Jaelly &amp; Dennis Prieto</p>
+        <p class="small">Luxury residential and commercial land advisory across {SITE.region}. English and Spanish.</p>
+        <a href="/contact" class="btn btn--gold">Book a consultation</a>
+      </div>
+      <div class="cols">
+        {cols.map((c) => (
+          <div>
+            <p class="label">{c.h}</p>
+            <ul>{c.links.map(([href, t]) => <li><a href={href}>{t}</a></li>)}</ul>
+          </div>
+        ))}
+        <div>
+          <p class="label">Contact</p>
+          <ul class="contact">
+            <li><span>Dennis</span><a href={`tel:${PEOPLE.dennis.tel}`}>{PEOPLE.dennis.phone}</a><a href={`mailto:${PEOPLE.dennis.email}`}>{PEOPLE.dennis.email}</a></li>
+            <li><span>Jaelly</span><a href={`tel:${PEOPLE.jaelly.tel}`}>{PEOPLE.jaelly.phone}</a><a href={`mailto:${PEOPLE.jaelly.email}`}>{PEOPLE.jaelly.email}</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="legal">
+      <p>Jaelly Prieto (FL {PEOPLE.jaelly.license}) and Dennis Prieto (FL {PEOPLE.dennis.license}) are licensed Florida real estate sales associates with {SITE.brokerage}, {SITE.brokerageAddress}. Information on this site is believed reliable but not guaranteed and is not legal, tax or financial advice. Broker opinions of value are not appraisals.</p>
+      <div class="legal-links">
+        <span>© {year} Epique Realty</span>
+        <a href="/equal-housing">
+          <svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16"><path d="M3 11 12 4l9 7M5 10v10h14V10" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M9 13h6M9 16h6" stroke="currentColor" stroke-width="1.4"/></svg>
+          Equal Housing Opportunity
+        </a>
+        <a href="/privacy">Privacy</a>
+        <a href="/join">For agents: join Epique</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer { background: var(--ink); color: var(--on-onyx); padding: clamp(64px, 8vw, 104px) 0 36px; }
+  .top { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 64px; padding-bottom: 56px; border-bottom: 1px solid rgba(244,241,234,.14); }
+  @media (max-width: 960px) { .top { grid-template-columns: 1fr; gap: 48px; } }
+  .brand img { width: 190px; height: auto; }
+  .team { font-family: var(--font-display); font-size: 30px; font-weight: 500; margin-top: 28px; line-height: 1.1; }
+  .brand .small { color: var(--on-onyx-2); margin: 12px 0 28px; max-width: 34ch; }
+  .cols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; }
+  @media (max-width: 760px) { .cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .cols .label { color: #A89F8C; margin-bottom: 16px; }
+  .cols ul { display: grid; gap: 10px; }
+  .cols a { color: var(--on-onyx); text-decoration: none; font-size: 15px; }
+  .cols a:hover { text-decoration: underline; text-decoration-color: var(--gold); }
+  .contact li { display: grid; gap: 2px; margin-bottom: 14px; }
+  .contact span { font-family: var(--font-label); letter-spacing: .14em; text-transform: uppercase; font-size: 12px; color: var(--gold); }
+  .contact a { font-size: 14px; overflow-wrap: anywhere; }
+  .legal { padding-top: 28px; display: grid; gap: 18px; }
+  .legal p { font-size: 13px; line-height: 1.6; color: #A89F8C; max-width: 110ch; }
+  .legal-links { display: flex; flex-wrap: wrap; gap: 10px 26px; font-size: 13px; color: #A89F8C; align-items: center; }
+  .legal-links a { color: #A89F8C; display: inline-flex; gap: 6px; align-items: center; }
+  .legal-links a:hover { color: var(--on-onyx); }
+</style>

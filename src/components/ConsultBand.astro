@@ -1,0 +1,22 @@
+---
+import { SITE } from '../data/site.js';
+import Arrow from './Arrow.astro';
+interface Props { heading?: string; body?: string }
+const { heading = 'Start with a conversation, not a listing agreement.', body = 'Thirty minutes, by phone or video, in English or Spanish. Bring the address. We will tell you what we would check first.' } = Astro.props;
+---
+<section class="section section--onyx consult" aria-labelledby="c-h">
+  <div class="wrap consult-grid">
+    <h2 id="c-h" class="h2" data-reveal>{heading}</h2>
+    <div data-reveal>
+      <p class="lede">{body}</p>
+      <div class="btn-row" style="margin-top:32px">
+        <a href={SITE.calendly} class="btn btn--gold" target="_blank" rel="noopener">Book on Calendly <Arrow /></a>
+        <a href="/contact" class="btn btn--light">Send a message</a>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .consult-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 48px 80px; align-items: end; }
+  @media (max-width: 900px) { .consult-grid { grid-template-columns: 1fr; } }
+</style>

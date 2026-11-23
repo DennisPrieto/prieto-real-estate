@@ -1,0 +1,86 @@
+---
+import '@fontsource/cormorant-garamond/500.css';
+import '@fontsource/cormorant-garamond/400-italic.css';
+import '@fontsource/cormorant-garamond/500-italic.css';
+import '@fontsource/archivo-narrow/400.css';
+import '@fontsource/archivo-narrow/500.css';
+import '@fontsource-variable/inter';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE, PEOPLE } from '../data/site.js';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  noindex?: boolean;
+  schema?: Record<string, unknown> | null;
+}
+const { title, description, image = '/brand/og-image.jpg', noindex = false, schema = null } = Astro.props;
+const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', SITE.url).href;
+const fullTitle = title.includes('Prieto') ? title : `${title} · Jaelly & Dennis Prieto, Epique Realty`;
+const ogImage = new URL(image, SITE.url).href;
+
+const agentSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'RealEstateAgent',
+  name: 'Jaelly & Dennis Prieto, Epique Realty',
+  url: SITE.url,
+  image: new URL('/brand/prieto-partners.jpg', SITE.url).href,
+  telephone: '+1-305-496-3796',
+  email: PEOPLE.dennis.email,
+  areaServed: ['Miami-Dade County, FL', 'Broward County, FL'],
+  knowsLanguage: ['en', 'es'],
+  parentOrganization: { '@type': 'RealEstateAgent', name: 'Epique Realty, Inc.' },
+  employee: [
+    { '@type': 'Person', name: PEOPLE.dennis.name, jobTitle: 'Florida Real Estate Sales Associate', telephone: '+1-305-496-3796', email: PEOPLE.dennis.email },
+    { '@type': 'Person', name: PEOPLE.jaelly.name, jobTitle: 'Florida Real Estate Sales Associate', telephone: '+1-786-238-1150', email: PEOPLE.jaelly.email },
+  ],
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content="#F4F1EA" />
+    <link rel="icon" type="image/png" href="/favicon-48.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Jaelly & Dennis Prieto, Epique Realty" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <script type="application/ld+json" set:html={JSON.stringify(agentSchema)} />
+    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      const els = document.querySelectorAll('[data-reveal]');
+      if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('reveal-ready');
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+        els.forEach((el) => io.observe(el));
+      }
+    </script>
+  </body>
+</html>

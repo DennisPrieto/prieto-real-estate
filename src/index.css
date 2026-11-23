@@ -1,7 +1,0 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-html, body, #root { height: 100%; margin: 0; }
-body { font-family: 'Inter', system-ui, sans-serif; background: #FAF9F7; color: #111111; -webkit-font-smoothing: antialiased; }
-.font-display { font-family: 'Playfair Display', Georgia, serif; }

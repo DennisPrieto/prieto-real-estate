@@ -1,0 +1,25 @@
+---
+import { CLIENT_TESTIMONIALS } from '../data/site.js';
+interface Props { items?: typeof CLIENT_TESTIMONIALS; heading?: string }
+const { items = CLIENT_TESTIMONIALS, heading = 'In our clients’ words' } = Astro.props;
+---
+<section class="section section--paper" aria-labelledby="t-h">
+  <div class="wrap">
+    <h2 id="t-h" class="h2" data-reveal>{heading}</h2>
+    <div class="t-grid">
+      {items.map((t, i) => (
+        <figure class:list={['t', { 't--lead': i === 0 && items.length > 1 }]} data-reveal>
+          <blockquote class="quote">“{t.q}”</blockquote>
+          <figcaption class="quote-by"><strong>{t.a}</strong><span class="muted"> · {t.r}</span></figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  .t-grid { margin-top: clamp(40px, 5vw, 64px); display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 56px 72px; }
+  .t { margin: 0; padding-top: 24px; border-top: 1px solid var(--rule); }
+  .t--lead { grid-row: span 2; }
+  .t--lead .quote { font-size: clamp(30px, 3.4vw, 46px); line-height: 1.12; }
+  @media (max-width: 860px) { .t-grid { grid-template-columns: 1fr; gap: 40px; } .t--lead { grid-row: auto; } }
+</style>

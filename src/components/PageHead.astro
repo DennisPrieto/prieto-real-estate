@@ -1,0 +1,34 @@
+---
+// Interior page opening: title, lede, optional coordinates and a right-hand slot.
+interface Props { title: string; lede?: string; coord?: string; crumbs?: [string, string][] }
+const { title, lede, coord, crumbs = [] } = Astro.props;
+const hasAside = Astro.slots.has('aside');
+---
+<section class="ph">
+  <div class:list={['wrap', 'ph-grid', { 'ph-grid--aside': hasAside }]}>
+    <div class="ph-main">
+      {crumbs.length > 0 && (
+        <nav aria-label="Breadcrumb" class="crumbs">
+          {crumbs.map(([href, t]) => <a href={href}>{t}</a>)}
+        </nav>
+      )}
+      <h1 class="display">{title}</h1>
+      {lede && <p class="lede ph-lede">{lede}</p>}
+      <slot />
+      {coord && <p class="coord ph-coord">{coord}</p>}
+    </div>
+    {hasAside && <div class="ph-aside"><slot name="aside" /></div>}
+  </div>
+</section>
+<style>
+  .ph { padding: clamp(56px, 8vw, 112px) 0 clamp(56px, 7vw, 96px); border-bottom: 1px solid var(--rule-soft); }
+  .ph-grid--aside { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 48px 72px; align-items: center; }
+  @media (max-width: 960px) { .ph-grid--aside { grid-template-columns: 1fr; } }
+  .ph-lede { margin-top: 28px; }
+  .ph-coord { margin-top: 40px; }
+  .crumbs { display: flex; gap: 10px; margin-bottom: 28px; font-family: var(--font-label); font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; }
+  .crumbs a { color: var(--graphite); text-decoration: none; }
+  .crumbs a:hover { color: var(--ink); }
+  .crumbs a + a::before { content: '/'; margin-right: 10px; color: var(--rule); }
+  .ph :global(.btn-row) { margin-top: 36px; }
+</style>

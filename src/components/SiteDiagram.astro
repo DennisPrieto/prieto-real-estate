@@ -1,0 +1,62 @@
+---
+// Schematic site-analysis drawing used on Commercial & Land pages:
+// a street grid, a rail corridor, a station and its half-mile radius, and
+// a highlighted assemblage. Purely illustrative; not a real location.
+interface Props { variant?: 'transit' | 'assemblage' | 'industrial'; tone?: 'light' | 'dark'; class?: string; }
+const { variant = 'transit', tone = 'dark', class: cls = '' } = Astro.props;
+const W = 640, H = 420;
+const streetsX = [60, 140, 220, 300, 380, 460, 540, 620];
+const streetsY = [50, 120, 190, 260, 330, 400];
+const station = { x: 300, y: 214 };
+const parcels = variant === 'industrial'
+  ? [[382, 124, 74, 62], [462, 124, 74, 62]]
+  : [[226, 124, 34, 62], [262, 124, 34, 62], [226, 194, 70, 62]];
+const caption = {
+  transit: 'Schematic: half-mile radius from a rail station, the distance that matters for parking reductions under the Live Local Act.',
+  assemblage: 'Schematic: three adjoining parcels assembled into one development site.',
+  industrial: 'Schematic: industrial parcels with truck access off the arterial grid.',
+}[variant];
+---
+<figure class:list={['site', `site--${tone}`, cls]}>
+  <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={caption}>
+    <rect width={W} height={H} class="ground" />
+    <g class="grid">
+      {streetsX.map((x) => <line x1={x} x2={x} y1="0" y2={H} />)}
+      {streetsY.map((y) => <line x1="0" x2={W} y1={y} y2={y} />)}
+    </g>
+    {variant === 'transit' && <circle cx={station.x} cy={station.y} r="150" class="radius" />}
+    <path d="M-10 410 L300 214 L650 -10" class="rail" />
+    <path d="M-10 300 C160 260 420 170 650 120" class="corridor" />
+    {parcels.map(([x, y, w, h]) => <rect x={x} y={y} width={w} height={h} class="parcel" />)}
+    <circle cx={station.x} cy={station.y} r="7" class="station" />
+    <g class="labels">
+      <text x={station.x + 14} y={station.y + 22}>STATION</text>
+      {variant === 'transit' && <text x={station.x + 112} y={station.y + 118}>½ MILE</text>}
+      <text x={parcels[0][0]} y={parcels[0][1] - 8}>{variant === 'industrial' ? 'INDUSTRIAL PARCELS' : 'ASSEMBLAGE'}</text>
+      <text x="470" y="96" transform="rotate(-21 470 96)">RAIL CORRIDOR</text>
+    </g>
+  </svg>
+  <figcaption>{caption}</figcaption>
+</figure>
+
+<style>
+  .site { margin: 0; }
+  .site svg { display: block; width: 100%; height: auto; }
+  .site figcaption { font-family: var(--font-label); font-size: 11px; letter-spacing: .06em; margin-top: .6rem; color: var(--graphite); max-width: 52ch; }
+  .ground { fill: var(--shoal); }
+  .grid line { stroke: var(--ink); stroke-width: .6; opacity: .22; }
+  .radius { fill: none; stroke: var(--ink); stroke-width: .9; stroke-dasharray: 4 5; }
+  .rail { fill: none; stroke: var(--ink); stroke-width: 2.4; }
+  .corridor { fill: none; stroke: var(--ink); stroke-width: 1.2; stroke-dasharray: 9 6; opacity: .7; }
+  .parcel { fill: var(--gold); fill-opacity: .35; stroke: var(--ink); stroke-width: 1.2; }
+  .station { fill: var(--gold); stroke: var(--ink); stroke-width: 1.4; }
+  .labels text { font-family: var(--font-label); font-size: 11px; letter-spacing: .16em; fill: var(--ink); }
+
+  .site--dark .ground { fill: #141412; }
+  .site--dark .grid line { stroke: var(--gold); opacity: .18; }
+  .site--dark .radius, .site--dark .rail, .site--dark .corridor { stroke: var(--gold); }
+  .site--dark .parcel { stroke: var(--gold); fill-opacity: .25; }
+  .site--dark .station { stroke: var(--ivory); }
+  .site--dark .labels text { fill: var(--ivory); }
+  .site--dark figcaption { color: #A89F8C; }
+</style>
