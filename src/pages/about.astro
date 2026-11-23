@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
+import PhotoBand from '../components/PhotoBand.astro';
 import ConsultBand from '../components/ConsultBand.astro';
 import { PEOPLE } from '../data/site.js';
 
@@ -17,6 +18,8 @@ const beliefs = [
       <img src="/brand/prieto-partners.jpg" alt="Dennis and Jaelly Prieto" width="900" height="1350" />
     </picture>
   </PageHead>
+
+  <PhotoBand name="edgewater" position="center" />
 
   <section class="section">
     <div class="wrap story">

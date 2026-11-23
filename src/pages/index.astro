@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import BayChart from '../components/BayChart.astro';
+import Photo from '../components/Photo.astro';
 import SiteDiagram from '../components/SiteDiagram.astro';
 import Testimonials from '../components/Testimonials.astro';
 import ConsultBand from '../components/ConsultBand.astro';
@@ -18,21 +19,30 @@ const checks = [
 ---
 <Base title="Jaelly & Dennis Prieto · Luxury residential and commercial land, Miami-Dade and Broward · Epique Realty" description="Jaelly & Dennis Prieto, Epique Realty. Luxury homes and development land across Miami-Dade and Broward, valued from the public record up. English and Spanish.">
 
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div class="hero-copy">
-        <h1 class="display">Know the water <em>before you move.</em></h1>
-        <p class="lede">Luxury residences and development land across Miami-Dade and Broward. We read a property’s record, zoning and market before we recommend a price, a strategy or a single photograph.</p>
-        <div class="btn-row">
-          <a href="/contact" class="btn btn--primary">Book a consultation <Arrow /></a>
-          <a href="/sellers#valuation" class="btn btn--ghost">Value my property</a>
-        </div>
+  <section class="hero" aria-labelledby="hero-h">
+    <Photo name="hero" eager overlayCredit sizes="100vw" class="hero-photo" position="center 55%" />
+    <div class="hero-scrim" aria-hidden="true"></div>
+    <div class="wrap hero-copy">
+      <h1 id="hero-h" class="display">Know the water <em>before you move.</em></h1>
+      <p class="lede">Luxury residences and development land across Miami-Dade and Broward. We read a property’s record, zoning and market before we recommend a price, a strategy or a single photograph.</p>
+      <div class="btn-row">
+        <a href="/contact" class="btn btn--gold">Book a consultation <Arrow /></a>
+        <a href="/sellers#valuation" class="btn btn--light">Value my property</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section chart-sec" aria-labelledby="chart-h">
+    <div class="wrap chart-grid">
+      <div class="chart-copy" data-reveal>
+        <h2 id="chart-h" class="h2">Five neighborhoods, one bay, and the land between them.</h2>
+        <p class="lede">From Edgewater to Pinecrest, most of the homes we work on sit within a few miles of Biscayne Bay. The commercial sites sit along the corridors and rail lines that feed it.</p>
         <ul class="paths" aria-label="Choose a path">
           <li><a href="/residential"><span>Luxury residential</span><Arrow /></a></li>
           <li><a href="/commercial"><span>Commercial and land</span><Arrow /></a></li>
         </ul>
       </div>
-      <div class="hero-chart">
+      <div class="hero-chart" data-reveal>
         <BayChart animate />
       </div>
     </div>
@@ -41,7 +51,7 @@ const checks = [
   <section class="section split" aria-label="Two practices">
     <div class="wrap"><div class="split-grid">
       <article class="panel panel--light" data-reveal>
-        <div class="panel-art"><BayChart focus="coconut-grove" /></div>
+        <div class="panel-art"><Photo name="biltmore" caption={false} sizes="(max-width: 900px) 100vw, 50vw" /></div>
         <h2 class="h3">Luxury residential</h2>
         <p>For owners selling a significant home and buyers choosing one, across Coral Gables, Coconut Grove, Brickell, Edgewater, Pinecrest and the rest of South Florida. Epique Estates marketing, presented in English and Spanish.</p>
         <ul class="panel-links">
@@ -51,7 +61,7 @@ const checks = [
         </ul>
       </article>
       <article class="panel panel--dark" data-reveal>
-        <div class="panel-art"><SiteDiagram variant="transit" tone="dark" /></div>
+        <div class="panel-art"><Photo name="downtown" caption={false} sizes="(max-width: 900px) 100vw, 50vw" /></div>
         <h2 class="h3">Commercial and land</h2>
         <p>For owners of development land, assemblages, industrial buildings and transit-adjacent sites, and for the developers and investors who buy them. Valuation, highest-and-best-use and Live Local Act analysis before any decision to sell.</p>
         <ul class="panel-links">
@@ -86,7 +96,7 @@ const checks = [
         {NEIGHBORHOODS.map((n) => (
           <li data-reveal>
             <a href={`/neighborhoods/${n.slug}`} class="nb-card">
-              <div class="nb-map"><BayChart focus={n.slug} /></div>
+              <div class="nb-map"><Photo name={n.slug} caption={false} sizes="(max-width: 560px) 100vw, (max-width: 960px) 50vw, 33vw" /></div>
               <div class="nb-text">
                 <h3 class="h4">{n.name}</h3>
                 <p class="coord">{n.coord}</p>
@@ -135,21 +145,28 @@ const checks = [
 </Base>
 
 <style>
-  .hero { padding: clamp(40px, 6vw, 88px) 0 clamp(56px, 7vw, 104px); }
-  .hero-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 40px 64px; align-items: center; }
-  .hero-copy .lede { margin-top: 28px; }
+  .hero { position: relative; min-height: min(88vh, 880px); display: flex; align-items: flex-end; color: var(--ivory); overflow: hidden; }
+  .hero :global(.hero-photo) { position: absolute; inset: 0; }
+  .hero :global(.hero-photo .frame), .hero :global(.hero-photo) { height: 100%; }
+  .hero :global(.hero-photo img) { animation: drift 24s cubic-bezier(.16,1,.3,1) both; transform-origin: 60% 50%; }
+  @keyframes drift { from { transform: scale(1.08); } to { transform: scale(1); } }
+  @media (prefers-reduced-motion: reduce) { .hero :global(.hero-photo img) { animation: none; } }
+  .hero-scrim { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(11,11,11,.62) 0%, rgba(11,11,11,.32) 45%, rgba(11,11,11,0) 75%), linear-gradient(0deg, rgba(11,11,11,.55) 0%, rgba(11,11,11,0) 55%); }
+  .hero-copy { position: relative; z-index: 1; width: 100%; padding-top: 120px; padding-bottom: clamp(48px, 7vw, 96px); }
+  .hero-copy .display { color: var(--ivory); max-width: 12ch; }
+  .hero-copy .lede { margin-top: 24px; color: rgba(244,241,234,.88); max-width: 50ch; }
   .hero-copy .btn-row { margin-top: 36px; }
+  @media (max-width: 720px) { .hero { min-height: 82vh; } .hero-scrim { background: linear-gradient(0deg, rgba(11,11,11,.78) 0%, rgba(11,11,11,.35) 60%, rgba(11,11,11,.15) 100%); } }
+
+  .chart-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 40px 72px; align-items: center; }
+  .chart-copy .lede { margin-top: 24px; }
   .hero-chart { aspect-ratio: 1 / 1; max-height: 640px; }
   .hero-chart :global(.bay) { height: 100%; display: flex; flex-direction: column; }
   .hero-chart :global(.bay svg) { flex: 1; min-height: 0; border: 1px solid var(--rule); }
-  .paths { margin-top: 44px; border-top: 1px solid var(--rule); }
+  .paths { margin-top: 40px; border-top: 1px solid var(--rule); }
   .paths a { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--rule); text-decoration: none; color: var(--ink); font-family: var(--font-display); font-size: 25px; font-weight: 500; transition: padding .4s var(--ease); }
   .paths a:hover { padding-left: 8px; }
-  .paths svg { width: 18px; height: 18px; }
-  @media (max-width: 960px) {
-    .hero-grid { grid-template-columns: 1fr; }
-    .hero-chart { order: -1; aspect-ratio: 4 / 3; max-height: none; }
-  }
+  @media (max-width: 960px) { .chart-grid { grid-template-columns: 1fr; } .hero-chart { aspect-ratio: 4 / 3; } }
 
   .split { padding-top: 0; }
   .split-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0; border: 1px solid var(--rule); }
@@ -161,7 +178,7 @@ const checks = [
   .panel--dark { background: var(--ink); color: var(--on-onyx); }
   .panel--dark p { color: var(--on-onyx-2); }
   .panel-art { margin-bottom: 32px; aspect-ratio: 16 / 10; overflow: hidden; }
-  .panel-art :global(.bay), .panel-art :global(.site) { height: 100%; }
+  .panel-art :global(.bay), .panel-art :global(.site), .panel-art :global(.photo) { height: 100%; }
   .panel-art :global(svg) { height: 100%; }
   .panel-art :global(figcaption) { display: none; }
   .panel-links { margin-top: 32px; border-top: 1px solid currentColor; border-color: var(--rule); }
@@ -183,10 +200,11 @@ const checks = [
   @media (max-width: 560px) { .nb-grid { grid-template-columns: 1fr; } }
   .nb-card { display: block; text-decoration: none; color: var(--ink); border: 1px solid var(--rule); background: var(--paper); transition: border-color .35s var(--ease); }
   .nb-card:hover { border-color: var(--ink); }
-  .nb-map { aspect-ratio: 7 / 6; overflow: hidden; }
-  .nb-map :global(.bay), .nb-map :global(.site) { height: 100%; }
+  .nb-map { aspect-ratio: 4 / 3; overflow: hidden; }
+  .nb-map :global(.bay), .nb-map :global(.site), .nb-map :global(.photo) { height: 100%; }
   .nb-map :global(svg) { height: 100%; width: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
-  .nb-card:hover .nb-map :global(svg) { transform: scale(1.04); }
+  .nb-map :global(img) { transition: transform 1.2s var(--ease); }
+  .nb-card:hover .nb-map :global(svg), .nb-card:hover .nb-map :global(img) { transform: scale(1.04); }
   .nb-map :global(figcaption) { display: none; }
   .nb-text { padding: 20px 22px 22px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; border-top: 1px solid var(--rule); }
   .nb-card--dark { background: var(--ink); color: var(--on-onyx); }

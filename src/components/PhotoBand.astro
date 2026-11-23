@@ -1,0 +1,12 @@
+---
+import Photo from './Photo.astro';
+interface Props { name: string; position?: string }
+const { name, position = 'center' } = Astro.props;
+---
+<section class="pband" aria-label="Photograph">
+  <Photo name={name} ratio="21 / 8" overlayCredit sizes="100vw" position={position} />
+</section>
+<style>
+  .pband :global(.frame) { max-height: 560px; }
+  @media (max-width: 720px) { .pband :global(.frame) { aspect-ratio: 4 / 3; } }
+</style>

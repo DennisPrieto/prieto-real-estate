@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import PageHead from '../../components/PageHead.astro';
 import SiteDiagram from '../../components/SiteDiagram.astro';
+import Photo from '../../components/Photo.astro';
 import InquiryForm from '../../islands/InquiryForm.jsx';
 import Arrow from '../../components/Arrow.astro';
 import { PRACTICE } from '../../data/places.js';
@@ -25,6 +26,10 @@ const services = [
     </div>
     <div slot="aside"><SiteDiagram variant="transit" tone="light" /></div>
   </PageHead>
+
+  <section class="band" aria-label="Downtown Miami from above">
+    <Photo name="downtown" ratio="21 / 8" overlayCredit sizes="100vw" position="center 40%" />
+  </section>
 
   <section class="section section--onyx">
     <div class="wrap">
@@ -71,6 +76,8 @@ const services = [
 </Base>
 
 <style>
+  .band :global(.frame) { max-height: 560px; }
+  @media (max-width: 720px) { .band :global(.frame) { aspect-ratio: 4 / 3; } }
   .practice { margin-top: 48px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid rgba(244,241,234,.16); }
   @media (max-width: 960px) { .practice { grid-template-columns: 1fr; } }
   .practice li + li { border-left: 1px solid rgba(244,241,234,.16); }

@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import PageHead from '../../components/PageHead.astro';
 import BayChart from '../../components/BayChart.astro';
+import Photo from '../../components/Photo.astro';
 import ConsultBand from '../../components/ConsultBand.astro';
 import Arrow from '../../components/Arrow.astro';
 import { NEIGHBORHOODS } from '../../data/places.js';
@@ -26,14 +27,17 @@ const schema = {
       <a href="/sellers#valuation" class="btn btn--primary">Value a home here <Arrow /></a>
       <a href="/buyers" class="btn btn--ghost">Buy here</a>
     </div>
-    <div slot="aside" class="nb-hero-map"><BayChart focus={n.slug} /></div>
+    <div slot="aside" class="nb-hero-photo"><Photo name={n.slug} eager ratio="4 / 5" sizes="(max-width: 960px) 100vw, 45vw" /></div>
   </PageHead>
 
   <section class="section">
     <div class="wrap nb-body">
-      <div class="prose" data-reveal>
-        <h2 class="h3">The place</h2>
-        {n.place.map((p) => <p>{p}</p>)}
+      <div data-reveal>
+        <div class="prose">
+          <h2 class="h3">The place</h2>
+          {n.place.map((p) => <p>{p}</p>)}
+        </div>
+        <div class="nb-chart"><BayChart focus={n.slug} /></div>
       </div>
       <div data-reveal>
         <h2 class="h3">What we check before pricing here</h2>
@@ -58,10 +62,10 @@ const schema = {
 </Base>
 
 <style>
-  .nb-hero-map { aspect-ratio: 7 / 6; border: 1px solid var(--rule); }
-  .nb-hero-map :global(.bay) { height: 100%; }
-  .nb-hero-map :global(svg) { height: 100%; }
-  .nb-hero-map :global(figcaption) { position: absolute; bottom: -26px; }
+  .nb-hero-photo { max-width: 560px; justify-self: end; width: 100%; }
+  .nb-chart { margin-top: 40px; aspect-ratio: 7 / 6; border: 1px solid var(--rule); }
+  .nb-chart :global(.bay), .nb-chart :global(svg) { height: 100%; }
+  .nb-chart :global(figcaption) { display: none; }
   .nb-body { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px 88px; }
   .nb-body .prose p { margin-top: 18px; }
   @media (max-width: 960px) { .nb-body { grid-template-columns: 1fr; } }

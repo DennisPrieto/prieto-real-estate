@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import Legal from '../components/Legal.astro';
+import { ALL_PHOTOS } from '../data/photos.js';
+---
+<Base title="Photo credits" description="Credits and licenses for photographs used on this site.">
+  <Legal title="Photo credits" intro="Photographs of Miami and its neighborhoods on this site are by the photographers below. They show public places and landmarks, not properties we are marketing.">
+    <ul class="credits">
+      {ALL_PHOTOS.map((p) => (
+        <li>
+          <span>{p.caption}</span>
+          <a href={p.creditUrl} target="_blank" rel="noopener">{p.credit}</a>
+          {p.licenseUrl && <a href={p.licenseUrl} target="_blank" rel="noopener license">License terms</a>}
+        </li>
+      ))}
+    </ul>
+    <p>Unsplash photographs are used under the <a href="https://unsplash.com/license" target="_blank" rel="noopener">Unsplash License</a>. Wikimedia Commons photographs are used under the Creative Commons license named with each image.</p>
+  </Legal>
+</Base>
+<style>
+  .credits { display: grid; gap: 0; border-top: 1px solid var(--rule); }
+  .credits li { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 8px 24px; padding: 14px 0; border-bottom: 1px solid var(--rule); font-size: 15px; }
+  @media (max-width: 640px) { .credits li { grid-template-columns: 1fr; } }
+</style>
