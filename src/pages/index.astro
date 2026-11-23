@@ -1,0 +1,204 @@
+---
+import Base from '../layouts/Base.astro';
+import BayChart from '../components/BayChart.astro';
+import SiteDiagram from '../components/SiteDiagram.astro';
+import Testimonials from '../components/Testimonials.astro';
+import ConsultBand from '../components/ConsultBand.astro';
+import Arrow from '../components/Arrow.astro';
+import { NEIGHBORHOODS } from '../data/places.js';
+
+const checks = [
+  ['Municipality and folio', 'The address on the listing and the city on the tax roll do not always match. One wrong city can send a home to the wrong buyers for months.'],
+  ['Permits and roof of record', 'What the county shows for additions, conversions and the roof, because that is what appraisers and insurers will read.'],
+  ['Zoning capacity', 'What the land allows, in height and density, including what Florida’s Live Local Act may open on commercial and industrial sites.'],
+  ['Condominium health', 'Milestone inspections, reserve studies and assessments, before a buyer’s lender asks.'],
+  ['Flood, elevation and insurance', 'The numbers that move a buyer’s monthly cost more than the interest rate does.'],
+  ['How it was shown and priced', 'For homes that did not sell: access, presentation and price history, read as a sequence of decisions.'],
+];
+---
+<Base title="Jaelly & Dennis Prieto · Luxury residential and commercial land, Miami-Dade and Broward · Epique Realty" description="Jaelly & Dennis Prieto, Epique Realty. Luxury homes and development land across Miami-Dade and Broward, valued from the public record up. English and Spanish.">
+
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <h1 class="display">Know the water <em>before you move.</em></h1>
+        <p class="lede">Luxury residences and development land across Miami-Dade and Broward. We read a property’s record, zoning and market before we recommend a price, a strategy or a single photograph.</p>
+        <div class="btn-row">
+          <a href="/contact" class="btn btn--primary">Book a consultation <Arrow /></a>
+          <a href="/sellers#valuation" class="btn btn--ghost">Value my property</a>
+        </div>
+        <ul class="paths" aria-label="Choose a path">
+          <li><a href="/residential"><span>Luxury residential</span><Arrow /></a></li>
+          <li><a href="/commercial"><span>Commercial and land</span><Arrow /></a></li>
+        </ul>
+      </div>
+      <div class="hero-chart">
+        <BayChart animate />
+      </div>
+    </div>
+  </section>
+
+  <section class="section split" aria-label="Two practices">
+    <div class="wrap"><div class="split-grid">
+      <article class="panel panel--light" data-reveal>
+        <div class="panel-art"><BayChart focus="coconut-grove" /></div>
+        <h2 class="h3">Luxury residential</h2>
+        <p>For owners selling a significant home and buyers choosing one, across Coral Gables, Coconut Grove, Brickell, Edgewater, Pinecrest and the rest of South Florida. Epique Estates marketing, presented in English and Spanish.</p>
+        <ul class="panel-links">
+          <li><a href="/sellers">Selling a home <Arrow /></a></li>
+          <li><a href="/buyers">Buying a home <Arrow /></a></li>
+          <li><a href="/international">Buying from abroad <Arrow /></a></li>
+        </ul>
+      </article>
+      <article class="panel panel--dark" data-reveal>
+        <div class="panel-art"><SiteDiagram variant="transit" tone="dark" /></div>
+        <h2 class="h3">Commercial and land</h2>
+        <p>For owners of development land, assemblages, industrial buildings and transit-adjacent sites, and for the developers and investors who buy them. Valuation, highest-and-best-use and Live Local Act analysis before any decision to sell.</p>
+        <ul class="panel-links">
+          <li><a href="/commercial/land-and-assemblages">Land and assemblages <Arrow /></a></li>
+          <li><a href="/commercial/industrial">Industrial <Arrow /></a></li>
+          <li><a href="/commercial/live-local-act">Live Local Act sites <Arrow /></a></li>
+        </ul>
+      </article>
+    </div></div>
+  </section>
+
+  <section class="section section--shoal" aria-labelledby="dx-h">
+    <div class="wrap dx-grid">
+      <div class="dx-intro" data-reveal>
+        <h2 id="dx-h" class="h2">We read a property before we market it.</h2>
+        <p class="lede">Dennis came to real estate from construction. He looks at a home or a parcel the way an appraiser, an insurer and a developer will, and finds what is holding its value back while there is still time to fix it.</p>
+        <p class="coord">Chart key · what we check first</p>
+      </div>
+      <dl class="legend" data-reveal>
+        {checks.map(([t, d]) => (<div><dt>{t}</dt><dd>{d}</dd></div>))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="nb-h">
+    <div class="wrap">
+      <div class="nb-head" data-reveal>
+        <h2 id="nb-h" class="h2">Where we work</h2>
+        <a href="/residential" class="textlink">All of South Florida, by neighborhood</a>
+      </div>
+      <ul class="nb-grid">
+        {NEIGHBORHOODS.map((n) => (
+          <li data-reveal>
+            <a href={`/neighborhoods/${n.slug}`} class="nb-card">
+              <div class="nb-map"><BayChart focus={n.slug} /></div>
+              <div class="nb-text">
+                <h3 class="h4">{n.name}</h3>
+                <p class="coord">{n.coord}</p>
+              </div>
+            </a>
+          </li>
+        ))}
+        <li data-reveal>
+          <a href="/commercial/land-and-assemblages" class="nb-card nb-card--dark">
+            <div class="nb-map"><SiteDiagram variant="assemblage" tone="dark" /></div>
+            <div class="nb-text">
+              <h3 class="h4">Land and assemblages</h3>
+              <p class="coord">By site</p>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--paper" aria-labelledby="p-h">
+    <div class="wrap partners">
+      <picture class="partners-photo" data-reveal>
+        <source srcset="/brand/prieto-partners.webp" type="image/webp" />
+        <img src="/brand/prieto-partners.jpg" alt="Dennis and Jaelly Prieto" width="900" height="1350" loading="lazy" />
+      </picture>
+      <div class="partners-copy" data-reveal>
+        <h2 id="p-h" class="h2">Two partners, one standard of care.</h2>
+        <div class="prose">
+          <p>Jaelly and Dennis Prieto are husband and wife, licensed Florida real estate sales associates with Epique Realty, and more than ten years into South Florida real estate. Dennis leads the analysis: market data, public records, land and commercial strategy, shaped by a background in construction. Jaelly leads client relationships and seller strategy, and serves as Epique’s Florida Ambassador for the Hispanic Division.</p>
+          <p>Every client works with both of us, in English or Spanish, from the first conversation to the closing table.</p>
+        </div>
+        <dl class="facts">
+          <div><dt>Languages</dt><dd>English and Spanish</dd></div>
+          <div><dt>Marketing</dt><dd>Epique Estates luxury program</dd></div>
+          <div><dt>Leadership</dt><dd>Epique Miami Area Leader · Florida Ambassador</dd></div>
+          <div><dt>Coverage</dt><dd>Miami-Dade and Broward</dd></div>
+        </dl>
+        <a href="/about" class="textlink">More about us</a>
+      </div>
+    </div>
+  </section>
+
+  <Testimonials />
+  <ConsultBand />
+</Base>
+
+<style>
+  .hero { padding: clamp(40px, 6vw, 88px) 0 clamp(56px, 7vw, 104px); }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 40px 64px; align-items: center; }
+  .hero-copy .lede { margin-top: 28px; }
+  .hero-copy .btn-row { margin-top: 36px; }
+  .hero-chart { aspect-ratio: 1 / 1; max-height: 640px; }
+  .hero-chart :global(.bay) { height: 100%; display: flex; flex-direction: column; }
+  .hero-chart :global(.bay svg) { flex: 1; min-height: 0; border: 1px solid var(--rule); }
+  .paths { margin-top: 44px; border-top: 1px solid var(--rule); }
+  .paths a { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--rule); text-decoration: none; color: var(--ink); font-family: var(--font-display); font-size: 25px; font-weight: 500; transition: padding .4s var(--ease); }
+  .paths a:hover { padding-left: 8px; }
+  .paths svg { width: 18px; height: 18px; }
+  @media (max-width: 960px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-chart { order: -1; aspect-ratio: 4 / 3; max-height: none; }
+  }
+
+  .split { padding-top: 0; }
+  .split-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0; border: 1px solid var(--rule); }
+  @media (max-width: 900px) { .split-grid { grid-template-columns: 1fr; } }
+  .panel { padding: clamp(32px, 4.5vw, 64px); display: flex; flex-direction: column; }
+  .panel p { margin-top: 18px; max-width: 52ch; }
+  .panel--light { background: var(--paper); }
+  .panel--light p { color: var(--ink-2); }
+  .panel--dark { background: var(--ink); color: var(--on-onyx); }
+  .panel--dark p { color: var(--on-onyx-2); }
+  .panel-art { margin-bottom: 32px; aspect-ratio: 16 / 10; overflow: hidden; }
+  .panel-art :global(.bay), .panel-art :global(.site) { height: 100%; }
+  .panel-art :global(svg) { height: 100%; }
+  .panel-art :global(figcaption) { display: none; }
+  .panel-links { margin-top: 32px; border-top: 1px solid currentColor; border-color: var(--rule); }
+  .panel--dark .panel-links { border-color: rgba(244,241,234,.18); }
+  .panel-links a { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid var(--rule); color: inherit; text-decoration: none; font-size: 16px; }
+  .panel--dark .panel-links a { border-color: rgba(244,241,234,.18); }
+  .panel-links svg { width: 15px; height: 15px; transition: transform .35s var(--ease); }
+  .panel-links a:hover svg { transform: translateX(4px); }
+
+  .dx-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px 80px; align-items: start; }
+  .dx-intro { position: sticky; top: 120px; }
+  .dx-intro .lede { margin-top: 24px; }
+  .dx-intro .coord { margin-top: 32px; }
+  @media (max-width: 960px) { .dx-grid { grid-template-columns: 1fr; } .dx-intro { position: static; } }
+
+  .nb-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; }
+  .nb-grid { margin-top: 48px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+  @media (max-width: 960px) { .nb-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 560px) { .nb-grid { grid-template-columns: 1fr; } }
+  .nb-card { display: block; text-decoration: none; color: var(--ink); border: 1px solid var(--rule); background: var(--paper); transition: border-color .35s var(--ease); }
+  .nb-card:hover { border-color: var(--ink); }
+  .nb-map { aspect-ratio: 7 / 6; overflow: hidden; }
+  .nb-map :global(.bay), .nb-map :global(.site) { height: 100%; }
+  .nb-map :global(svg) { height: 100%; width: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+  .nb-card:hover .nb-map :global(svg) { transform: scale(1.04); }
+  .nb-map :global(figcaption) { display: none; }
+  .nb-text { padding: 20px 22px 22px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; border-top: 1px solid var(--rule); }
+  .nb-card--dark { background: var(--ink); color: var(--on-onyx); }
+  .nb-card--dark .nb-text { border-color: rgba(244,241,234,.18); }
+  .nb-card--dark .coord { color: #A89F8C; }
+
+  .partners { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 48px 80px; align-items: center; }
+  @media (max-width: 900px) { .partners { grid-template-columns: 1fr; } }
+  .partners-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 20%; background: var(--shoal); }
+  .partners-copy .prose { margin-top: 24px; }
+  .facts { margin: 32px 0; border-top: 1px solid var(--rule); }
+  .facts div { display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+  .facts dt { font-family: var(--font-label); font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--graphite); padding-top: 3px; }
+  .facts dd { margin: 0; }
+</style>

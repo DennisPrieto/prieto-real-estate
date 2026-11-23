@@ -1,0 +1,87 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import SiteDiagram from '../../components/SiteDiagram.astro';
+import InquiryForm from '../../islands/InquiryForm.jsx';
+import Arrow from '../../components/Arrow.astro';
+import { PRACTICE } from '../../data/places.js';
+import { FORMSPREE } from '../../data/site.js';
+import { COMMERCIAL_FIELDS } from '../../data/forms.js';
+
+const services = [
+  ['Broker opinion of value', 'A written opinion of what your property, or the land under it, would bring today, with the comparables and assumptions shown. An opinion of value, not an appraisal.'],
+  ['Highest and best use', 'What the site supports under current zoning and state law, and which buyer type it points to: user, investor or developer.'],
+  ['Live Local Act review', 'Whether a commercial, industrial or mixed-use parcel qualifies, and how far height and density could go.'],
+  ['Assemblage strategy', 'Neighboring parcels, owners and entities mapped, and a plan to bring them to market together.'],
+  ['Feasibility with a builder’s eye', 'Construction cost and schedule considered alongside price, from Dennis’s background in construction.'],
+  ['Site search', 'For developers and owner-users: a short list of sites that fit the program, including owners not yet on the market.'],
+];
+---
+<Base title="Commercial real estate and land advisory, Miami-Dade and Broward" description="Land, assemblages, industrial and Live Local Act sites. Valuation, highest-and-best-use and site strategy from Dennis Prieto, Epique Realty.">
+  <PageHead title="Commercial and land" lede="For owners of development land, assemblages, industrial buildings and transit-adjacent sites, and for the developers and investors who buy them. We start with what the site is worth to the right buyer, and why, before anyone talks about listing it.">
+    <div class="btn-row">
+      <a href="#inquiry" class="btn btn--primary">Request a site review <Arrow /></a>
+      <a href="/commercial/live-local-act" class="btn btn--ghost">The Live Local Act</a>
+    </div>
+    <div slot="aside"><SiteDiagram variant="transit" tone="light" /></div>
+  </PageHead>
+
+  <section class="section section--onyx">
+    <div class="wrap">
+      <h2 class="h2" data-reveal>Three kinds of site</h2>
+      <ul class="practice">
+        {PRACTICE.map((p) => (
+          <li data-reveal>
+            <a href={`/commercial/${p.slug}`}>
+              <div class="practice-art"><SiteDiagram variant={p.variant} tone="dark" /></div>
+              <h3 class="h3">{p.name}</h3>
+              <p>{p.lede}</p>
+              <span class="more">Read more <Arrow /></span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap svc">
+      <div data-reveal>
+        <h2 class="h2">What we deliver</h2>
+        <p class="lede" style="margin-top:20px">Analysis first, in writing. You decide what to do with it: hold, sell, partner, or assemble.</p>
+      </div>
+      <dl class="legend" data-reveal>
+        {services.map(([t, d]) => (<div><dt>{t}</dt><dd>{d}</dd></div>))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="section section--shoal" id="inquiry">
+    <div class="wrap svc">
+      <div data-reveal>
+        <h2 class="h2">Request a site review</h2>
+        <p class="lede" style="margin-top:20px">Send the address or folio. Dennis will reply with what he would check first and what a written opinion of value would cover.</p>
+        <p class="small muted" style="margin-top:24px">Owners: nothing about your property is shared without your written approval. Developers: details beyond a teaser are released under NDA.</p>
+      </div>
+      <div data-reveal>
+        <InquiryForm client:visible formId={FORMSPREE.contact} subject="Commercial site review" inquiryType="commercial" fields={COMMERCIAL_FIELDS} submitLabel="Request a review" successTitle="Request received." successBody="Dennis will reply within one business day, usually with a few questions about the site." />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .practice { margin-top: 48px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid rgba(244,241,234,.16); }
+  @media (max-width: 960px) { .practice { grid-template-columns: 1fr; } }
+  .practice li + li { border-left: 1px solid rgba(244,241,234,.16); }
+  @media (max-width: 960px) { .practice li + li { border-left: 0; border-top: 1px solid rgba(244,241,234,.16); } }
+  .practice a { display: flex; flex-direction: column; height: 100%; padding: 32px 28px 36px; color: var(--on-onyx); text-decoration: none; transition: background-color .4s var(--ease); }
+  .practice a:hover { background: #151513; }
+  .practice-art { aspect-ratio: 16 / 10; overflow: hidden; margin-bottom: 28px; }
+  .practice-art :global(.site), .practice-art :global(svg) { height: 100%; }
+  .practice-art :global(figcaption) { display: none; }
+  .practice p { margin-top: 14px; color: var(--on-onyx-2); flex: 1; }
+  .more { margin-top: 24px; display: inline-flex; gap: 10px; align-items: center; font-size: 15px; color: var(--gold); }
+  .svc { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px 88px; align-items: start; }
+  @media (max-width: 960px) { .svc { grid-template-columns: 1fr; } }
+</style>

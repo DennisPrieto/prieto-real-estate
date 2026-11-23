@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import InquiryForm from '../islands/InquiryForm.jsx';
+import { FORMSPREE, PEOPLE, SITE } from '../data/site.js';
+import { CONTACT_FIELDS } from '../data/forms.js';
+const people = [PEOPLE.dennis, PEOPLE.jaelly];
+---
+<Base title="Contact and book a consultation" description="Book a 30-minute consultation with Jaelly & Dennis Prieto, Epique Realty, or send a message. English and Spanish.">
+  <PageHead title="Begin a private conversation." lede="Book thirty minutes directly, or send a note and we will reply within one business day. In English or Spanish." />
+
+  <section class="section section--tight">
+    <div class="wrap grid">
+      <div class="book" data-reveal>
+        <h2 class="h3">Book a time</h2>
+        <div class="cal">
+          <iframe src={`${SITE.calendly}?hide_gdpr_banner=1&background_color=faf8f3&text_color=0b0b0b&primary_color=0b0b0b`} title="Book a consultation with Dennis Prieto on Calendly" loading="lazy"></iframe>
+        </div>
+        <p class="small muted">Trouble loading the calendar? <a class="textlink" href={SITE.calendly} target="_blank" rel="noopener">Open it on Calendly</a>.</p>
+      </div>
+      <div data-reveal>
+        <h2 class="h3">Send a message</h2>
+        <div style="margin-top:28px">
+          <InquiryForm client:visible formId={FORMSPREE.contact} subject="Website inquiry" inquiryType="contact" fields={CONTACT_FIELDS} submitLabel="Send message" successTitle="Message received." successBody="We will reply within one business day." />
+        </div>
+        <div class="direct">
+          {people.map((p) => (
+            <div>
+              <p class="h4">{p.name}</p>
+              <p class="small muted">{p.role}</p>
+              <p class="small"><a href={`tel:${p.tel}`}>{p.phone}</a><br /><a href={`mailto:${p.email}`}>{p.email}</a></p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: 56px 72px; align-items: start; }
+  @media (max-width: 960px) { .grid { grid-template-columns: 1fr; } }
+  .cal { margin: 28px 0 14px; border: 1px solid var(--rule); background: var(--paper); height: 720px; }
+  .cal iframe { width: 100%; height: 100%; border: 0; }
+  .direct { margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--rule); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .direct a { color: var(--ink); overflow-wrap: anywhere; }
+  .direct .small { margin-top: 6px; }
+  @media (max-width: 520px) { .direct { grid-template-columns: 1fr; } }
+</style>

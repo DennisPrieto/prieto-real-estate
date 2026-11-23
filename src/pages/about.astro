@@ -1,0 +1,90 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import ConsultBand from '../components/ConsultBand.astro';
+import { PEOPLE } from '../data/site.js';
+
+const beliefs = [
+  ['Relationships', 'The strongest business is built long after the transaction closes.'],
+  ['Clarity', 'Confident decisions begin with plain answers and the documents behind them.'],
+  ['Stewardship', 'Every client, opportunity and referral deserves care, attention and discretion.'],
+];
+---
+<Base title="About Jaelly & Dennis Prieto" description="Jaelly & Dennis Prieto: husband-and-wife Florida real estate sales associates with Epique Realty, serving Miami-Dade and Broward in English and Spanish.">
+  <PageHead title="Built on relationships. Driven by standards." lede="South Florida real estate representation for clients, investors and developers who value strategy, discretion and long-term relationships.">
+    <picture slot="aside" class="portrait">
+      <source srcset="/brand/prieto-partners.webp" type="image/webp" />
+      <img src="/brand/prieto-partners.jpg" alt="Dennis and Jaelly Prieto" width="900" height="1350" />
+    </picture>
+  </PageHead>
+
+  <section class="section">
+    <div class="wrap story">
+      <h2 class="h2" data-reveal>Two careers. <em>One practice.</em></h2>
+      <div class="prose" data-reveal>
+        <p>What started as a shared commitment to service became a partnership built around real estate, leadership and community. Today we represent buyers, sellers, investors and developers across Miami-Dade and Broward, and we have spent more than ten years in South Florida real estate.</p>
+        <p>Our approach is simple: relationships first, transactions second. Every decision answers one question: what is best for the person across the table?</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="wrap people">
+      <article data-reveal>
+        <h2 class="h3">{PEOPLE.dennis.name}</h2>
+        <p class="label" style="margin-top:10px">{PEOPLE.dennis.role} · FL {PEOPLE.dennis.license}</p>
+        <div class="prose" style="margin-top:24px">
+          <p>Dennis came to real estate from construction and entrepreneurship, and it shows in how he reads a property: permits, structure, zoning and what a site could become. He leads market analysis, commercial and land strategy, and investment work, and is completing the NAR Pricing Strategy Advisor certification.</p>
+          <p>As Epique’s Area Leader for Miami, he also mentors agents and builds the systems behind their businesses.</p>
+        </div>
+        <p class="contact"><a href={`tel:${PEOPLE.dennis.tel}`}>{PEOPLE.dennis.phone}</a> · <a href={`mailto:${PEOPLE.dennis.email}`}>{PEOPLE.dennis.email}</a> · <a href={PEOPLE.dennis.linkedin} target="_blank" rel="noopener">LinkedIn</a></p>
+      </article>
+      <article data-reveal>
+        <h2 class="h3">{PEOPLE.jaelly.name}</h2>
+        <p class="label" style="margin-top:10px">{PEOPLE.jaelly.role} · FL {PEOPLE.jaelly.license}</p>
+        <div class="prose" style="margin-top:24px">
+          <p>Jaelly combines real estate expertise with community leadership, guiding clients through major life decisions with patience and precision. She leads seller strategy, buyer representation and relocation for our clients.</p>
+          <p>An author, mentor and leader with NAHREP South Florida, she believes real estate is at its best when it builds confidence, connection and lasting impact.</p>
+        </div>
+        <p class="contact"><a href={`tel:${PEOPLE.jaelly.tel}`}>{PEOPLE.jaelly.phone}</a> · <a href={`mailto:${PEOPLE.jaelly.email}`}>{PEOPLE.jaelly.email}</a> · <a href={PEOPLE.jaelly.instagram} target="_blank" rel="noopener">Instagram</a></p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap story">
+      <h2 class="h2" data-reveal>What we hold to</h2>
+      <dl class="legend" data-reveal>
+        {beliefs.map(([t, d]) => (<div><dt>{t}</dt><dd>{d}</dd></div>))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="section section--shoal section--tight">
+    <div class="wrap">
+      <ul class="affil">
+        <li><span class="label">Brokerage</span><span>Epique Realty, Inc.</span></li>
+        <li><span class="label">Luxury program</span><span>Epique Estates</span></li>
+        <li><span class="label">Community</span><span>NAHREP South Florida</span></li>
+        <li><span class="label">Membership</span><span>REALTOR®</span></li>
+      </ul>
+    </div>
+  </section>
+  <ConsultBand />
+</Base>
+
+<style>
+  .portrait img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 15%; background: var(--shoal); }
+  .story { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 40px 88px; align-items: start; }
+  .story .prose p:first-child { margin-top: 6px; }
+  @media (max-width: 960px) { .story { grid-template-columns: 1fr; } }
+  .people { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px 88px; }
+  @media (max-width: 860px) { .people { grid-template-columns: 1fr; } }
+  .people article { border-top: 1px solid var(--ink); padding-top: 28px; }
+  .contact { margin-top: 24px; font-size: 15px; }
+  .contact a { color: var(--ink); text-decoration-color: var(--gold); overflow-wrap: anywhere; }
+  .affil { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+  @media (max-width: 760px) { .affil { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .affil li { display: grid; gap: 8px; border-top: 1px solid var(--rule); padding-top: 16px; }
+  .affil li span:last-child { font-family: var(--font-display); font-size: 22px; font-weight: 500; }
+</style>

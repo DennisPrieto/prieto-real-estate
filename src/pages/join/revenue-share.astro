@@ -1,0 +1,9 @@
+---
+import Base from '../../layouts/Base.astro';
+import JoinNav from '../../components/JoinNav.astro';
+import Recruiting from '../../islands/recruiting/Recruiting.jsx';
+---
+<Base title="Epique revenue share calculator" description="Model Epique Realty revenue share across five levels.">
+  <JoinNav />
+  <Recruiting client:load page="revshare" />
+</Base>

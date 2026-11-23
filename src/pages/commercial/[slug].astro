@@ -1,0 +1,64 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import SiteDiagram from '../../components/SiteDiagram.astro';
+import InquiryForm from '../../islands/InquiryForm.jsx';
+import Arrow from '../../components/Arrow.astro';
+import { PRACTICE } from '../../data/places.js';
+import { FORMSPREE } from '../../data/site.js';
+import { COMMERCIAL_FIELDS } from '../../data/forms.js';
+
+export function getStaticPaths() {
+  return PRACTICE.map((p) => ({ params: { slug: p.slug }, props: { p } }));
+}
+const { p } = Astro.props;
+const others = PRACTICE.filter((o) => o.slug !== p.slug);
+---
+<Base title={p.title} description={p.description}>
+  <PageHead title={p.name} lede={p.lede} crumbs={[['/commercial', 'Commercial and land'], [`/commercial/${p.slug}`, p.name]]}>
+    <div class="btn-row">
+      <a href="#inquiry" class="btn btn--primary">Request a site review <Arrow /></a>
+    </div>
+    <div slot="aside"><SiteDiagram variant={p.variant} tone="light" /></div>
+  </PageHead>
+
+  <section class="section">
+    <div class="wrap body">
+      <div class="prose" data-reveal>
+        {p.body.map((t) => <p>{t}</p>)}
+        {p.slug === 'live-local-act' && (
+          <p class="small muted note">This page summarizes Florida’s Live Local Act (enacted 2023, amended in 2024 and 2025) for general information. It is not legal advice; eligibility depends on the current statute, local regulations and the specific parcel, confirmed with land-use counsel.</p>
+        )}
+      </div>
+      <div data-reveal>
+        <h2 class="h3">How we work a {p.slug === 'industrial' ? 'building' : 'site'}</h2>
+        <dl class="legend" style="margin-top:28px">
+          {p.steps.map(([t, d]) => (<div><dt>{t}</dt><dd>{d}</dd></div>))}
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--shoal" id="inquiry">
+    <div class="wrap body">
+      <div data-reveal>
+        <h2 class="h2">Request a site review</h2>
+        <p class="lede" style="margin-top:20px">Send the address, folio or corridor. You will get a reply from Dennis, not an autoresponder.</p>
+        <ul class="others">
+          {others.map((o) => (<li><a href={`/commercial/${o.slug}`}>{o.name} <Arrow /></a></li>))}
+        </ul>
+      </div>
+      <div data-reveal>
+        <InquiryForm client:visible formId={FORMSPREE.contact} subject={`Commercial site review (${p.name})`} inquiryType={`commercial:${p.slug}`} fields={COMMERCIAL_FIELDS} submitLabel="Request a review" successTitle="Request received." successBody="Dennis will reply within one business day." />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .body { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: 48px 88px; align-items: start; }
+  @media (max-width: 960px) { .body { grid-template-columns: 1fr; } }
+  .note { margin-top: 28px !important; padding-top: 18px; border-top: 1px solid var(--rule); }
+  .others { margin-top: 36px; border-top: 1px solid var(--rule); }
+  .others a { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--rule); color: var(--ink); text-decoration: none; font-family: var(--font-display); font-size: 22px; font-weight: 500; }
+</style>

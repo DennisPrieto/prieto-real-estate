@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Testimonials from '../components/Testimonials.astro';
+import InquiryForm from '../islands/InquiryForm.jsx';
+import Arrow from '../components/Arrow.astro';
+import { FORMSPREE, CLIENT_TESTIMONIALS } from '../data/site.js';
+import { BUYER_FIELDS } from '../data/forms.js';
+
+const steps = [
+  ['Brief', 'A private conversation about how you live, where, and what the purchase needs to do for you over the next ten years.'],
+  ['Search', 'Listed homes and, where owners are willing, homes that are not on the market. We tell you what we would not buy and why.'],
+  ['Due diligence before the offer', 'Permit history, roof of record, flood zone and insurance quotes, and for condominiums the inspections, reserves and assessments. Your offer prices what you are actually buying.'],
+  ['Offer and closing', 'Terms built around your financing and timeline, then inspectors, lenders, title and insurance coordinated through closing.'],
+];
+---
+<Base title="Buying a luxury home in Miami-Dade or Broward" description="Buy with the building file, permit history and flood data read before you offer. Jaelly & Dennis Prieto, Epique Realty, in English and Spanish.">
+  <PageHead title="Buying a home" lede="The right house can still be the wrong purchase. We read what sits behind the listing before you make an offer: the permits, the roof, the flood data and, for condominiums, the building’s finances.">
+    <div class="btn-row">
+      <a href="#brief" class="btn btn--primary">Tell us what you’re looking for <Arrow /></a>
+      <a href="/international" class="btn btn--ghost">Buying from abroad</a>
+    </div>
+  </PageHead>
+
+  <section class="section">
+    <div class="wrap two">
+      <h2 class="h2" data-reveal>How we work with buyers</h2>
+      <dl class="legend" data-reveal>
+        {steps.map(([t, d]) => (<div><dt>{t}</dt><dd>{d}</dd></div>))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="section section--shoal" id="brief">
+    <div class="wrap two">
+      <div data-reveal>
+        <h2 class="h2">Your brief</h2>
+        <p class="lede" style="margin-top:20px">A minute of answers saves a week of showings. We will reply with a few homes worth seeing, and the ones to skip.</p>
+      </div>
+      <div data-reveal>
+        <InquiryForm client:visible formId={FORMSPREE.buyerQuestionnaire} subject="Buyer brief" inquiryType="buyer" fields={BUYER_FIELDS} submitLabel="Send my brief" successTitle="Brief received." successBody="We will reply within one business day. If you would rather talk now, book a time on the contact page." />
+      </div>
+    </div>
+  </section>
+
+  <Testimonials items={[CLIENT_TESTIMONIALS[1]]} heading="From buyers" />
+</Base>
+
+<style>
+  .two { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px 88px; align-items: start; }
+  @media (max-width: 960px) { .two { grid-template-columns: 1fr; } }
+</style>

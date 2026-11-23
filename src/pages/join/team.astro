@@ -1,0 +1,9 @@
+---
+import Base from '../../layouts/Base.astro';
+import JoinNav from '../../components/JoinNav.astro';
+import Recruiting from '../../islands/recruiting/Recruiting.jsx';
+---
+<Base title="Epique team structure calculator" description="Model team lead overrides, team caps and downstream economics at Epique Realty.">
+  <JoinNav />
+  <Recruiting client:load page="team" />
+</Base>

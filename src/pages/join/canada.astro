@@ -1,0 +1,9 @@
+---
+import Base from '../../layouts/Base.astro';
+import JoinNav from '../../components/JoinNav.astro';
+import Recruiting from '../../islands/recruiting/Recruiting.jsx';
+---
+<Base title="Epique agent calculator (Canada)" description="Canada-specific Epique Realty cost and commission calculator. Request access.">
+  <JoinNav />
+  <Recruiting client:load page="canada" />
+</Base>

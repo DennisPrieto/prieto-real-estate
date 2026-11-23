@@ -1,0 +1,72 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import BayChart from '../../components/BayChart.astro';
+import ConsultBand from '../../components/ConsultBand.astro';
+import Arrow from '../../components/Arrow.astro';
+import { NEIGHBORHOODS } from '../../data/places.js';
+
+export function getStaticPaths() {
+  return NEIGHBORHOODS.map((n) => ({ params: { slug: n.slug }, props: { n } }));
+}
+const { n } = Astro.props;
+const others = NEIGHBORHOODS.filter((o) => o.slug !== n.slug);
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Residential', item: 'https://www.prietoreal.estate/residential' },
+    { '@type': 'ListItem', position: 2, name: n.name, item: `https://www.prietoreal.estate/neighborhoods/${n.slug}` },
+  ],
+};
+---
+<Base title={n.title} description={n.description} schema={schema}>
+  <PageHead title={n.name} lede={n.lede} coord={n.coord} crumbs={[['/residential', 'Residential'], [`/neighborhoods/${n.slug}`, n.name]]}>
+    <div class="btn-row">
+      <a href="/sellers#valuation" class="btn btn--primary">Value a home here <Arrow /></a>
+      <a href="/buyers" class="btn btn--ghost">Buy here</a>
+    </div>
+    <div slot="aside" class="nb-hero-map"><BayChart focus={n.slug} /></div>
+  </PageHead>
+
+  <section class="section">
+    <div class="wrap nb-body">
+      <div class="prose" data-reveal>
+        <h2 class="h3">The place</h2>
+        {n.place.map((p) => <p>{p}</p>)}
+      </div>
+      <div data-reveal>
+        <h2 class="h3">What we check before pricing here</h2>
+        <dl class="legend" style="margin-top:28px">
+          {n.checks.map(([t, d]) => (<div><dt>{t}</dt><dd>{d}</dd></div>))}
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--shoal section--tight">
+    <div class="wrap">
+      <h2 class="h4">Nearby on the chart</h2>
+      <ul class="others">
+        {others.map((o) => (<li><a href={`/neighborhoods/${o.slug}`}><span>{o.name}</span><span class="coord">{o.coord}</span></a></li>))}
+        <li><a href="/commercial/land-and-assemblages"><span>Land and assemblages</span><span class="coord">By site</span></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <ConsultBand heading={`Thinking about ${n.name}?`} />
+</Base>
+
+<style>
+  .nb-hero-map { aspect-ratio: 7 / 6; border: 1px solid var(--rule); }
+  .nb-hero-map :global(.bay) { height: 100%; }
+  .nb-hero-map :global(svg) { height: 100%; }
+  .nb-hero-map :global(figcaption) { position: absolute; bottom: -26px; }
+  .nb-body { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px 88px; }
+  .nb-body .prose p { margin-top: 18px; }
+  @media (max-width: 960px) { .nb-body { grid-template-columns: 1fr; } }
+  .others { margin-top: 24px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--rule); }
+  @media (max-width: 760px) { .others { grid-template-columns: 1fr; } }
+  .others a { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 18px 16px 18px 0; border-bottom: 1px solid var(--rule); color: var(--ink); text-decoration: none; font-family: var(--font-display); font-size: 22px; font-weight: 500; }
+  .others a:hover span:first-child { text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 1.5px; }
+</style>

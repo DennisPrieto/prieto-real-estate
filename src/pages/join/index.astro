@@ -1,0 +1,9 @@
+---
+import Base from '../../layouts/Base.astro';
+import JoinNav from '../../components/JoinNav.astro';
+import Recruiting from '../../islands/recruiting/Recruiting.jsx';
+---
+<Base title="Join Epique Realty in South Florida" description="Agent ecosystem at Epique Realty: 85/15 split with a declining cap, revenue share and equity. Talk with Dennis Prieto, Epique Miami Area Leader.">
+  <JoinNav />
+  <Recruiting client:load page="agents" />
+</Base>

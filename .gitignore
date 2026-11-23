@@ -4,3 +4,6 @@ dist
 .vscode/*
 .env
 npm-debug.log*
+.astro
+.impeccable/questions/
+.impeccable/mocks/

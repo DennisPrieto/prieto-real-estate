@@ -18,8 +18,8 @@ if (focus && PLACES[focus]) {
   const vy = Math.max(0, Math.min(HEIGHT - h, y - h * 0.5));
   vb = [vx, vy, w, h];
 }
-const fs = +(vb[2] / 54).toFixed(1);
-const places = Object.entries(PLACES).map(([slug, p]) => ({ slug, name: p.name, xy: project(p.at) }));
+const fs = +(vb[2] / (focus ? 30 : 54)).toFixed(1);
+const places = Object.entries(PLACES).map(([slug, p]) => ({ slug, name: p.name, xy: project(p.at), dy: (p as any).dy || 0 }));
 const title = label || (focus ? `Schematic chart of Biscayne Bay centred on ${PLACES[focus]?.name}` : 'Schematic chart of Biscayne Bay showing Edgewater, Brickell, Coconut Grove, Coral Gables and Pinecrest');
 ---
 <figure class:list={['bay', `bay--${tone}`, { 'bay--animate': animate, 'bay--focus': !!focus }, cls]}>
@@ -39,7 +39,9 @@ const title = label || (focus ? `Schematic chart of Biscayne Bay centred on ${PL
       {places.map((p) => (
         <g class:list={['place', { 'is-focus': p.slug === focus }]}>
           <circle cx={p.xy[0]} cy={p.xy[1]} r={fs * (p.slug === focus ? 0.5 : 0.36)} />
-          <text x={p.xy[0] - fs * 0.9} y={p.xy[1] + fs * 0.35} text-anchor="end">{p.name.toUpperCase()}</text>
+          {p.slug === focus
+            ? <text x={p.xy[0] + fs * 0.9} y={p.xy[1] + fs * 0.35} text-anchor="start">{p.name.toUpperCase()}</text>
+            : <text x={p.xy[0] - fs * 0.9} y={p.xy[1] + fs * (0.35 + p.dy)} text-anchor="end">{p.name.toUpperCase()}</text>}
         </g>
       ))}
     </g>
@@ -69,7 +71,8 @@ const title = label || (focus ? `Schematic chart of Biscayne Bay centred on ${PL
   .bay-places text { font-family: var(--font-label); letter-spacing: .14em; fill: var(--ink); }
   .bay-places circle { fill: var(--gold); stroke: var(--ink); stroke-width: .8; }
   .bay-places .is-focus circle { stroke-width: 1.4; }
-  .bay-places .is-focus text { font-weight: 500; }
+  .bay-places .is-focus text { font-weight: 500; paint-order: stroke; stroke: var(--shoal); stroke-width: 4px; stroke-linejoin: round; }
+  .bay--focus .bay-places g:not(.is-focus) { opacity: .55; }
   .bay-grid line { stroke: var(--ink); stroke-width: .8; opacity: .55; }
   .bay-grid text { font-family: var(--font-label); fill: var(--graphite); letter-spacing: .06em; }
 

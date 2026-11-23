@@ -1,0 +1,63 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Testimonials from '../components/Testimonials.astro';
+import ConsultBand from '../components/ConsultBand.astro';
+import InquiryForm from '../islands/InquiryForm.jsx';
+import Arrow from '../components/Arrow.astro';
+import { FORMSPREE, CLIENT_TESTIMONIALS } from '../data/site.js';
+import { VALUATION_FIELDS } from '../data/forms.js';
+
+const method = [
+  ['Diagnosis', 'Your home’s record read the way a buyer’s appraiser, lender and insurer will: municipality, permits, roof of record, flood data, and for condominiums the building’s inspections and reserves. Anything that would cost you at the closing table is found now.'],
+  ['Pricing', 'A written opinion of value built from closed sales, not active asking prices, with the reasoning shown. If a previous listing did not sell, we show why in the same document.'],
+  ['Presentation', 'Epique Estates luxury marketing: professional photography and video, editorial copy in English and Spanish, and placement where buyers at your price actually search.'],
+  ['Negotiation', 'Offers compared on net proceeds, contingencies and the buyer’s financing, not on the headline number. Both of us at the table through closing.'],
+];
+---
+<Base title="Selling a luxury home in Miami-Dade or Broward" description="Request a written valuation from Jaelly & Dennis Prieto, Epique Realty. Your home's record diagnosed before pricing, then Epique Estates marketing in English and Spanish.">
+  <PageHead title="Selling a home" lede="Most homes that sit on the market were priced and presented before anyone read their record. We do it the other way round.">
+    <div class="btn-row">
+      <a href="#valuation" class="btn btn--primary">Request a valuation <Arrow /></a>
+      <a href="/contact" class="btn btn--ghost">Book a consultation</a>
+    </div>
+  </PageHead>
+
+  <section class="section">
+    <div class="wrap method">
+      <h2 class="h2" data-reveal>Four steps, in this order</h2>
+      <dl class="legend" data-reveal>
+        {method.map(([t, d]) => (<div><dt>{t}</dt><dd>{d}</dd></div>))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="section section--onyx section--tight">
+    <div class="wrap expired" data-reveal>
+      <h2 class="h3">Listed before and it didn’t sell?</h2>
+      <p class="lede">An expired listing leaves a record: the price changes, the days on market, the showing instructions, the photos. Read in order, it usually shows exactly where buyers were lost. We will walk you through yours, at no cost, before you decide anything.</p>
+    </div>
+  </section>
+
+  <section class="section section--shoal" id="valuation">
+    <div class="wrap method">
+      <div data-reveal>
+        <h2 class="h2">Request a valuation</h2>
+        <p class="lede" style="margin-top:20px">We do not show an instant estimate. Automated numbers miss exactly the things that move value here: the lot, the view, permits, condition and the building. You will get a written opinion of value from us instead, usually within two business days.</p>
+      </div>
+      <div data-reveal>
+        <InquiryForm client:visible formId={FORMSPREE.contact} subject="Valuation request" inquiryType="valuation" fields={VALUATION_FIELDS} submitLabel="Request my valuation" successTitle="Request received." successBody="We will review your property’s public record and reply within one business day to schedule the valuation." />
+      </div>
+    </div>
+  </section>
+
+  <Testimonials items={[CLIENT_TESTIMONIALS[0], CLIENT_TESTIMONIALS[2]]} heading="From sellers" />
+  <ConsultBand heading="Talk it through before you list." />
+</Base>
+
+<style>
+  .method { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px 88px; align-items: start; }
+  @media (max-width: 960px) { .method { grid-template-columns: 1fr; } }
+  .expired { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 24px 88px; align-items: baseline; }
+  @media (max-width: 960px) { .expired { grid-template-columns: 1fr; } }
+</style>

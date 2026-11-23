@@ -1,0 +1,70 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import BayChart from '../components/BayChart.astro';
+import Testimonials from '../components/Testimonials.astro';
+import ConsultBand from '../components/ConsultBand.astro';
+import Arrow from '../components/Arrow.astro';
+import { NEIGHBORHOODS } from '../data/places.js';
+---
+<Base title="Luxury residential real estate in Miami-Dade and Broward" description="Selling or buying a significant home in Coral Gables, Coconut Grove, Brickell, Edgewater or Pinecrest. Jaelly & Dennis Prieto, Epique Realty, in English and Spanish.">
+  <PageHead title="Luxury residential" lede="For owners selling a significant home and for buyers choosing one. Every engagement starts with the property’s record and its real buyer pool, then the Epique Estates marketing program puts it in front of them.">
+    <div class="btn-row">
+      <a href="/sellers" class="btn btn--primary">Selling <Arrow /></a>
+      <a href="/buyers" class="btn btn--ghost">Buying</a>
+      <a href="/international" class="btn btn--ghost">Buying from abroad</a>
+    </div>
+    <div slot="aside" class="res-map"><BayChart /></div>
+  </PageHead>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="h2" data-reveal>Neighborhoods</h2>
+      <ol class="nb-list">
+        {NEIGHBORHOODS.map((n) => (
+          <li data-reveal>
+            <a href={`/neighborhoods/${n.slug}`}>
+              <span class="coord">{n.coord}</span>
+              <span class="h3">{n.name}</span>
+              <span class="nb-lede">{n.lede}</span>
+              <Arrow />
+            </a>
+          </li>
+        ))}
+      </ol>
+      <p class="small muted" style="margin-top:28px">We also represent clients across the rest of Miami-Dade and Broward, including Key Biscayne, Miami Beach, Fort Lauderdale and Miami Springs. <a class="textlink" href="/contact">Ask about an area</a>.</p>
+    </div>
+  </section>
+
+  <section class="section section--shoal">
+    <div class="wrap two">
+      <div data-reveal>
+        <h2 class="h2">For sellers</h2>
+        <p class="lede" style="margin-top:20px">A written diagnosis of your home before a price: municipality, permits, roof and insurance, condominium health where it applies, and the buyers who will actually pay for it. Then Epique Estates marketing, in English and Spanish.</p>
+        <a href="/sellers" class="textlink" style="display:inline-block;margin-top:24px">How we sell a home</a>
+      </div>
+      <div data-reveal>
+        <h2 class="h2">For buyers</h2>
+        <p class="lede" style="margin-top:20px">We read the building file, the permit history and the flood data on the homes you like, so your offer prices what you are actually buying. On and off the MLS.</p>
+        <a href="/buyers" class="textlink" style="display:inline-block;margin-top:24px">How we help you buy</a>
+      </div>
+    </div>
+  </section>
+
+  <Testimonials />
+  <ConsultBand />
+</Base>
+
+<style>
+  .res-map { aspect-ratio: 1 / 1; max-height: 560px; border: 1px solid var(--rule); }
+  .res-map :global(.bay) { height: 100%; }
+  .res-map :global(svg) { height: 100%; }
+  .res-map :global(figcaption) { display: none; }
+  .nb-list { margin-top: 40px; border-top: 1px solid var(--rule); }
+  .nb-list a { display: grid; grid-template-columns: 9rem minmax(0, 18rem) minmax(0, 1fr) 24px; gap: 8px 40px; align-items: baseline; padding: 30px 0; border-bottom: 1px solid var(--rule); color: var(--ink); text-decoration: none; transition: padding .45s var(--ease); }
+  .nb-list a:hover { padding-left: 10px; }
+  .nb-list .nb-lede { color: var(--ink-2); font-size: 16px; max-width: 60ch; }
+  @media (max-width: 860px) { .nb-list a { grid-template-columns: 1fr 24px; } .nb-list .coord, .nb-list .nb-lede { grid-column: 1; } .nb-list .coord { order: -1; } .nb-list :global(.arrow) { grid-column: 2; grid-row: 1 / span 3; } }
+  .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px 88px; }
+  @media (max-width: 860px) { .two { grid-template-columns: 1fr; } }
+</style>

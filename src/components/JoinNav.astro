@@ -1,0 +1,18 @@
+---
+const links = [['/join', 'Agent ecosystem'], ['/join/calculator', 'USA calculator'], ['/join/canada', 'Canada calculator'], ['/join/team', 'Team calculator'], ['/join/revenue-share', 'Revenue share']];
+const path = Astro.url.pathname.replace(/\/$/, '');
+---
+<nav class="joinnav" aria-label="For agents">
+  <div class="wrap jn">
+    <span class="label">For agents</span>
+    <ul>{links.map(([h, t]) => <li><a href={h} aria-current={path === h ? 'page' : undefined}>{t}</a></li>)}</ul>
+  </div>
+</nav>
+<style>
+  .joinnav { background: var(--ink); color: var(--on-onyx); }
+  .jn { display: flex; gap: 28px; align-items: center; min-height: 52px; overflow-x: auto; }
+  .jn .label { color: var(--gold); white-space: nowrap; }
+  .jn ul { display: flex; gap: 24px; }
+  .jn a { color: var(--on-onyx-2); text-decoration: none; font-size: 14px; white-space: nowrap; }
+  .jn a:hover, .jn a[aria-current='page'] { color: var(--on-onyx); text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 6px; }
+</style>

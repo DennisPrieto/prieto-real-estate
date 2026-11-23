@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import ConsultBand from '../components/ConsultBand.astro';
+import Arrow from '../components/Arrow.astro';
+
+const topics = [
+  ['Financing', 'Foreign national mortgages exist but work differently: larger down payments, different documentation, and fewer lenders. We introduce you to lenders who do this every week.'],
+  ['Selling later: FIRPTA', 'When a foreign person sells U.S. real estate, the buyer generally must withhold a share of the price for the IRS. Plan for it at purchase, with a cross-border tax advisor.'],
+  ['Florida’s foreign ownership law', 'Since 2023, Florida restricts some purchases by buyers connected to certain designated foreign countries. We raise it at the first conversation, and a Florida real estate attorney confirms whether it applies to you.'],
+  ['Condominiums', 'Building rules on rentals, approvals and minimum lease terms decide whether a condo works as a second home or an investment. We read them before you fall in love with the view.'],
+  ['Closing from abroad', 'Remote signing, powers of attorney, wire safety and entity structures, coordinated with your title company and attorney.'],
+];
+---
+<Base title="Buying South Florida real estate from abroad" description="International and Latin American buyers: financing, FIRPTA, Florida's foreign ownership rules and remote closings, explained in English and Spanish by Jaelly & Dennis Prieto, Epique Realty.">
+  <PageHead title="Buying from abroad" lede="For buyers from Latin America, Canada, Europe and beyond. We work in English and Spanish, and we raise the cross-border questions at the start, not at closing.">
+    <div class="btn-row">
+      <a href="/contact" class="btn btn--primary">Book a consultation <Arrow /></a>
+      <a href="/buyers#brief" class="btn btn--ghost">Send a brief</a>
+    </div>
+  </PageHead>
+  <section class="section">
+    <div class="wrap two">
+      <div data-reveal>
+        <h2 class="h2">What to settle before you choose a home</h2>
+        <p class="small muted" style="margin-top:24px">General information, not legal or tax advice. We work alongside your attorney and tax advisor and can recommend both.</p>
+      </div>
+      <dl class="legend" data-reveal>
+        {topics.map(([t, d]) => (<div><dt>{t}</dt><dd>{d}</dd></div>))}
+      </dl>
+    </div>
+  </section>
+  <ConsultBand heading="Hablemos. In English or Spanish." body="Thirty minutes by video, at a time that works from your time zone." />
+</Base>
+<style>
+  .two { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px 88px; align-items: start; }
+  @media (max-width: 960px) { .two { grid-template-columns: 1fr; } }
+</style>

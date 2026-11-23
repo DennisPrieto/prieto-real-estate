@@ -1,0 +1,9 @@
+---
+import Base from '../../layouts/Base.astro';
+import JoinNav from '../../components/JoinNav.astro';
+import Recruiting from '../../islands/recruiting/Recruiting.jsx';
+---
+<Base title="Epique agent earnings calculator (USA)" description="Model your earnings under Epique Realty’s cap and split compared with a traditional brokerage.">
+  <JoinNav />
+  <Recruiting client:load page="usa" />
+</Base>

@@ -61,7 +61,7 @@ export const contours = [0.009, 0.018, 0.029].map((dx) => smooth(SHORE.map(([la,
 // Illustrative soundings (feet). Positions sit in open water.
 export const soundings = [
   [25.835, -80.163, 7], [25.812, -80.168, 9], [25.79, -80.166, 8], [25.773, -80.159, 6],
-  [25.748, -80.185, 9], [25.73, -80.196, 10], [25.712, -80.209, 11], [25.7, -80.226, 9],
+  [25.748, -80.185, 9], [25.73, -80.196, 10], [25.7, -80.226, 9],
   [25.686, -80.24, 10], [25.672, -80.252, 8], [25.658, -80.266, 7], [25.723, -80.182, 12],
   [25.69, -80.195, 11], [25.705, -80.185, 12],
 ].map(([la, lo, v]) => ({ xy: project([la, lo]), v }));
@@ -70,7 +70,7 @@ export const PLACES = {
   edgewater: { name: 'Edgewater', at: [25.8, -80.1905] },
   brickell: { name: 'Brickell', at: [25.761, -80.1945] },
   'coconut-grove': { name: 'Coconut Grove', at: [25.727, -80.2405] },
-  'coral-gables': { name: 'Coral Gables', at: [25.721, -80.2684] },
+  'coral-gables': { name: 'Coral Gables', at: [25.721, -80.2684], dy: 1.4 },
   pinecrest: { name: 'Pinecrest', at: [25.665, -80.308] },
 };
 
