@@ -11,6 +11,7 @@ import { WIDTH as CW, HEIGHT as CH } from '../data/bay.js';
 
 // Every neighborhood, equal tiles, in the same order as the Residential page (by region, north to south).
 const TILES = REGIONS.flatMap((r) => NEIGHBORHOODS.filter((n) => n.region === r.key));
+const REGION_TAG = { north: 'North', islands: 'Islands & beaches', bayfront: 'Bayfront', south: 'South' };
 
 const checks = [
   ['Municipality and folio', 'The address on the listing and the city on the tax roll do not always match. One wrong city can send a home to the wrong buyers for months.'],
@@ -104,6 +105,7 @@ const checks = [
           <li class="nbf">
             <a href={`/neighborhoods/${n.slug}`}>
               <PlaceImage slug={n.slug} sizes="(max-width: 760px) 100vw, (max-width: 1080px) 50vw, 33vw" />
+              <span class="nbf-tag">{REGION_TAG[n.region]}</span>
               <span class="nbf-label"><span class="nbf-name">{n.name}</span><span class="coord">{n.coord}</span></span>
             </a>
           </li>
@@ -111,6 +113,7 @@ const checks = [
         <li class="nbf nbf-land">
           <a href="/commercial/land-and-assemblages">
             <Photo name="land-and-assemblages" caption={false} sizes="(max-width: 760px) 100vw, 33vw" />
+            <span class="nbf-tag">Commercial</span>
             <span class="nbf-label"><span class="nbf-name">Land and assemblages</span><span class="coord">By site</span></span>
           </a>
         </li>
@@ -212,6 +215,7 @@ const checks = [
   .nbf-label { position: absolute; left: 22px; right: 22px; bottom: 18px; z-index: 1; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
   .nbf-name { font-family: var(--font-display); font-weight: 500; font-size: clamp(24px, 2.2vw, 32px); line-height: 1.05; }
   .nbf .coord { color: rgba(244,241,234,.72); }
+  .nbf-tag { position: absolute; left: 16px; top: 16px; z-index: 1; font-family: var(--font-label); font-size: 10.5px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--ivory); background: rgba(11,11,11,.55); padding: 5px 9px; backdrop-filter: blur(4px); }
   @media (max-width: 1080px) { .nb-feature { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 260px; } }
   @media (max-width: 760px) { .nb-feature { grid-template-columns: 1fr; grid-auto-rows: 250px; } }
 
