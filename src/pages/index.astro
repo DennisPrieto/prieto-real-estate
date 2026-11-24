@@ -9,9 +9,9 @@ import Arrow from '../components/Arrow.astro';
 import { NEIGHBORHOODS } from '../data/places.js';
 import { WIDTH as CW, HEIGHT as CH } from '../data/bay.js';
 
-const FEATURE_SLUGS = ['coral-gables', 'indian-creek', 'fisher-island', 'bal-harbour', 'coconut-grove', 'key-biscayne'];
-const FEATURED = FEATURE_SLUGS.map((slug) => NEIGHBORHOODS.find((n) => n.slug === slug)).filter(Boolean);
-const REST = NEIGHBORHOODS.filter((n) => !FEATURE_SLUGS.includes(n.slug));
+// Every neighborhood shows: Coral Gables leads large, the rest follow north to south.
+const LEAD = 'coral-gables';
+const TILES = [NEIGHBORHOODS.find((n) => n.slug === LEAD), ...NEIGHBORHOODS.filter((n) => n.slug !== LEAD)].filter(Boolean);
 
 const checks = [
   ['Municipality and folio', 'The address on the listing and the city on the tax roll do not always match. One wrong city can send a home to the wrong buyers for months.'],
@@ -101,18 +101,20 @@ const checks = [
         <a href="/residential" class="textlink textlink--light">All 17, north to south</a>
       </div>
       <ul class="nb-feature">
-        {FEATURED.map((n, i) => (
+        {TILES.map((n, i) => (
           <li class={`nbf nbf-${i}`}>
             <a href={`/neighborhoods/${n.slug}`}>
-              <PlaceImage slug={n.slug} sizes={i === 0 ? '(max-width: 760px) 100vw, 66vw' : '(max-width: 760px) 100vw, 33vw'} />
+              <PlaceImage slug={n.slug} sizes={i === 0 ? '(max-width: 760px) 100vw, 66vw' : '(max-width: 760px) 100vw, (max-width: 1080px) 50vw, 33vw'} />
               <span class="nbf-label"><span class="nbf-name">{n.name}</span><span class="coord">{n.coord}</span></span>
             </a>
           </li>
         ))}
-      </ul>
-      <ul class="nb-list">
-        {REST.map((n) => (<li><a href={`/neighborhoods/${n.slug}`}><span>{n.name}</span><span class="coord">{n.coord}</span></a></li>))}
-        <li><a href="/commercial/land-and-assemblages"><span>Land and assemblages</span><span class="coord">By site</span></a></li>
+        <li class="nbf nbf-land">
+          <a href="/commercial/land-and-assemblages">
+            <Photo name="land-and-assemblages" caption={false} sizes="(max-width: 760px) 100vw, 33vw" />
+            <span class="nbf-label"><span class="nbf-name">Land and assemblages</span><span class="coord">By site</span></span>
+          </a>
+        </li>
       </ul>
     </div>
   </section>
@@ -213,12 +215,8 @@ const checks = [
   .nbf-name { font-family: var(--font-display); font-weight: 500; font-size: clamp(24px, 2.2vw, 32px); line-height: 1.05; }
   .nbf-0 .nbf-name { font-size: clamp(32px, 3.4vw, 52px); }
   .nbf .coord { color: rgba(244,241,234,.72); }
-  @media (max-width: 760px) { .nb-feature { grid-template-columns: 1fr; grid-auto-rows: 260px; } .nbf-0 { grid-column: auto; grid-row: span 1; } }
-  .nb-list { margin-top: 48px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid rgba(244,241,234,.18); }
-  @media (max-width: 760px) { .nb-list { grid-template-columns: 1fr; } }
-  .nb-list a { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 18px 18px 18px 0; border-bottom: 1px solid rgba(244,241,234,.18); color: var(--ivory); text-decoration: none; font-family: var(--font-display); font-size: 22px; font-weight: 500; }
-  .nb-list a .coord { color: rgba(244,241,234,.55); }
-  .nb-list a:hover span:first-child { text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 1.5px; text-underline-offset: 4px; }
+  @media (max-width: 1080px) { .nb-feature { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 260px; } }
+  @media (max-width: 760px) { .nb-feature { grid-template-columns: 1fr; grid-auto-rows: 250px; } .nbf-0 { grid-column: auto; grid-row: span 1; } }
 
   .partners { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 48px 80px; align-items: center; }
   @media (max-width: 900px) { .partners { grid-template-columns: 1fr; } }
