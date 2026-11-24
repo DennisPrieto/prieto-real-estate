@@ -80,7 +80,7 @@ const checks = [
     <div class="wrap dx-grid">
       <div class="dx-intro" data-reveal>
         <h2 id="dx-h" class="h2">We read a property before we market it.</h2>
-        <p class="lede">Before real estate, we built a construction company together, grew it and sold it. When we walk a home or a parcel, we see what it costs to build, fix or develop, and what is holding its value back while there is still time to fix it.</p>
+        <p class="dx-more dx-first">Before real estate, we built a construction company together, grew it and sold it. When we walk a home or a parcel, we see what it costs to build, fix or develop, and what is holding its value back while there is still time to fix it.</p>
         <p class="dx-more">Jaelly adds a career in corporate logistics, running time-critical operations for aerospace, automotive and cargo companies. She runs each transaction the same way: lender, inspector, appraiser, title, contractors and attorneys on one schedule, so you know where your deal stands without having to ask.</p>
         <p class="dx-more">Jaelly leads residential and luxury. Dennis leads commercial and land. Every client gets both.</p>
         <p class="coord">Chart key · what we check first</p>
@@ -196,7 +196,8 @@ const checks = [
   .dx-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px 80px; align-items: start; }
   .dx-intro { position: sticky; top: 120px; }
   .dx-intro .lede { margin-top: 24px; }
-  .dx-more { margin-top: 16px; font-size: 16px; line-height: 1.65; color: var(--ink-2); max-width: 52ch; }
+  .dx-more { margin-top: 18px; font-size: 18px; line-height: 1.65; color: var(--ink-2); max-width: 52ch; }
+  .dx-more.dx-first { margin-top: 28px; }
   .dx-intro .coord { margin-top: 32px; }
   @media (max-width: 960px) { .dx-grid { grid-template-columns: 1fr; } .dx-intro { position: static; } }
   @media (max-height: 880px) { .dx-intro { position: static; } }
