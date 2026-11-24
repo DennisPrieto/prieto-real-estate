@@ -66,7 +66,7 @@ export const NOTES = [
   },
   {
     slug: 'edgewater-assemblage',
-    status: 'draft',
+    status: 'published',
     kind: 'Case study · in progress',
     date: 'November 2026',
     photo: 'edgewater',
@@ -84,7 +84,6 @@ export const NOTES = [
         h: 'What we prepared',
         p: [
           'A short teaser without the address, a full offering memorandum released only under signed NDA, and a buyer list built around developers active in Edgewater and the surrounding corridor, builders and contractors who develop for their own account, and the developer clients of the lenders we work with.',
-          '[Dennis to add before publishing: the site’s zoning designation and the height and density it supports, in one or two sentences, as stated in the OM.]',
         ],
       },
       {
@@ -98,26 +97,76 @@ export const NOTES = [
   },
   {
     slug: 'sample-opinion-of-value',
-    status: 'draft',
+    status: 'published',
     kind: 'Sample work',
     date: 'November 2026',
     photo: 'land-and-assemblages',
     title: 'What a written opinion of value looks like',
-    dek: 'An excerpt from one of our confidential opinions of value, with the owner, address and folio removed. [Waiting on Dennis: one real opinion of value to excerpt.]',
+    dek: 'Excerpts from a confidential opinion of value we prepared in June 2026 for the owner of an older office building on a Miami transit corridor. The owner, address, folio and street names have been removed; the reasoning and the numbers are as delivered.',
     sections: [
       {
-        h: 'What every opinion covers',
-        checks: [
-          ['The property of record', 'Folio, municipality, lot size, zoning and permit history as the public record shows them.'],
-          ['What can be built', 'The zoning envelope today and, where it applies, under the Live Local Act.'],
-          ['The comparables', 'Recent sales of similar land or buildings, with the adjustments shown rather than hidden.'],
-          ['Value by buyer type', 'What an owner-user, an investor and a developer could each pay, and why the numbers differ.'],
-          ['The recommendation', 'Hold, sell, partner or assemble, with the reasoning in writing.'],
+        h: 'The premise',
+        p: [
+          'The opportunity is the gap between what the property is worth as a building and what the land beneath it is becoming worth to a developer.',
+          'As a one-story office from the 1950s producing rent, the property carries a modest current-use value. Under the zoning changes moving through Miami-Dade County along its transit corridors, the land beneath it may be worth considerably more to a developer or assembler. An income buyer values a building on what it earns today; a developer values it on land control, transit proximity, density potential and assemblage. For a small, older, lightly improved building on a transit corridor, the second number is usually the higher one.',
         ],
       },
       {
-        h: 'The excerpt',
-        p: ['[Placeholder. This section will show pages from a real opinion of value, with identifying details removed, once Dennis provides one.]'],
+        h: 'The indicated range',
+        range: { value: '$4.4M – $5.6M', sub: 'Land and covered-land basis · about $420–$540 per land square foot · about a quarter acre · midpoint near $5.0M', note: 'Preliminary and subject to verification. Shown as a range, never a promised sale price.' },
+      },
+      {
+        h: 'The property, as the record shows it',
+        list: [
+          ['Lot', 'About a quarter acre (roughly 10,500 square feet).'],
+          ['Building', 'One-story office, about 7,100 square feet, built in the 1950s.'],
+          ['Zoning signal', 'Commercial and industrial designations on the record, on a corridor where the County is extending its Rapid Transit Zone.'],
+          ['County assessment', 'Well below the indicated land value, as assessments usually are.'],
+        ],
+      },
+      {
+        h: 'Two ways to value it',
+        checks: [
+          ['Income, or current use', 'The rent the existing building produces, capitalized at a market rate. For an older one-story office this sets a floor, the holding value, but not the highest and best use.'],
+          ['Land, or covered land', 'The land and what it can become, with the existing building treated as interim income until redevelopment. On a corridor that is repricing, this approach governs, and it is the basis for the range.'],
+        ],
+        after: ['The gap between the two is the whole opportunity. A lease conversation captures the first number; a sale to a developer or assembler captures the second.'],
+      },
+      {
+        h: 'The comparables',
+        table: {
+          head: ['Comparable', 'Status', 'Lot', 'Per land SF'],
+          rows: [
+            ['A, nearby', 'Closed, late 2025', '0.14 acre', 'about $558'],
+            ['B, same corridor', 'Asking price', '0.43 acre', 'about $427'],
+            ['C, nearby', 'Asking price', '0.79 acre', 'about $407'],
+            ['The property', '', 'about ¼ acre', '$420–$540'],
+          ],
+          note: 'Only comparable A is a verified closed sale; B and C are current asking prices and are weighted accordingly. Smaller parcels often trade at a higher price per land square foot than larger ones, which the range reflects.',
+        },
+        after: ['The range is deliberately wide because it rests on one closed sale and two asking prices. A tighter figure requires verification.'],
+      },
+      {
+        h: 'What had to be verified before anyone relied on it',
+        checks: [
+          ['Closed comparables', 'Confirmed through the Property Appraiser and a title or MLS source, rather than asking prices.'],
+          ['Entitlements', 'Exact zoning, Rapid Transit Zone status and Live Local eligibility confirmed with Miami-Dade County.'],
+          ['The site', 'Lot dimensions and any physical constraints.'],
+          ['Broker review', 'The conclusion reviewed by the supervising broker before it is issued.'],
+        ],
+      },
+      {
+        h: 'The paths we laid out',
+        checks: [
+          ['Hold and lease', 'Keep the interim income while the corridor matures. The building’s value is a floor, and the land keeps its upside.'],
+          ['Sell to a developer or assembler', 'Capture land value now, while developer attention to the corridor is high.'],
+          ['Assemble', 'Work with adjoining owners to deliver a larger site; assembled sites usually command a premium over single parcels.'],
+          ['Live Local', 'If the site qualifies, an affordable or mixed-use project may unlock more density and a faster approval, to be confirmed with the County.'],
+        ],
+      },
+      {
+        h: 'How every opinion is framed',
+        p: ['Each opinion of value states up front that it is a preliminary broker opinion for discussion, not an appraisal, which only a Florida state-certified appraiser can perform; that it is drawn from public records and listing sources believed reliable but not independently verified; that zoning and Live Local statements are potential until the County confirms them; and that it is prepared under the supervision of our broker at Epique Realty. Owners receive it in English or Spanish.'],
       },
     ],
     sources: [],

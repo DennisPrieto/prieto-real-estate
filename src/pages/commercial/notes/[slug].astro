@@ -36,6 +36,13 @@ const schema = {
       {n.sections.map((s) => (
         <section class="note-sec">
           <h2 class="h3">{s.h}</h2>
+          {s.range && (
+            <div class="range">
+              <p class="range-v">{s.range.value}</p>
+              <p class="range-s">{s.range.sub}</p>
+              <p class="range-n">{s.range.note}</p>
+            </div>
+          )}
           {s.p && <div class="prose">{s.p.map((t) => <p>{t}</p>)}</div>}
           {s.list && (
             <dl class="facts">
@@ -47,6 +54,18 @@ const schema = {
               {s.checks.map(([t, d]) => (<div><dt>{t}</dt><dd>{d}</dd></div>))}
             </dl>
           )}
+          {s.table && (
+            <div class="tbl-wrap">
+              <table class="tbl">
+                <thead><tr>{s.table.head.map((h) => <th scope="col">{h}</th>)}</tr></thead>
+                <tbody>{s.table.rows.map((r, i) => (
+                  <tr class={i === s.table.rows.length - 1 ? 'subject' : ''}>{r.map((c, j) => j === 0 ? <th scope="row">{c}</th> : <td>{c}</td>)}</tr>
+                ))}</tbody>
+              </table>
+              {s.table.note && <p class="tbl-note">{s.table.note}</p>}
+            </div>
+          )}
+          {s.after && <div class="prose">{s.after.map((t) => <p>{t}</p>)}</div>}
         </section>
       ))}
 
@@ -98,6 +117,19 @@ const schema = {
   @media (max-width: 640px) { .facts > div { grid-template-columns: 1fr; } }
   .sources ol { margin: 16px 0 0; padding-left: 20px; display: grid; gap: 8px; }
   .sources a { color: var(--ink-2); text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 3px; font-size: 15.5px; }
+  .range { margin-top: 24px; padding: 28px 32px; background: #132739; color: #F4EFE6; border-left: 3px solid var(--gold); }
+  .range-v { font-family: var(--font-display); font-size: clamp(40px, 6vw, 60px); font-weight: 500; line-height: 1.05; }
+  .range-s { margin-top: 12px; font-size: 16px; line-height: 1.6; color: rgba(244,239,230,.82); }
+  .range-n { margin-top: 10px; font-family: var(--font-label); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+  .tbl-wrap { margin-top: 24px; overflow-x: auto; }
+  .tbl { width: 100%; border-collapse: collapse; font-size: 16px; }
+  .tbl th, .tbl td { text-align: left; padding: 14px 16px 14px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .tbl thead th { font-family: var(--font-label); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--graphite); font-weight: 500; border-bottom-color: var(--ink); }
+  .tbl tbody th { font-weight: 600; color: var(--ink); }
+  .tbl td { color: var(--ink-2); }
+  .tbl tr.subject th, .tbl tr.subject td { color: var(--ink); font-weight: 600; border-bottom: 2px solid var(--gold); }
+  .tbl-note { margin-top: 14px; font-size: 15px; line-height: 1.6; color: var(--graphite); }
+  .note-sec .prose + .tbl-wrap, .tbl-wrap + .prose, .legend + .prose { margin-top: 20px; }
   .disclaimer { margin-top: 48px; max-width: 70ch; }
   .note-cta { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 12px; }
   .more { margin-top: 20px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--rule); }
