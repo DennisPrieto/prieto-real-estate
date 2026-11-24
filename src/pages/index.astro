@@ -17,6 +17,7 @@ const checks = [
   ['Condominium health', 'Milestone inspections, reserve studies and assessments, before a buyer’s lender asks.'],
   ['Flood, elevation and insurance', 'The numbers that move a buyer’s monthly cost more than the interest rate does.'],
   ['How it was shown and priced', 'For homes that did not sell: access, presentation and price history, read as a sequence of decisions.'],
+  ['Every date to closing', 'Financing, appraisal, inspection, title and attorney deadlines on one schedule, followed until the keys change hands.'],
 ];
 ---
 <Base title="Jaelly & Dennis Prieto · Luxury residential and commercial land, Miami-Dade and Broward · Epique Realty" description="Jaelly & Dennis Prieto, Epique Realty. Luxury homes and development land across Miami-Dade and Broward, valued from the public record up. English and Spanish.">
@@ -79,7 +80,9 @@ const checks = [
     <div class="wrap dx-grid">
       <div class="dx-intro" data-reveal>
         <h2 id="dx-h" class="h2">We read a property before we market it.</h2>
-        <p class="lede">Dennis came to real estate from construction. He looks at a home or a parcel the way an appraiser, an insurer and a developer will, and finds what is holding its value back while there is still time to fix it.</p>
+        <p class="lede">Before real estate, we built a construction company together, grew it and exited it. When we walk a home or a parcel, we see what it costs to build, fix or develop, and what is holding its value back while there is still time to fix it.</p>
+        <p class="dx-more">Jaelly adds a career in corporate logistics, running time-critical operations for aerospace, automotive and cargo companies. She runs each transaction the same way: lender, inspector, appraiser, title, contractors and attorneys on one schedule, so you know where your deal stands without having to ask.</p>
+        <p class="dx-more">Jaelly leads residential and luxury. Dennis leads commercial and land. Every client gets both.</p>
         <p class="coord">Chart key · what we check first</p>
       </div>
       <dl class="legend" data-reveal>
@@ -128,7 +131,7 @@ const checks = [
       <div class="partners-copy" data-reveal>
         <h2 id="p-h" class="h2">Two partners, one standard of care.</h2>
         <div class="prose">
-          <p>Jaelly and Dennis Prieto are husband and wife, licensed Florida real estate sales associates with Epique Realty, and more than ten years into South Florida real estate. Dennis leads the analysis: market data, public records, land and commercial strategy, shaped by a background in construction. Jaelly leads client relationships and seller strategy, and serves as Epique’s Florida Ambassador for the Hispanic Division.</p>
+          <p>Jaelly and Dennis Prieto are husband and wife, licensed Florida real estate sales associates with Epique Realty, and more than ten years into South Florida real estate. Jaelly leads residential and luxury clients and runs every transaction from contract to closing; she also serves as Epique’s Florida Ambassador for the Hispanic Division. Dennis leads commercial and land: market data, public records, zoning and development strategy.</p>
           <p>Every client works with both of us, in English or Spanish, from the first conversation to the closing table.</p>
         </div>
         <dl class="facts">
@@ -193,8 +196,10 @@ const checks = [
   .dx-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px 80px; align-items: start; }
   .dx-intro { position: sticky; top: 120px; }
   .dx-intro .lede { margin-top: 24px; }
+  .dx-more { margin-top: 16px; font-size: 16px; line-height: 1.65; color: var(--ink-2); max-width: 52ch; }
   .dx-intro .coord { margin-top: 32px; }
   @media (max-width: 960px) { .dx-grid { grid-template-columns: 1fr; } .dx-intro { position: static; } }
+  @media (max-height: 880px) { .dx-intro { position: static; } }
 
   .nb-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; }
   .nb-grid { margin-top: 48px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
