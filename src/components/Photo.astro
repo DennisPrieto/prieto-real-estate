@@ -13,16 +13,17 @@ interface Props {
 const { name, ratio, sizes = '100vw', eager = false, caption = true, overlayCredit = false, position = 'center', class: cls = '' } = Astro.props;
 const p = PHOTOS[name as keyof typeof PHOTOS];
 const widths = [640, 960, 1280, 1600, 2000, 2600];
-const srcset = widths.map((w) => `${p.src(w)} ${w}w`).join(', ');
+const srcset = (p.widths || widths).map((w) => `${p.src(w)} ${w}w`).join(', ');
 ---
 <figure class:list={['photo', { 'photo--fill': !ratio, 'photo--overlay': overlayCredit }, cls]} style={ratio ? `--ratio:${ratio}` : undefined}>
   <div class="frame">
+    {p.kind === 'ai' && <span class="ai-badge">AI illustration</span>}
     <img src={p.src(1600)} srcset={srcset} sizes={sizes} alt={p.alt} loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} decoding="async" style={`object-position:${position}`} referrerpolicy="no-referrer-when-downgrade" />
   </div>
   {caption && (
     <figcaption>
       <span class="cap">{p.caption}</span>
-      <a class="cred" href={p.creditUrl} target="_blank" rel="noopener">{p.credit}</a>
+      {p.creditUrl ? <a class="cred" href={p.creditUrl} target="_blank" rel="noopener">{p.credit}</a> : <span class="cred">{p.credit}</span>}
       {p.licenseUrl && <a class="cred" href={p.licenseUrl} target="_blank" rel="noopener license">License</a>}
     </figcaption>
   )}
@@ -34,6 +35,9 @@ const srcset = widths.map((w) => `${p.src(w)} ${w}w`).join(', ');
   .photo--fill, .photo--fill .frame { height: 100%; }
   .frame img { display: block; width: 100%; height: 100%; object-fit: cover; }
   figcaption { display: flex; flex-wrap: wrap; gap: 4px 14px; justify-content: space-between; margin-top: 10px; font-family: var(--font-label); font-size: 11.5px; letter-spacing: .06em; color: var(--graphite); }
+  .frame { container-type: inline-size; }
+  .ai-badge { position: absolute; left: 10px; top: 10px; z-index: 2; font-family: var(--font-label); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--ivory); background: rgba(11,11,11,.62); padding: 4px 8px; pointer-events: none; }
+  @container (max-width: 360px) { .ai-badge { left: 6px; top: 6px; font-size: 8.5px; letter-spacing: .1em; padding: 2px 5px; } }
   .cred { color: var(--graphite); text-decoration: none; }
   .cred:hover { color: var(--ink); text-decoration: underline; }
   .photo--overlay figcaption { position: absolute; right: 12px; bottom: 10px; margin: 0; z-index: 2; }

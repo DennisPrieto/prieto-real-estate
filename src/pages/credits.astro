@@ -4,17 +4,17 @@ import Legal from '../components/Legal.astro';
 import { ALL_PHOTOS } from '../data/photos.js';
 ---
 <Base title="Photo credits" description="Credits and licenses for photographs used on this site.">
-  <Legal title="Photo credits" intro="Photographs of Miami and its neighborhoods on this site are by the photographers below. They show public places and landmarks, not properties we are marketing.">
+  <Legal title="Photo credits" intro="Photographs of Miami and its neighborhoods on this site are by the photographers below. They show public places and landmarks, not properties we are marketing. A few neighborhood images are AI illustrations and are labeled as such.">
     <ul class="credits">
       {ALL_PHOTOS.map((p) => (
         <li>
           <span>{p.caption}</span>
-          <a href={p.creditUrl} target="_blank" rel="noopener">{p.credit}</a>
+          {p.creditUrl ? <a href={p.creditUrl} target="_blank" rel="noopener">{p.credit}</a> : <span>{p.credit}</span>}
           {p.licenseUrl && <a href={p.licenseUrl} target="_blank" rel="noopener license">License terms</a>}
         </li>
       ))}
     </ul>
-    <p>Unsplash photographs are used under the <a href="https://unsplash.com/license" target="_blank" rel="noopener">Unsplash License</a>. Wikimedia Commons photographs are used under the Creative Commons license named with each image.</p>
+    <p>Unsplash photographs are used under the <a href="https://unsplash.com/license" target="_blank" rel="noopener">Unsplash License</a>. Wikimedia Commons photographs are used under the Creative Commons license named with each image. Images marked “AI illustration” were generated with AI to convey the feel of a neighborhood; they do not show a real property, a listing or the exact place named.</p>
   </Legal>
 </Base>
 <style>
