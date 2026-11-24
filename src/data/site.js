@@ -73,8 +73,14 @@ export const CLIENT_TESTIMONIALS = [
     r: 'Buyers · Pinecrest',
   },
   {
-    pull: 'They lead with strategy, not slogans.',
-    full: ['From the first conversation, I knew this was different. They lead with strategy, not slogans.'],
+    pull: 'Dennis and Jaelly Prieto don’t lead with slogans. They lead with strategy…',
+    full: [
+      'Dennis and Jaelly Prieto don’t lead with slogans. They lead with strategy — and that’s exactly why selling my condo in Brickell went so well.',
+      'From the first conversation, it was clear they had already thought through the market conditions, the building’s positioning, and what it would take to stand out. No empty promises, no flashy talk. Just a clear plan: how we would price it, how we would present it, and how we would negotiate once interest came in.',
+      'Their approach felt smart and intentional at every step. The marketing was targeted, the timing was right, and the negotiations were handled with real skill. I never felt like I was being sold on an idea — I felt like I was being guided by people who actually knew what they were doing.',
+      'In a market as competitive and fast-moving as Brickell, that kind of clarity and preparation made all the difference. We closed strong, and I walked away feeling confident that we had maximized the outcome.',
+      'If you’re looking for agents who bring real strategy to the table instead of just nice words, Dennis and Jaelly are the ones to call.',
+    ],
     a: 'Rachel S.',
     r: 'Seller · Brickell',
   },
