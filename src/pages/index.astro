@@ -6,11 +6,11 @@ import PlaceImage from '../components/PlaceImage.astro';
 import Testimonials from '../components/Testimonials.astro';
 import ConsultBand from '../components/ConsultBand.astro';
 import Arrow from '../components/Arrow.astro';
-import { NEIGHBORHOODS } from '../data/places.js';
-import { WIDTH as CW, HEIGHT as CH, PLACES } from '../data/bay.js';
+import { NEIGHBORHOODS, REGIONS } from '../data/places.js';
+import { WIDTH as CW, HEIGHT as CH } from '../data/bay.js';
 
-// Every neighborhood, equal tiles, strictly north to south by latitude.
-const TILES = [...NEIGHBORHOODS].sort((a, b) => (PLACES[b.slug]?.at[0] ?? 0) - (PLACES[a.slug]?.at[0] ?? 0));
+// Every neighborhood, equal tiles, in the same order as the Residential page (by region, north to south).
+const TILES = REGIONS.flatMap((r) => NEIGHBORHOODS.filter((n) => n.region === r.key));
 
 const checks = [
   ['Municipality and folio', 'The address on the listing and the city on the tax roll do not always match. One wrong city can send a home to the wrong buyers for months.'],
