@@ -1,0 +1,17 @@
+---
+// A neighborhood's photograph when we have a licensed one, otherwise its stretch of the chart.
+import Photo from './Photo.astro';
+import BayChart from './BayChart.astro';
+import { PHOTOS } from '../data/photos.js';
+interface Props { slug: string; sizes?: string; caption?: boolean; eager?: boolean; ratio?: string }
+const { slug, sizes, caption = false, eager = false, ratio } = Astro.props;
+const has = slug in PHOTOS;
+---
+{has
+  ? <Photo name={slug} caption={caption} sizes={sizes} eager={eager} ratio={ratio} />
+  : <div class="pi-chart" style={ratio ? `aspect-ratio:${ratio}` : undefined}><BayChart focus={slug} /></div>}
+<style>
+  .pi-chart { height: 100%; background: var(--shoal); }
+  .pi-chart :global(.bay), .pi-chart :global(svg) { height: 100%; }
+  .pi-chart :global(figcaption) { display: none; }
+</style>

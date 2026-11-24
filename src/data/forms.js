@@ -31,7 +31,7 @@ export const CONTACT_FIELDS = [
 export const BUYER_FIELDS = [
   { name: 'looking_for', label: 'What are you buying? *', type: 'chips', required: true, options: ['Primary residence', 'Second home', 'Investment', 'Not sure yet'] },
   { name: 'budget', label: 'Target budget *', type: 'select', required: true, half: true, options: ['Under $750k', '$750k – $1.5M', '$1.5M – $3M', '$3M – $6M', '$6M+'] },
-  { name: 'preferred_area', label: 'Preferred area', type: 'select', half: true, options: ['Coral Gables', 'Coconut Grove', 'Brickell', 'Edgewater', 'Pinecrest', 'Key Biscayne', 'Broward', 'Open to suggestions'] },
+  { name: 'preferred_area', label: 'Preferred area', type: 'select', half: true, options: ['Aventura', 'Golden Beach', 'Sunny Isles Beach', 'Bal Harbour', 'Bay Harbor Islands', 'Surfside', 'Indian Creek', 'Miami Shores', 'Miami Beach', 'Edgewater', 'Brickell', 'Fisher Island', 'Key Biscayne', 'Coconut Grove', 'Coral Gables', 'Gables by the Sea', 'Pinecrest', 'Elsewhere in Broward', 'Open to suggestions'] },
   { name: 'timeline', label: 'Timeline *', type: 'chips', required: true, options: ['Now', '1–3 months', '3–6 months', 'Just exploring'] },
   { name: 'pre_approval', label: 'Financing', type: 'chips', options: ['Pre-approved', 'Need a lender', 'Paying cash', 'Foreign national financing'] },
   { name: 'name', label: 'Full name *', type: 'text', required: true, half: true, autoComplete: 'name', placeholder: 'Jane Rivera' },

@@ -29,6 +29,15 @@ export const PHOTOS = {
   'brickell-day': { ...unsplash('photo-1670861643063-0892c6fab1ce', '1T4xUbhjmmk', 'Rolando Yera'), alt: 'Brickell towers seen across the water in daylight', caption: 'Brickell from the water' },
   edgewater: { ...unsplash('photo-1722937293268-62237f5e5435', 'T9p8JzWzVNU', 'Oskar Kadaksoo'), alt: 'Biscayne Bay at golden hour with the MacArthur Causeway, the islands and Miami Beach beyond', caption: 'Biscayne Bay, the causeway and the islands' },
   pinecrest: { ...commons('Pinecrest Gardens FL park entr04.jpg', 'Ebyabe', 'CC BY-SA 3.0', 'https://creativecommons.org/licenses/by-sa/3.0/'), alt: 'Coral-rock archway at the entrance to Pinecrest Gardens', caption: 'Pinecrest Gardens, Village of Pinecrest' },
+  'sunny-isles': { ...unsplash('photo-1630612905242-8f1e6933cf3b', 'l1cORHsLqZ0', 'Avi Werde'), alt: 'Aerial view of Sunny Isles Beach towers along the shoreline', caption: 'Sunny Isles Beach from above' },
+  'bal-harbour': { ...unsplash('photo-1739139519685-9e9fb5f7b196', '_YXGCUzqvrw', 'Zoshua Colah'), alt: 'The Bal Harbour jetty and inlet on a clear day', caption: 'The Bal Harbour jetty' },
+  surfside: { ...unsplash('photo-1748457440298-24f291aa9e24', 'RBQlvEWtQ7w', 'Austin Hervias'), alt: 'A dune path leading to the beach in Surfside', caption: 'A beach path in Surfside' },
+  'key-biscayne': { ...unsplash('photo-1578318099733-19b4c9f575ca', 'AyupIb9O3Nc', 'Quick PS'), alt: 'The Cape Florida Lighthouse on Key Biscayne among palms', caption: 'Cape Florida Lighthouse, Key Biscayne' },
+  'miami-beach': { ...unsplash('photo-1692403435670-c1894e770ecd', 'mw-n_aUlDtw', 'Nils Huenerfuerst'), alt: 'Art Deco buildings and palms on Ocean Drive, Miami Beach', caption: 'Ocean Drive, Miami Beach' },
+  aventura: { ...commons('Aventura Florida along 183rd Street.jpg', 'Fredlyfish4', 'CC BY 4.0', 'https://creativecommons.org/licenses/by/4.0/'), alt: 'Aventura condominium towers across the water at dusk', caption: 'Aventura from the water' },
+  'golden-beach': { ...commons("Golden beach in bird's-eye view (Unsplash).jpg", 'Lance Asper', 'CC0', 'https://creativecommons.org/publicdomain/zero/1.0/'), alt: "Bird's-eye view of the beach and shoreline at Golden Beach", caption: 'Golden Beach from above' },
+  'fisher-island': { ...commons('Fisher Island - panoramio (1).jpg', 'qwesy qwesy', 'CC BY 3.0', 'https://creativecommons.org/licenses/by/3.0/'), alt: 'Fisher Island seen across the water from Government Cut', caption: 'Fisher Island from Government Cut' },
+  'miami-shores': { ...commons('Ms village hall.jpg', 'LEatUSF', 'CC BY-SA 4.0', 'https://creativecommons.org/licenses/by-sa/4.0/'), alt: 'Miami Shores Village Hall among shade trees', caption: 'Miami Shores Village Hall' },
   downtown: { ...unsplash('photo-1586474714711-59ad5a5798bb', 'TxME_LN0o0c', 'Brian Lundquist'), alt: 'Aerial view of downtown Miami along Biscayne Boulevard and the bay', caption: 'Downtown Miami along the bay' },
 };
 

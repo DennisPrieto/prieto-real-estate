@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import PageHead from '../../components/PageHead.astro';
 import BayChart from '../../components/BayChart.astro';
 import Photo from '../../components/Photo.astro';
+import { PHOTOS } from '../../data/photos.js';
 import ConsultBand from '../../components/ConsultBand.astro';
 import Arrow from '../../components/Arrow.astro';
 import { NEIGHBORHOODS } from '../../data/places.js';
@@ -11,7 +12,9 @@ export function getStaticPaths() {
   return NEIGHBORHOODS.map((n) => ({ params: { slug: n.slug }, props: { n } }));
 }
 const { n } = Astro.props;
-const others = NEIGHBORHOODS.filter((o) => o.slug !== n.slug);
+const hasPhoto = n.slug in PHOTOS;
+const idx = NEIGHBORHOODS.findIndex((o) => o.slug === n.slug);
+const others = NEIGHBORHOODS.filter((o, i) => o.slug !== n.slug && Math.abs(i - idx) <= 3);
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -27,7 +30,7 @@ const schema = {
       <a href="/sellers#valuation" class="btn btn--primary">Value a home here <Arrow /></a>
       <a href="/buyers" class="btn btn--ghost">Buy here</a>
     </div>
-    <div slot="aside" class="nb-hero-photo"><Photo name={n.slug} eager ratio="4 / 5" sizes="(max-width: 960px) 100vw, 45vw" /></div>
+    <div slot="aside" class="nb-hero-photo">{hasPhoto ? <Photo name={n.slug} eager ratio="4 / 5" sizes="(max-width: 960px) 100vw, 45vw" /> : <div class="nb-hero-chart"><BayChart focus={n.slug} /></div>}</div>
   </PageHead>
 
   <section class="section">
@@ -37,7 +40,7 @@ const schema = {
           <h2 class="h3">The place</h2>
           {n.place.map((p) => <p>{p}</p>)}
         </div>
-        <div class="nb-chart"><BayChart focus={n.slug} /></div>
+        {hasPhoto && <div class="nb-chart"><BayChart focus={n.slug} /></div>}
       </div>
       <div data-reveal>
         <h2 class="h3">What we check before pricing here</h2>
@@ -63,6 +66,8 @@ const schema = {
 
 <style>
   .nb-hero-photo { max-width: 560px; justify-self: end; width: 100%; }
+  .nb-hero-chart { aspect-ratio: 4 / 5; border: 1px solid var(--rule); }
+  .nb-hero-chart :global(.bay), .nb-hero-chart :global(svg) { height: 100%; }
   .nb-chart { margin-top: 40px; aspect-ratio: 7 / 6; border: 1px solid var(--rule); }
   .nb-chart :global(.bay), .nb-chart :global(svg) { height: 100%; }
   .nb-chart :global(figcaption) { display: none; }

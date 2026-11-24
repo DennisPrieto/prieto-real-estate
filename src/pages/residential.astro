@@ -6,7 +6,8 @@ import Photo from '../components/Photo.astro';
 import Testimonials from '../components/Testimonials.astro';
 import ConsultBand from '../components/ConsultBand.astro';
 import Arrow from '../components/Arrow.astro';
-import { NEIGHBORHOODS } from '../data/places.js';
+import { NEIGHBORHOODS, REGIONS } from '../data/places.js';
+import PlaceImage from '../components/PlaceImage.astro';
 ---
 <Base title="Luxury residential real estate in Miami-Dade and Broward" description="Selling or buying a significant home in Coral Gables, Coconut Grove, Brickell, Edgewater or Pinecrest. Jaelly & Dennis Prieto, Epique Realty, in English and Spanish.">
   <PageHead title="Luxury residential" lede="For owners selling a significant home and for buyers choosing one. Every engagement starts with the property’s record and its real buyer pool, then the Epique Estates marketing program puts it in front of them.">
@@ -20,20 +21,25 @@ import { NEIGHBORHOODS } from '../data/places.js';
 
   <section class="section">
     <div class="wrap">
-      <h2 class="h2" data-reveal>Neighborhoods</h2>
-      <ol class="nb-list">
-        {NEIGHBORHOODS.map((n) => (
-          <li data-reveal>
-            <a href={`/neighborhoods/${n.slug}`}>
-              <span class="nb-thumb"><Photo name={n.slug} caption={false} ratio="4 / 3" sizes="160px" /></span>
-              <span class="h3">{n.name}<span class="coord nb-coord">{n.coord}</span></span>
-              <span class="nb-lede">{n.lede}</span>
-              <Arrow />
-            </a>
-          </li>
-        ))}
-      </ol>
-      <p class="small muted" style="margin-top:28px">We also represent clients across the rest of Miami-Dade and Broward, including Key Biscayne, Miami Beach, Fort Lauderdale and Miami Springs. <a class="textlink" href="/contact">Ask about an area</a>.</p>
+      <h2 class="h2" data-reveal>Seventeen places, Aventura to Gables by the Sea</h2>
+      {REGIONS.map((r) => (
+        <div class="region">
+          <h3 class="label region-h">{r.name}</h3>
+          <ol class="nb-list">
+            {NEIGHBORHOODS.filter((n) => n.region === r.key).map((n) => (
+              <li>
+                <a href={`/neighborhoods/${n.slug}`}>
+                  <span class="nb-thumb"><PlaceImage slug={n.slug} ratio="4 / 3" sizes="160px" /></span>
+                  <span class="h3">{n.name}<span class="coord nb-coord">{n.coord}</span></span>
+                  <span class="nb-lede">{n.lede}</span>
+                  <Arrow />
+                </a>
+              </li>
+            ))}
+          </ol>
+        </div>
+      ))}
+      <p class="small muted" style="margin-top:28px">We also represent clients elsewhere in Miami-Dade and Broward. <a class="textlink" href="/contact">Ask about an area</a>.</p>
     </div>
   </section>
 
@@ -61,7 +67,10 @@ import { NEIGHBORHOODS } from '../data/places.js';
   .res-map :global(.bay) { height: 100%; }
   .res-map :global(svg) { height: 100%; }
   .res-map :global(figcaption) { display: none; }
-  .nb-list { margin-top: 40px; border-top: 1px solid var(--rule); }
+  .region { margin-top: 48px; }
+  .region-h { margin-bottom: 12px; }
+  .nb-thumb { display: block; overflow: hidden; }
+  .nb-list { border-top: 1px solid var(--rule); }
   .nb-list a { display: grid; grid-template-columns: 10rem minmax(0, 18rem) minmax(0, 1fr) 24px; gap: 8px 40px; align-items: baseline; padding: 30px 0; border-bottom: 1px solid var(--rule); color: var(--ink); text-decoration: none; transition: padding .45s var(--ease); }
   .nb-list a:hover { padding-left: 10px; }
   .nb-list a { align-items: center; }

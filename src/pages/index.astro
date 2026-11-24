@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import BayChart from '../components/BayChart.astro';
 import Photo from '../components/Photo.astro';
+import PlaceImage from '../components/PlaceImage.astro';
 import SiteDiagram from '../components/SiteDiagram.astro';
 import Testimonials from '../components/Testimonials.astro';
 import ConsultBand from '../components/ConsultBand.astro';
@@ -91,13 +92,13 @@ const checks = [
     <div class="wrap">
       <div class="nb-head" data-reveal>
         <h2 id="nb-h" class="h2">Where we work</h2>
-        <a href="/residential" class="textlink">All of South Florida, by neighborhood</a>
+        <a href="/residential" class="textlink">All 17, north to south</a>
       </div>
       <ul class="nb-grid">
         {NEIGHBORHOODS.map((n) => (
           <li data-reveal>
             <a href={`/neighborhoods/${n.slug}`} class="nb-card">
-              <div class="nb-map"><Photo name={n.slug} caption={false} sizes="(max-width: 560px) 100vw, (max-width: 960px) 50vw, 33vw" /></div>
+              <div class="nb-map"><PlaceImage slug={n.slug} sizes="(max-width: 560px) 100vw, (max-width: 960px) 50vw, 25vw" /></div>
               <div class="nb-text">
                 <h3 class="h4">{n.name}</h3>
                 <p class="coord">{n.coord}</p>
@@ -196,13 +197,14 @@ const checks = [
   @media (max-width: 960px) { .dx-grid { grid-template-columns: 1fr; } .dx-intro { position: static; } }
 
   .nb-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; }
-  .nb-grid { margin-top: 48px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+  .nb-grid { margin-top: 48px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+  @media (min-width: 1180px) { .nb-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   @media (max-width: 960px) { .nb-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 560px) { .nb-grid { grid-template-columns: 1fr; } }
   .nb-card { display: block; text-decoration: none; color: var(--ink); border: 1px solid var(--rule); background: var(--paper); transition: border-color .35s var(--ease); }
   .nb-card:hover { border-color: var(--ink); }
-  .nb-map { aspect-ratio: 4 / 3; overflow: hidden; }
-  .nb-map :global(.bay), .nb-map :global(.site), .nb-map :global(.photo) { height: 100%; }
+  .nb-map { aspect-ratio: 16 / 10; overflow: hidden; }
+  .nb-map :global(.bay), .nb-map :global(.site), .nb-map :global(.photo), .nb-map :global(.pi-chart) { height: 100%; }
   .nb-map :global(svg) { height: 100%; width: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
   .nb-map :global(img) { transition: transform 1.2s var(--ease); }
   .nb-card:hover .nb-map :global(svg), .nb-card:hover .nb-map :global(img) { transform: scale(1.04); }

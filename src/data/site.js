@@ -42,6 +42,7 @@ export const NAV = [
   { href: '/commercial', label: 'Commercial & Land' },
   { href: '/sellers', label: 'Sellers' },
   { href: '/buyers', label: 'Buyers' },
+  { href: '/join', label: 'Join' },
   { href: '/about', label: 'About' },
 ];
 

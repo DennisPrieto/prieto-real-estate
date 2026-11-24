@@ -41,7 +41,9 @@ const title = label || (focus ? `Schematic chart of Biscayne Bay centred on ${PL
         <g class:list={['place', { 'is-focus': p.slug === focus }]}>
           <circle cx={p.xy[0]} cy={p.xy[1]} r={fs * (p.slug === focus ? 0.5 : 0.36)} />
           {p.slug === focus
-            ? <text x={p.xy[0] + fs * 0.9} y={p.xy[1] + fs * 0.35} text-anchor="start">{p.name.toUpperCase()}</text>
+            ? (p.xy[0] - vb[0] > vb[2] * 0.5
+                ? <text x={p.xy[0] - fs * 0.9} y={p.xy[1] + fs * 0.35} text-anchor="end">{p.name.toUpperCase()}</text>
+                : <text x={p.xy[0] + fs * 0.9} y={p.xy[1] + fs * 0.35} text-anchor="start">{p.name.toUpperCase()}</text>)
             : p.side === 'r'
               ? <text x={p.xy[0] + fs * 0.8} y={p.xy[1] + fs * (0.35 + p.dy)} text-anchor="start">{p.name.toUpperCase()}</text>
               : <text x={p.xy[0] - fs * 0.8} y={p.xy[1] + fs * (0.35 + p.dy)} text-anchor="end">{p.name.toUpperCase()}</text>}
