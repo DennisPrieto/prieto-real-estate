@@ -51,8 +51,13 @@ export const NAV = [
 // `pull` is shown large and must be an exact excerpt of `full` (a trailing … marks a cut). `href` (optional) links to the public review.
 export const CLIENT_TESTIMONIALS = [
   {
-    pull: 'They sold our home for 14% over ask in seven days, and it felt effortless.',
-    full: ['The level of representation Epique provides is unmatched. They sold our home for 14% over ask in seven days, and it felt effortless.'],
+    pull: 'They deliver results and treat their clients like people, not just transactions.',
+    full: [
+      'Selling our home in Coral Gables with Dennis and Jaelly Prieto was an outstanding experience from start to finish. We had lived in the house for many years and were naturally a little emotional about letting it go, but Dennis and Jaelly handled everything with professionalism, care, and real expertise.',
+      'They came in with a clear plan. The staging advice, the pricing strategy, and the marketing were all thoughtful and effective. Our home looked its absolute best, and the exposure they generated brought in serious, qualified buyers quickly. What impressed us most was how well they negotiated. They protected our interests at every step, kept us informed without overwhelming us, and never pressured us into decisions we weren’t comfortable with.',
+      'The entire process felt organized and low-stress. Contracts, inspections, repairs, and closing were managed smoothly, and we always felt like we had a strong advocate in our corner. In a competitive market like Coral Gables, that level of guidance and calm confidence made a real difference.',
+      'We closed at a price we were very happy with and walked away feeling respected and well taken care of. If you’re thinking about selling in Coral Gables, we highly recommend Dennis and Jaelly Prieto. They deliver results and treat their clients like people, not just transactions.',
+    ],
     a: 'Sandra & Michael R.',
     r: 'Sellers · Coral Gables',
   },
