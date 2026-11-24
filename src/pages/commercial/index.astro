@@ -1,7 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import PageHead from '../../components/PageHead.astro';
-import SiteDiagram from '../../components/SiteDiagram.astro';
+import PhotoHero from '../../components/PhotoHero.astro';
 import Photo from '../../components/Photo.astro';
 import InquiryForm from '../../islands/InquiryForm.jsx';
 import Arrow from '../../components/Arrow.astro';
@@ -19,17 +18,12 @@ const services = [
 ];
 ---
 <Base title="Commercial real estate and land advisory, Miami-Dade and Broward" description="Land, assemblages, industrial and Live Local Act sites. Valuation, highest-and-best-use and site strategy from Dennis Prieto, Epique Realty.">
-  <PageHead title="Commercial and land" lede="For owners of development land, assemblages, industrial buildings and transit-adjacent sites, and for the developers and investors who buy them. We start with what the site is worth to the right buyer, and why, before anyone talks about listing it.">
+  <PhotoHero photo="downtown" title="Commercial and land" position="center 40%" lede="For owners of development land, assemblages, industrial buildings and transit-adjacent sites, and for the developers and investors who buy them. We start with what the site is worth to the right buyer, and why, before anyone talks about listing it.">
     <div class="btn-row">
-      <a href="#inquiry" class="btn btn--primary">Request a site review <Arrow /></a>
-      <a href="/commercial/live-local-act" class="btn btn--ghost">The Live Local Act</a>
+      <a href="#inquiry" class="btn btn--gold">Request a site review <Arrow /></a>
+      <a href="/commercial/live-local-act" class="btn btn--light">The Live Local Act</a>
     </div>
-    <div slot="aside"><SiteDiagram variant="transit" tone="light" /></div>
-  </PageHead>
-
-  <section class="band" aria-label="Downtown Miami from above">
-    <Photo name="downtown" ratio="21 / 8" overlayCredit sizes="100vw" position="center 40%" />
-  </section>
+  </PhotoHero>
 
   <section class="section section--onyx">
     <div class="wrap">
@@ -38,7 +32,7 @@ const services = [
         {PRACTICE.map((p) => (
           <li data-reveal>
             <a href={`/commercial/${p.slug}`}>
-              <div class="practice-art"><SiteDiagram variant={p.variant} tone="dark" /></div>
+              <div class="practice-art"><Photo name={p.slug} ratio="16 / 10" caption={false} sizes="(max-width: 900px) 100vw, 33vw" /></div>
               <h3 class="h3">{p.name}</h3>
               <p>{p.lede}</p>
               <span class="more">Read more <Arrow /></span>

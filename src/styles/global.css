@@ -21,7 +21,7 @@
   --on-onyx-2: #C9C1B0;
 
   --font-display: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
-  --font-body: 'Inter Variable', 'Inter', system-ui, sans-serif;
+  --font-body: 'Hanken Grotesk Variable', 'Hanken Grotesk', system-ui, sans-serif;
   --font-label: 'Archivo Narrow', 'Arial Narrow', sans-serif;
 
   --wrap: 1240px;
@@ -120,9 +120,14 @@ img { max-width: 100%; height: auto; }
 .quote-by strong { font-weight: 500; }
 
 /* Reveal: content is visible by default; script adds the motion. */
-.reveal-ready [data-reveal] { opacity: 0; transform: translateY(14px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
-.reveal-ready [data-reveal].is-in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) { .reveal-ready [data-reveal] { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+/* Only headings ease in; photos and body copy are there the moment you arrive. */
+.reveal-ready [data-reveal]:is(h1, h2, h3, .h2, .h3),
+.reveal-ready [data-reveal] > :is(h2, h3, .h2, .h3),
+.reveal-ready [data-reveal] > :first-child > :is(h2, h3, .h2, .h3) { opacity: 0; transform: translateY(10px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+.reveal-ready [data-reveal].is-in:is(h1, h2, h3, .h2, .h3),
+.reveal-ready [data-reveal].is-in > :is(h2, h3, .h2, .h3),
+.reveal-ready [data-reveal].is-in > :first-child > :is(h2, h3, .h2, .h3) { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal-ready [data-reveal], .reveal-ready [data-reveal] * { opacity: 1 !important; transform: none !important; transition: none !important; } html { scroll-behavior: auto; } }
 
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 .skip { position: absolute; left: 12px; top: -60px; background: var(--ink); color: var(--ivory); padding: 10px 14px; z-index: 100; }

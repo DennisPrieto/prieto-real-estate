@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PageHead from '../../components/PageHead.astro';
+import PhotoHero from '../../components/PhotoHero.astro';
 import BayChart from '../../components/BayChart.astro';
 import Photo from '../../components/Photo.astro';
 import { PHOTOS } from '../../data/photos.js';
@@ -25,13 +26,22 @@ const schema = {
 };
 ---
 <Base title={n.title} description={n.description} schema={schema}>
-  <PageHead title={n.name} lede={n.lede} coord={n.coord} crumbs={[['/residential', 'Residential'], [`/neighborhoods/${n.slug}`, n.name]]}>
-    <div class="btn-row">
-      <a href="/sellers#valuation" class="btn btn--primary">Value a home here <Arrow /></a>
-      <a href="/buyers" class="btn btn--ghost">Buy here</a>
-    </div>
-    <div slot="aside" class="nb-hero-photo">{hasPhoto ? <Photo name={n.slug} eager ratio="4 / 5" sizes="(max-width: 960px) 100vw, 45vw" /> : <div class="nb-hero-chart"><BayChart focus={n.slug} /></div>}</div>
-  </PageHead>
+  {hasPhoto ? (
+    <PhotoHero photo={n.slug} title={n.name} lede={n.lede} coord={n.coord} crumbs={[['/residential', 'Residential'], [`/neighborhoods/${n.slug}`, n.name]]}>
+      <div class="btn-row">
+        <a href="/sellers#valuation" class="btn btn--gold">Value a home here <Arrow /></a>
+        <a href="/buyers" class="btn btn--light">Buy here</a>
+      </div>
+    </PhotoHero>
+  ) : (
+    <PageHead title={n.name} lede={n.lede} coord={n.coord} crumbs={[['/residential', 'Residential'], [`/neighborhoods/${n.slug}`, n.name]]}>
+      <div class="btn-row">
+        <a href="/sellers#valuation" class="btn btn--primary">Value a home here <Arrow /></a>
+        <a href="/buyers" class="btn btn--ghost">Buy here</a>
+      </div>
+      <div slot="aside" class="nb-hero-photo"><div class="nb-hero-chart"><BayChart focus={n.slug} /></div></div>
+    </PageHead>
+  )}
 
   <section class="section">
     <div class="wrap nb-body">

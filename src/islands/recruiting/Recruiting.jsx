@@ -73,7 +73,7 @@ const SectionHeading = ({ eyebrow, title, sub, align = 'left', inverted = false 
   </div>
 );
 const ChoiceChip = ({ label, active, onClick }) => (
-  <button onClick={onClick} className="px-4 py-2.5 text-xs transition-all" style={{ background: active ? C.ink : 'transparent', color: active ? '#fff' : C.ink, border: `1px solid ${active ? C.ink : C.hair}`, fontFamily: 'Inter', letterSpacing: '0.04em', fontWeight: 500 }}>{label}</button>
+  <button onClick={onClick} className="px-4 py-2.5 text-xs transition-all" style={{ background: active ? C.ink : 'transparent', color: active ? '#fff' : C.ink, border: `1px solid ${active ? C.ink : C.hair}`, fontFamily: 'Hanken Grotesk Variable', letterSpacing: '0.04em', fontWeight: 500 }}>{label}</button>
 );
 function InputSlider({ label, value, setValue, min, max, step = 1, display }) {
   const fillPct = ((value - min) / (max - min)) * 100;
@@ -99,7 +99,7 @@ function SelectField({ label, value, onChange, options }) {
     <div>
       <div className="ui-eyebrow mb-2" style={{ color: C.ink2 }}>{label}</div>
       <div className="relative">
-        <select value={value} onChange={(e) => onChange(e.target.value)} className="w-full appearance-none num-input pr-8" style={{ fontSize: 16, fontFamily: 'Inter', fontWeight: 500 }}>
+        <select value={value} onChange={(e) => onChange(e.target.value)} className="w-full appearance-none num-input pr-8" style={{ fontSize: 16, fontFamily: 'Hanken Grotesk Variable', fontWeight: 500 }}>
           {options.map((o) => <option key={o} value={o}>{o}</option>)}
         </select>
         <ChevronDown size={14} className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none" color={C.ink2} />
@@ -185,7 +185,7 @@ function AgentEcosystemPage({ go }) {
               <ResponsiveContainer width="100%" height={280}>
                 <BarChart data={[{ y: 'Year 1', cap: 15000 }, { y: 'Year 2', cap: 14000 }, { y: 'Year 3', cap: 13000 }, { y: 'Year 4', cap: 12000 }, { y: 'Year 5', cap: 11000 }, { y: 'Year 6+', cap: 10000 }]}>
                   <CartesianGrid stroke={C.hair} vertical={false} /><XAxis dataKey="y" stroke={C.ink2} fontSize={11} /><YAxis stroke={C.ink2} fontSize={11} domain={[0, 16000]} tickFormatter={(v) => '$' + (v / 1000) + 'k'} />
-                  <Tooltip contentStyle={{ background: '#fff', border: `1px solid ${C.hair}`, borderRadius: 0, fontFamily: 'Inter', fontSize: 12 }} formatter={(v) => [fmt(v), 'Annual cap']} />
+                  <Tooltip contentStyle={{ background: '#fff', border: `1px solid ${C.hair}`, borderRadius: 0, fontFamily: 'Hanken Grotesk Variable', fontSize: 12 }} formatter={(v) => [fmt(v), 'Annual cap']} />
                   <Bar dataKey="cap" fill={C.gold} radius={[2, 2, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
@@ -301,7 +301,7 @@ function USACalculator({ go, addToast }) {
               </summary>
               <div className="mt-6 text-sm" style={{ color: C.ink2, lineHeight: 1.75 }}>
                 <p>This is a simple, conservative split-only model based on the inputs above:</p>
-                <div className="mt-4 p-5" style={{ background: C.bg2, fontFamily: 'Inter' }}>
+                <div className="mt-4 p-5" style={{ background: C.bg2, fontFamily: 'Hanken Grotesk Variable' }}>
                   <div style={{ color: C.ink, fontSize: 13 }}><strong>You keep currently</strong> = GCI × your take-home %</div>
                   <div className="mt-2 text-xs" style={{ color: C.ink3 }}>
                     where <strong style={{ color: C.ink }}>GCI</strong> = transactions × avg sales price × your commission %
@@ -340,8 +340,8 @@ function USACalculator({ go, addToast }) {
               </div>
             </details>
           </div>
-          <div className="card-soft p-8 lg:p-10"><Eyebrow>Cumulative Earnings — Monthly</Eyebrow><div className="mt-6"><ResponsiveContainer width="100%" height={280}><AreaChart data={calc.monthly}><defs><linearGradient id="gp" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={C.gold} stopOpacity={0.35} /><stop offset="100%" stopColor={C.gold} stopOpacity={0} /></linearGradient><linearGradient id="gt" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={C.ink} stopOpacity={0.2} /><stop offset="100%" stopColor={C.ink} stopOpacity={0} /></linearGradient></defs><CartesianGrid stroke={C.hair} vertical={false} /><XAxis dataKey="month" stroke={C.ink2} fontSize={11} /><YAxis stroke={C.ink2} fontSize={11} tickFormatter={(v) => fmtK(v)} /><Tooltip contentStyle={{ background: '#fff', border: `1px solid ${C.hair}`, fontFamily: 'Inter', fontSize: 12 }} formatter={(v) => fmt(v)} /><Legend wrapperStyle={{ fontFamily: 'Inter', fontSize: 12 }} /><Area type="monotone" dataKey="Epique" stroke={C.gold} strokeWidth={2} fill="url(#gp)" /><Area type="monotone" dataKey="Traditional" stroke={C.ink} strokeWidth={1.5} fill="url(#gt)" /></AreaChart></ResponsiveContainer></div></div>
-          <div className="card-soft p-8 lg:p-10"><Eyebrow>{years}-Year Cumulative Projection</Eyebrow><p className="text-sm mt-3" style={{ color: C.ink2 }}>Assumes 8% annual production growth · For illustration only</p><div className="mt-6"><ResponsiveContainer width="100%" height={260}><LineChart data={calc.yearly}><CartesianGrid stroke={C.hair} vertical={false} /><XAxis dataKey="year" stroke={C.ink2} fontSize={11} /><YAxis stroke={C.ink2} fontSize={11} tickFormatter={(v) => fmtK(v)} /><Tooltip contentStyle={{ background: '#fff', border: `1px solid ${C.hair}`, fontFamily: 'Inter', fontSize: 12 }} formatter={(v) => fmt(v)} /><Legend wrapperStyle={{ fontFamily: 'Inter', fontSize: 12 }} /><Line type="monotone" dataKey="Epique" stroke={C.gold} strokeWidth={2.5} dot={{ fill: C.gold, r: 4 }} /><Line type="monotone" dataKey="Traditional" stroke={C.ink} strokeWidth={1.5} strokeDasharray="4 4" dot={{ fill: C.ink, r: 3 }} /></LineChart></ResponsiveContainer></div><div className="mt-6 pt-6 hairline border-t"><div className="ui-eyebrow" style={{ color: C.ink2 }}>{years}-year total advantage</div><div className="font-display mt-2" style={{ fontSize: 32, color: C.gold, fontWeight: 500 }}>+{fmt(calc.yearly[calc.yearly.length - 1].Epique - calc.yearly[calc.yearly.length - 1].Traditional)}</div></div></div>
+          <div className="card-soft p-8 lg:p-10"><Eyebrow>Cumulative Earnings — Monthly</Eyebrow><div className="mt-6"><ResponsiveContainer width="100%" height={280}><AreaChart data={calc.monthly}><defs><linearGradient id="gp" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={C.gold} stopOpacity={0.35} /><stop offset="100%" stopColor={C.gold} stopOpacity={0} /></linearGradient><linearGradient id="gt" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={C.ink} stopOpacity={0.2} /><stop offset="100%" stopColor={C.ink} stopOpacity={0} /></linearGradient></defs><CartesianGrid stroke={C.hair} vertical={false} /><XAxis dataKey="month" stroke={C.ink2} fontSize={11} /><YAxis stroke={C.ink2} fontSize={11} tickFormatter={(v) => fmtK(v)} /><Tooltip contentStyle={{ background: '#fff', border: `1px solid ${C.hair}`, fontFamily: 'Hanken Grotesk Variable', fontSize: 12 }} formatter={(v) => fmt(v)} /><Legend wrapperStyle={{ fontFamily: 'Hanken Grotesk Variable', fontSize: 12 }} /><Area type="monotone" dataKey="Epique" stroke={C.gold} strokeWidth={2} fill="url(#gp)" /><Area type="monotone" dataKey="Traditional" stroke={C.ink} strokeWidth={1.5} fill="url(#gt)" /></AreaChart></ResponsiveContainer></div></div>
+          <div className="card-soft p-8 lg:p-10"><Eyebrow>{years}-Year Cumulative Projection</Eyebrow><p className="text-sm mt-3" style={{ color: C.ink2 }}>Assumes 8% annual production growth · For illustration only</p><div className="mt-6"><ResponsiveContainer width="100%" height={260}><LineChart data={calc.yearly}><CartesianGrid stroke={C.hair} vertical={false} /><XAxis dataKey="year" stroke={C.ink2} fontSize={11} /><YAxis stroke={C.ink2} fontSize={11} tickFormatter={(v) => fmtK(v)} /><Tooltip contentStyle={{ background: '#fff', border: `1px solid ${C.hair}`, fontFamily: 'Hanken Grotesk Variable', fontSize: 12 }} formatter={(v) => fmt(v)} /><Legend wrapperStyle={{ fontFamily: 'Hanken Grotesk Variable', fontSize: 12 }} /><Line type="monotone" dataKey="Epique" stroke={C.gold} strokeWidth={2.5} dot={{ fill: C.gold, r: 4 }} /><Line type="monotone" dataKey="Traditional" stroke={C.ink} strokeWidth={1.5} strokeDasharray="4 4" dot={{ fill: C.ink, r: 3 }} /></LineChart></ResponsiveContainer></div><div className="mt-6 pt-6 hairline border-t"><div className="ui-eyebrow" style={{ color: C.ink2 }}>{years}-year total advantage</div><div className="font-display mt-2" style={{ fontSize: 32, color: C.gold, fontWeight: 500 }}>+{fmt(calc.yearly[calc.yearly.length - 1].Epique - calc.yearly[calc.yearly.length - 1].Traditional)}</div></div></div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6"><MiniStat label="Total GCI" value={fmt(calc.gci)} /><MiniStat label="Brokerage Take" value={fmt(calc.brokerageTake + calc.postCapFees)} /><MiniStat label="Deals to Cap" value={`${calc.dealsToCap}`} /></div>
         </div>
       </div></div></section>
@@ -418,8 +418,8 @@ function CanadaCalculator({ go, addToast }) {
 
           {/* Toggle */}
           <div className="mt-12 card-soft p-2 flex gap-2 auto-fade-up delay-2">
-            <button onClick={() => { setMode('request'); setSubmitted(false); }} className="flex-1 py-4 text-center transition-all" style={{ background: mode === 'request' ? C.ink : 'transparent', color: mode === 'request' ? '#fff' : C.ink, fontFamily: 'Inter', fontWeight: 500, fontSize: 14, letterSpacing: '0.04em' }}>Request Access</button>
-            <button onClick={() => setMode('status')} className="flex-1 py-4 text-center transition-all" style={{ background: mode === 'status' ? C.ink : 'transparent', color: mode === 'status' ? '#fff' : C.ink2, fontFamily: 'Inter', fontWeight: 500, fontSize: 14, letterSpacing: '0.04em' }}>Check My Status</button>
+            <button onClick={() => { setMode('request'); setSubmitted(false); }} className="flex-1 py-4 text-center transition-all" style={{ background: mode === 'request' ? C.ink : 'transparent', color: mode === 'request' ? '#fff' : C.ink, fontFamily: 'Hanken Grotesk Variable', fontWeight: 500, fontSize: 14, letterSpacing: '0.04em' }}>Request Access</button>
+            <button onClick={() => setMode('status')} className="flex-1 py-4 text-center transition-all" style={{ background: mode === 'status' ? C.ink : 'transparent', color: mode === 'status' ? '#fff' : C.ink2, fontFamily: 'Hanken Grotesk Variable', fontWeight: 500, fontSize: 14, letterSpacing: '0.04em' }}>Check My Status</button>
           </div>
 
           {/* Panel */}
@@ -442,14 +442,14 @@ function CanadaCalculator({ go, addToast }) {
                   <div>
                     <div className="ui-eyebrow mb-2" style={{ color: C.ink2 }}>Province *</div>
                     <div className="relative">
-                      <select required value={form.province} onChange={set('province')} className="w-full appearance-none num-input pr-8" style={{ fontSize: 16, fontFamily: 'Inter', fontWeight: 500, color: form.province ? C.ink : C.ink3 }}>
+                      <select required value={form.province} onChange={set('province')} className="w-full appearance-none num-input pr-8" style={{ fontSize: 16, fontFamily: 'Hanken Grotesk Variable', fontWeight: 500, color: form.province ? C.ink : C.ink3 }}>
                         <option value="" disabled>Select your province</option>
                         {PROVINCES.map((p) => <option key={p} value={p} style={{ color: C.ink }}>{p}</option>)}
                       </select>
                       <ChevronDown size={14} className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none" color={C.ink2} />
                     </div>
                   </div>
-                  <Field label="Current Brokerage"><input className="num-input" type="text" value={form.brokerage} onChange={set('brokerage')} placeholder="e.g. RE/MAX, Royal LePage, Century 21…" style={{ fontSize: 16, fontFamily: 'Inter' }} /></Field>
+                  <Field label="Current Brokerage"><input className="num-input" type="text" value={form.brokerage} onChange={set('brokerage')} placeholder="e.g. RE/MAX, Royal LePage, Century 21…" style={{ fontSize: 16, fontFamily: 'Hanken Grotesk Variable' }} /></Field>
                   <div className="pt-4">
                     <button type="submit" disabled={sending} className="lux-btn lux-btn-primary w-full justify-center" style={{ opacity: sending ? 0.65 : 1, cursor: sending ? 'wait' : 'pointer' }}>{sending ? 'Sending…' : <><Sparkles size={14} /> Request Access to Canada Calculator</>}</button>
                     <p className="text-xs mt-4 text-center" style={{ color: C.ink2 }}>Limited to licensed Canadian agents. Each request is personally reviewed.</p>
@@ -736,7 +736,7 @@ function TeamCalculator({ go, addToast }) {
                 <CartesianGrid stroke={C.hair} vertical={false} />
                 <XAxis dataKey="name" stroke={C.ink2} fontSize={11} />
                 <YAxis stroke={C.ink2} fontSize={11} tickFormatter={(v) => fmtK(v)} />
-                <Tooltip contentStyle={{ background: '#fff', border: `1px solid ${C.hair}`, fontFamily: 'Inter', fontSize: 12 }} formatter={(v) => fmt(v)} />
+                <Tooltip contentStyle={{ background: '#fff', border: `1px solid ${C.hair}`, fontFamily: 'Hanken Grotesk Variable', fontSize: 12 }} formatter={(v) => fmt(v)} />
                 <Bar dataKey="value" fill={C.gold} radius={[2, 2, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
@@ -1256,7 +1256,7 @@ function RevenueSharePage({ go }) {
                   <CartesianGrid stroke={C.hair} vertical={false} />
                   <XAxis dataKey="name" stroke={C.ink2} fontSize={11} />
                   <YAxis stroke={C.ink2} fontSize={11} tickFormatter={(v) => fmtK(v)} />
-                  <Tooltip contentStyle={{ background: '#fff', border: `1px solid ${C.hair}`, fontFamily: 'Inter', fontSize: 12 }} formatter={(v) => fmt(v) + '/mo'} />
+                  <Tooltip contentStyle={{ background: '#fff', border: `1px solid ${C.hair}`, fontFamily: 'Hanken Grotesk Variable', fontSize: 12 }} formatter={(v) => fmt(v) + '/mo'} />
                   <Bar dataKey="monthly" radius={[2, 2, 0, 0]}>
                     {calc.rows.map((r, i) => (<Cell key={i} fill={(powerAward && r.lvl === 1) ? C.goldDeep : C.gold} />))}
                   </Bar>

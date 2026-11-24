@@ -1,0 +1,41 @@
+---
+// Full-width photographic opening for interior pages (same treatment as the homepage hero).
+import Photo from './Photo.astro';
+interface Props { photo: string; title: string; lede?: string; coord?: string; crumbs?: [string, string][]; position?: string; short?: boolean }
+const { photo, title, lede, coord, crumbs = [], position = 'center', short = false } = Astro.props;
+---
+<section class:list={['phero', { 'phero--short': short }]}>
+  <Photo name={photo} eager overlayCredit sizes="100vw" class="phero-photo" position={position} grade="base" />
+  <div class="phero-scrim" aria-hidden="true"></div>
+  <div class="wrap phero-copy">
+    {crumbs.length > 0 && (
+      <nav aria-label="Breadcrumb" class="crumbs">
+        {crumbs.map(([href, t]) => <a href={href}>{t}</a>)}
+      </nav>
+    )}
+    <h1 class="display">{title}</h1>
+    {lede && <p class="lede">{lede}</p>}
+    <slot />
+    {coord && <p class="coord phero-coord">{coord}</p>}
+  </div>
+</section>
+<style>
+  .phero { position: relative; min-height: min(78vh, 760px); display: flex; align-items: flex-end; color: var(--ivory); overflow: hidden; background: var(--ink); }
+  .phero--short { min-height: min(64vh, 620px); }
+  .phero :global(.phero-photo) { position: absolute; inset: 0; }
+  .phero :global(.phero-photo), .phero :global(.phero-photo .frame) { height: 100%; }
+  .phero-scrim { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(11,11,11,.66) 0%, rgba(11,11,11,.36) 45%, rgba(11,11,11,.05) 78%), linear-gradient(0deg, rgba(11,11,11,.6) 0%, rgba(11,11,11,0) 55%); }
+  .phero-copy { position: relative; z-index: 1; width: 100%; padding-top: 140px; padding-bottom: clamp(48px, 7vw, 88px); }
+  .phero-copy .display { color: var(--ivory); max-width: 14ch; }
+  .phero-copy .lede { margin-top: 22px; color: rgba(244,241,234,.9); max-width: 52ch; }
+  .phero-copy :global(.btn-row) { margin-top: 34px; }
+  .phero-coord { margin-top: 32px; color: rgba(244,241,234,.7); }
+  .crumbs { display: flex; gap: 10px; margin-bottom: 24px; font-family: var(--font-label); font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; }
+  .crumbs a { color: rgba(244,241,234,.78); text-decoration: none; }
+  .crumbs a:hover { color: var(--ivory); }
+  .crumbs a + a::before { content: '/'; margin-right: 10px; color: rgba(244,241,234,.4); }
+  @media (max-width: 720px) {
+    .phero { min-height: 74vh; }
+    .phero-scrim { background: linear-gradient(0deg, rgba(11,11,11,.82) 0%, rgba(11,11,11,.4) 60%, rgba(11,11,11,.2) 100%); }
+  }
+</style>

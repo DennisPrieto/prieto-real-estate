@@ -9,13 +9,15 @@ interface Props {
   overlayCredit?: boolean; // credit sits on the image (for full-bleed use)
   position?: string;       // object-position
   class?: string;
+  grade?: 'soft' | 'base' | 'strong' | 'none'; // one color treatment so every photo reads as one set
 }
-const { name, ratio, sizes = '100vw', eager = false, caption = true, overlayCredit = false, position = 'center', class: cls = '' } = Astro.props;
+const { name, ratio, sizes = '100vw', eager = false, caption = true, overlayCredit = false, position = 'center', class: cls = '', grade } = Astro.props;
 const p = PHOTOS[name as keyof typeof PHOTOS];
+const g = grade || (p.kind === 'own' ? 'strong' : 'base');
 const widths = [640, 960, 1280, 1600, 2000, 2600];
 const srcset = (p.widths || widths).map((w) => `${p.src(w)} ${w}w`).join(', ');
 ---
-<figure class:list={['photo', { 'photo--fill': !ratio, 'photo--overlay': overlayCredit }, cls]} style={ratio ? `--ratio:${ratio}` : undefined}>
+<figure class:list={['photo', `grade-${g}`, { 'photo--fill': !ratio, 'photo--overlay': overlayCredit }, cls]} style={ratio ? `--ratio:${ratio}` : undefined}>
   <div class="frame">
     <img src={p.src(1600)} srcset={srcset} sizes={sizes} alt={p.alt} loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} decoding="async" style={`object-position:${position}`} referrerpolicy="no-referrer-when-downgrade" />
   </div>
@@ -31,6 +33,10 @@ const srcset = (p.widths || widths).map((w) => `${p.src(w)} ${w}w`).join(', ');
   .frame { position: relative; overflow: hidden; background: var(--shoal); aspect-ratio: var(--ratio, auto); }
   .photo--fill, .photo--fill .frame { height: 100%; }
   .frame img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  /* House grade: slightly muted, warm, a touch of contrast. 'strong' tames heavily saturated retouches. */
+  .grade-soft .frame img { filter: saturate(.9) contrast(1.03) sepia(.04); }
+  .grade-base .frame img { filter: saturate(.82) contrast(1.05) sepia(.08) brightness(1.01); }
+  .grade-strong .frame img { filter: saturate(.7) contrast(1.03) sepia(.12) brightness(.99); }
   figcaption { display: flex; flex-wrap: wrap; gap: 4px 14px; justify-content: space-between; margin-top: 10px; font-family: var(--font-label); font-size: 11.5px; letter-spacing: .06em; color: var(--graphite); }
   .cred { color: var(--graphite); text-decoration: none; }
   .cred:hover { color: var(--ink); text-decoration: underline; }

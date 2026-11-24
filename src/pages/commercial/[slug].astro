@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import PageHead from '../../components/PageHead.astro';
+import PhotoHero from '../../components/PhotoHero.astro';
 import SiteDiagram from '../../components/SiteDiagram.astro';
 import InquiryForm from '../../islands/InquiryForm.jsx';
 import Arrow from '../../components/Arrow.astro';
@@ -15,17 +15,17 @@ const { p } = Astro.props;
 const others = PRACTICE.filter((o) => o.slug !== p.slug);
 ---
 <Base title={p.title} description={p.description}>
-  <PageHead title={p.name} lede={p.lede} crumbs={[['/commercial', 'Commercial and land'], [`/commercial/${p.slug}`, p.name]]}>
+  <PhotoHero photo={p.slug} title={p.name} lede={p.lede} short crumbs={[['/commercial', 'Commercial and land'], [`/commercial/${p.slug}`, p.name]]}>
     <div class="btn-row">
-      <a href="#inquiry" class="btn btn--primary">Request a site review <Arrow /></a>
+      <a href="#inquiry" class="btn btn--gold">Request a site review <Arrow /></a>
     </div>
-    <div slot="aside"><SiteDiagram variant={p.variant} tone="light" /></div>
-  </PageHead>
+  </PhotoHero>
 
   <section class="section">
     <div class="wrap body">
       <div class="prose" data-reveal>
         {p.body.map((t) => <p>{t}</p>)}
+        <div class="body-diagram"><SiteDiagram variant={p.variant} tone="light" /></div>
         {p.slug === 'live-local-act' && (
           <p class="small muted note">This page summarizes Florida’s Live Local Act (enacted 2023, amended in 2024 and 2025) for general information. It is not legal advice; eligibility depends on the current statute, local regulations and the specific parcel, confirmed with land-use counsel.</p>
         )}
@@ -56,6 +56,7 @@ const others = PRACTICE.filter((o) => o.slug !== p.slug);
 </Base>
 
 <style>
+  .body-diagram { margin-top: 36px; max-width: 520px; }
   .body { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: 48px 88px; align-items: start; }
   @media (max-width: 960px) { .body { grid-template-columns: 1fr; } }
   .note { margin-top: 28px !important; padding-top: 18px; border-top: 1px solid var(--rule); }
