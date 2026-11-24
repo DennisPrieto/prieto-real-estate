@@ -1,27 +1,104 @@
 ---
+// One client at a time: a large pull quote (an exact excerpt of the review), the full review on request,
+// and numbered controls. Nothing rotates on its own.
 import { CLIENT_TESTIMONIALS } from '../data/site.js';
 interface Props { items?: typeof CLIENT_TESTIMONIALS; heading?: string }
-const { items = CLIENT_TESTIMONIALS, heading = 'In our clients’ words' } = Astro.props;
+const { items = CLIENT_TESTIMONIALS, heading = 'Clients' } = Astro.props;
+const uid = Math.random().toString(36).slice(2, 8);
+const many = items.length > 1;
+const pad = (n: number) => String(n).padStart(2, '0');
 ---
-<section class="section section--paper" aria-labelledby="t-h">
-  <div class="wrap">
-    <h2 id="t-h" class="h2" data-reveal>{heading}</h2>
-    <div class:list={['t-grid', { 't-grid--one': items.length === 1 }]}>
-      {items.map((t, i) => (
-        <figure class:list={['t', { 't--lead': i === 0 && items.length > 1 }]} data-reveal>
-          <blockquote class="quote">“{t.q}”</blockquote>
-          <figcaption class="quote-by"><strong>{t.a}</strong><span class="muted"> · {t.r}</span></figcaption>
-        </figure>
-      ))}
+<section class="section section--onyx tq" aria-labelledby={`tq-h-${uid}`} data-tq>
+  <div class="wrap tq-wrap">
+    <p id={`tq-h-${uid}`} class="tq-label">{heading}</p>
+    <div class="tq-stage" aria-live="polite">
+      {items.map((t, i) => {
+        const hasMore = t.full.join(' ').trim() !== t.pull.replace(/…$/, '').trim();
+        return (
+          <figure class="tq-slide" id={`tq-${uid}-${i}`} data-i={i} data-active={i === 0 ? 'true' : undefined}>
+            <span class="tq-rule" aria-hidden="true"></span>
+            <blockquote class="tq-quote">“{t.pull}”</blockquote>
+            <figcaption class="tq-by">
+              <span class="tq-name">{t.a}</span>
+              <span class="tq-role">{t.r}</span>
+              {t.href && <a class="tq-src" href={t.href} target="_blank" rel="noopener">Read the review</a>}
+            </figcaption>
+            {hasMore && (
+              <details class="tq-more">
+                <summary>Read the full review</summary>
+                <div class="tq-full">
+                  {t.full.map((para) => <p>{para}</p>)}
+                </div>
+              </details>
+            )}
+          </figure>
+        );
+      })}
     </div>
+    {many && (
+      <div class="tq-nav" role="group" aria-label="Choose a client review">
+        {items.map((t, i) => (
+          <button type="button" class="tq-dot" data-go={i} aria-controls={`tq-${uid}-${i}`} aria-pressed={i === 0 ? 'true' : 'false'} aria-label={`Review ${i + 1} of ${items.length}: ${t.a}`}>
+            <span class="tq-num">{pad(i + 1)}</span>
+          </button>
+        ))}
+      </div>
+    )}
   </div>
 </section>
+
+<script>
+  document.querySelectorAll('[data-tq]').forEach((root) => {
+    const slides = [...root.querySelectorAll('.tq-slide')];
+    const dots = [...root.querySelectorAll('.tq-dot')];
+    if (slides.length < 2) return;
+    root.classList.add('tq-js');
+    const go = (n) => {
+      slides.forEach((s, i) => {
+        const on = i === n;
+        s.toggleAttribute('data-active', on);
+        s.setAttribute('aria-hidden', on ? 'false' : 'true');
+        if (!on) s.querySelector('details')?.removeAttribute('open');
+      });
+      dots.forEach((d, i) => d.setAttribute('aria-pressed', i === n ? 'true' : 'false'));
+    };
+    dots.forEach((d) => d.addEventListener('click', () => go(Number(d.dataset.go))));
+    go(0);
+  });
+</script>
+
 <style>
-  .t-grid { margin-top: clamp(40px, 5vw, 64px); display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 56px 72px; }
-  .t { margin: 0; padding-top: 24px; border-top: 1px solid var(--rule); }
-  .t--lead { grid-row: span 2; }
-  .t-grid--one { grid-template-columns: minmax(0, 1fr); max-width: 900px; }
-  .t-grid--one .quote { font-size: clamp(30px, 3.4vw, 46px); line-height: 1.12; }
-  .t--lead .quote { font-size: clamp(30px, 3.4vw, 46px); line-height: 1.12; }
-  @media (max-width: 860px) { .t-grid { grid-template-columns: 1fr; gap: 40px; } .t--lead { grid-row: auto; } }
+  .tq { background: #132739; }
+  .tq-wrap { max-width: 980px; text-align: center; }
+  .tq-label { font-family: var(--font-label); font-size: 12.5px; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); margin: 0; }
+  .tq-stage { margin-top: clamp(32px, 4vw, 48px); display: grid; }
+  .tq-slide { margin: 0; }
+  /* With JS: only the active review shows. Without JS: they simply list. */
+  .tq-js .tq-slide { display: none; }
+  .tq-js .tq-slide[data-active] { display: block; animation: tq-in .7s var(--ease) both; }
+  @keyframes tq-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .tq-slide + .tq-slide { margin-top: 72px; }
+  .tq-js .tq-slide + .tq-slide { margin-top: 0; }
+  .tq-rule { display: block; width: 56px; height: 1px; background: var(--gold); margin: 0 auto 36px; }
+  .tq-quote { margin: 0 auto; max-width: 24ch; font-family: var(--font-display); font-weight: 500; font-size: clamp(32px, 4.2vw, 58px); line-height: 1.08; letter-spacing: -.005em; color: var(--ivory); text-wrap: balance; }
+  .tq-by { margin-top: 32px; display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 8px 18px; }
+  .tq-name { font-family: var(--font-label); font-size: 13px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--ivory); }
+  .tq-role { font-family: var(--font-label); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: rgba(244, 241, 234, .55); }
+  .tq-src { font-size: 14px; color: var(--ivory); text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 4px; }
+  .tq-more { margin: 28px auto 0; max-width: 62ch; }
+  .tq-more summary { list-style: none; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14.5px; color: var(--ivory); padding: 8px 2px; border-bottom: 1px solid rgba(185, 162, 124, .7); }
+  .tq-more summary::-webkit-details-marker { display: none; }
+  .tq-more summary::after { content: '+'; font-size: 18px; line-height: 1; color: var(--gold); }
+  .tq-more[open] summary::after { content: '–'; }
+  .tq-full { margin-top: 24px; text-align: left; }
+  .tq-full p { margin: 0; font-size: 17px; line-height: 1.75; color: rgba(244, 241, 234, .82); }
+  .tq-full p + p { margin-top: 16px; }
+  .tq-nav { margin-top: clamp(40px, 5vw, 56px); display: flex; justify-content: center; gap: 8px; }
+  .tq-dot { background: none; border: 0; padding: 10px 12px; cursor: pointer; color: rgba(244, 241, 234, .45); font-family: var(--font-label); font-size: 13px; letter-spacing: .16em; position: relative; transition: color .3s var(--ease); }
+  .tq-dot::after { content: ''; position: absolute; left: 12px; right: 12px; bottom: 4px; height: 1px; background: var(--gold); transform: scaleX(0); transition: transform .45s var(--ease); }
+  .tq-dot:hover { color: var(--ivory); }
+  .tq-dot[aria-pressed='true'] { color: var(--ivory); }
+  .tq-dot[aria-pressed='true']::after { transform: scaleX(1); }
+  .tq:not(.tq-js) .tq-nav { display: none; }
+  @media (prefers-reduced-motion: reduce) { .tq-js .tq-slide[data-active] { animation: none; } }
 </style>
