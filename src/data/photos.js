@@ -38,6 +38,7 @@ export const PHOTOS = {
   'golden-beach': { ...commons("Golden beach in bird's-eye view (Unsplash).jpg", 'Lance Asper', 'CC0', 'https://creativecommons.org/publicdomain/zero/1.0/'), alt: "Bird's-eye view of the beach and shoreline at Golden Beach", caption: 'Golden Beach from above' },
   'fisher-island': { ...commons('Fisher Island - panoramio (1).jpg', 'qwesy qwesy', 'CC BY 3.0', 'https://creativecommons.org/licenses/by/3.0/'), alt: 'Fisher Island seen across the water from Government Cut', caption: 'Fisher Island from Government Cut' },
   'miami-shores': { ...commons('Ms village hall.jpg', 'LEatUSF', 'CC BY-SA 4.0', 'https://creativecommons.org/licenses/by-sa/4.0/'), alt: 'Miami Shores Village Hall among shade trees', caption: 'Miami Shores Village Hall' },
+  estate: { ...unsplash('photo-1578439297699-eb414262c2de', 'dTV3FTL7x58', 'Claudia Altamimi'), alt: 'A columned waterfront mansion behind royal palms, seen from Biscayne Bay', caption: 'A bayfront estate seen from the water (not a listing)' },
   downtown: { ...unsplash('photo-1586474714711-59ad5a5798bb', 'TxME_LN0o0c', 'Brian Lundquist'), alt: 'Aerial view of downtown Miami along Biscayne Boulevard and the bay', caption: 'Downtown Miami along the bay' },
 };
 
