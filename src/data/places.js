@@ -354,7 +354,7 @@ export const PRACTICE = [
     lede: 'Florida’s Live Local Act lets qualifying residential projects rise on land zoned commercial, industrial or mixed-use. For some owners, that changes the value of their land.',
     body: [
       'Since July 2023, the Live Local Act has required local governments to allow multifamily and mixed-use residential development on land zoned commercial, industrial or mixed-use when at least 40 percent of the units are affordable. Qualifying projects can reach the highest density allowed in the jurisdiction and the tallest height allowed within one mile, or three stories, whichever is higher.',
-      'Amendments in 2024 and 2025 (the 2025 changes took effect July 1, 2025) adjusted definitions, parking near major transit stops, and limits near historic districts, military installations and airports. The details decide whether a specific site qualifies, so every review starts from the current statute and the local implementation, confirmed with land-use counsel.',
+      'The Legislature has amended the Act every year since: in 2024, 2025 and again in 2026 (House Bill 1389, in effect July 1, 2026), adjusting eligible land, definitions, parking near transit, height protections and exclusions near airports and other sensitive areas. The details decide whether a specific site qualifies, so every review starts from the current statute and the local implementation, confirmed with land-use counsel.',
     ],
     steps: [
       ['Eligibility screen', 'Zoning category, location exclusions and parcel size, checked against the current statute.'],

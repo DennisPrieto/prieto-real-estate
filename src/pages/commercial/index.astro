@@ -5,6 +5,7 @@ import Photo from '../../components/Photo.astro';
 import InquiryForm from '../../islands/InquiryForm.jsx';
 import Arrow from '../../components/Arrow.astro';
 import { PRACTICE } from '../../data/places.js';
+import { VISIBLE_NOTES } from '../../data/notes.js';
 import { FORMSPREE } from '../../data/site.js';
 import { COMMERCIAL_FIELDS } from '../../data/forms.js';
 
@@ -55,7 +56,28 @@ const services = [
     </div>
   </section>
 
-  <section class="section section--shoal" id="inquiry">
+  <section class="section section--shoal" aria-labelledby="fn-h">
+    <div class="wrap">
+      <div class="fn-head">
+        <h2 id="fn-h" class="h2" data-reveal>Field notes</h2>
+        <a href="/commercial/notes" class="textlink">All field notes</a>
+      </div>
+      <ul class="fn">
+        {VISIBLE_NOTES.slice(0, 3).map((n) => (
+          <li>
+            <a href={`/commercial/notes/${n.slug}`}>
+              <p class="fn-k">{n.kind}{n.status === 'draft' ? ' · draft' : ''}</p>
+              <h3 class="h3">{n.title}</h3>
+              <p class="fn-d">{n.dek}</p>
+              <span class="more">Read the note <Arrow /></span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--paper" id="inquiry">
     <div class="wrap svc">
       <div data-reveal>
         <h2 class="h2">Request a site review</h2>
@@ -86,4 +108,15 @@ const services = [
   .more { margin-top: 24px; display: inline-flex; gap: 10px; align-items: center; font-size: 15px; color: var(--gold); }
   .svc { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px 88px; align-items: start; }
   @media (max-width: 960px) { .svc { grid-template-columns: 1fr; } }
+  .fn-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; }
+  .fn { margin-top: 40px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--rule); }
+  @media (max-width: 900px) { .fn { grid-template-columns: 1fr; } }
+  .fn a { display: flex; flex-direction: column; height: 100%; padding: 28px 28px 32px 0; color: var(--ink); text-decoration: none; }
+  .fn li + li a { padding-left: 28px; border-left: 1px solid var(--rule); }
+  @media (max-width: 900px) { .fn li + li a { padding-left: 0; border-left: 0; border-top: 1px solid var(--rule); } }
+  .fn-k { font-family: var(--font-label); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--graphite); }
+  .fn .h3 { margin-top: 10px; }
+  .fn-d { margin-top: 12px; font-size: 16px; line-height: 1.65; color: var(--ink-2); flex: 1; }
+  .fn .more { margin-top: 20px; display: inline-flex; align-items: center; gap: 8px; font-size: 14.5px; color: var(--ink); }
+  .fn a:hover .h3 { text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 1.5px; text-underline-offset: 5px; }
 </style>

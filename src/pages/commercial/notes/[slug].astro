@@ -1,0 +1,109 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PhotoHero from '../../../components/PhotoHero.astro';
+import ConsultBand from '../../../components/ConsultBand.astro';
+import Arrow from '../../../components/Arrow.astro';
+import { VISIBLE_NOTES } from '../../../data/notes.js';
+
+export function getStaticPaths() {
+  return VISIBLE_NOTES.map((n) => ({ params: { slug: n.slug }, props: { n } }));
+}
+const { n } = Astro.props;
+const isDraft = n.status === 'draft';
+const others = VISIBLE_NOTES.filter((o) => o.slug !== n.slug);
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: n.title,
+  description: n.dek,
+  author: [{ '@type': 'Person', name: 'Dennis Prieto' }, { '@type': 'Person', name: 'Jaelly Prieto' }],
+  publisher: { '@type': 'Organization', name: 'Epique Realty' },
+};
+---
+<Base title={`${n.title} · Field notes`} description={n.dek} schema={schema} noindex={isDraft}>
+  <PhotoHero photo={n.photo} title={n.title} lede={n.dek} short crumbs={[['/commercial', 'Commercial and land'], ['/commercial/notes', 'Field notes']]}>
+    <p class="note-meta">{n.kind} · {n.date}</p>
+  </PhotoHero>
+
+  {isDraft && (
+    <div class="draft-bar" role="note">
+      <div class="wrap">Draft for review. This page appears on preview links only and is not on the live site.</div>
+    </div>
+  )}
+
+  <article class="section">
+    <div class="wrap note">
+      {n.sections.map((s) => (
+        <section class="note-sec">
+          <h2 class="h3">{s.h}</h2>
+          {s.p && <div class="prose">{s.p.map((t) => <p>{t}</p>)}</div>}
+          {s.list && (
+            <dl class="facts">
+              {s.list.map(([t, d]) => (<div><dt>{t}</dt><dd>{d}</dd></div>))}
+            </dl>
+          )}
+          {s.checks && (
+            <dl class="legend">
+              {s.checks.map(([t, d]) => (<div><dt>{t}</dt><dd>{d}</dd></div>))}
+            </dl>
+          )}
+        </section>
+      ))}
+
+      {n.sources.length > 0 && (
+        <section class="note-sec sources">
+          <h2 class="h4">Sources</h2>
+          <ol>
+            {n.sources.map(([t, href]) => (<li><a href={href} target="_blank" rel="noopener">{t}</a></li>))}
+          </ol>
+        </section>
+      )}
+
+      <p class="small muted disclaimer">General information, current as of {n.date}, not legal, tax or financial advice. Statutes and local codes change, and whether a specific parcel qualifies is confirmed with land-use counsel. Dennis and Jaelly Prieto are licensed Florida real estate sales associates with Epique Realty.</p>
+
+      <div class="note-cta">
+        <a href="/commercial#inquiry" class="btn btn--primary">Ask about a specific site <Arrow /></a>
+        <a href="/commercial/notes" class="btn btn--ghost">All field notes</a>
+      </div>
+    </div>
+  </article>
+
+  {others.length > 0 && (
+    <section class="section section--shoal section--tight">
+      <div class="wrap">
+        <h2 class="h4">More field notes</h2>
+        <ul class="more">
+          {others.map((o) => (<li><a href={`/commercial/notes/${o.slug}`}><span class="k">{o.kind}</span><span class="t">{o.title}</span></a></li>))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <ConsultBand heading="Have a site near transit?" />
+</Base>
+
+<style>
+  .note-meta { margin-top: 26px; font-family: var(--font-label); font-size: 12.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
+  .draft-bar { background: #F3E3B5; color: var(--ink); font-size: 14.5px; padding: 12px 0; border-bottom: 1px solid #E1C77E; }
+  .note { max-width: 860px; }
+  .note-sec + .note-sec { margin-top: clamp(48px, 6vw, 72px); }
+  .note-sec .prose { margin-top: 20px; }
+  .note-sec .prose p { font-size: 18px; line-height: 1.75; color: var(--ink-2); }
+  .note-sec .prose p + p { margin-top: 18px; }
+  .note-sec .legend { margin-top: 24px; }
+  .facts { margin-top: 24px; border-top: 1px solid var(--rule); }
+  .facts > div { display: grid; grid-template-columns: minmax(0, 11rem) minmax(0, 1fr); gap: 6px 32px; padding: 18px 0; border-bottom: 1px solid var(--rule); }
+  .facts dt { font-family: var(--font-label); font-size: 12.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--graphite); padding-top: 4px; }
+  .facts dd { margin: 0; font-size: 17px; line-height: 1.65; color: var(--ink); }
+  @media (max-width: 640px) { .facts > div { grid-template-columns: 1fr; } }
+  .sources ol { margin: 16px 0 0; padding-left: 20px; display: grid; gap: 8px; }
+  .sources a { color: var(--ink-2); text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 3px; font-size: 15.5px; }
+  .disclaimer { margin-top: 48px; max-width: 70ch; }
+  .note-cta { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 12px; }
+  .more { margin-top: 20px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--rule); }
+  @media (max-width: 760px) { .more { grid-template-columns: 1fr; } }
+  .more a { display: grid; gap: 4px; padding: 18px 16px 18px 0; border-bottom: 1px solid var(--rule); text-decoration: none; color: var(--ink); }
+  .more .k { font-family: var(--font-label); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--graphite); }
+  .more .t { font-family: var(--font-display); font-size: 22px; font-weight: 500; }
+  .more a:hover .t { text-decoration: underline; text-decoration-color: var(--gold); }
+</style>

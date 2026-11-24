@@ -1,0 +1,43 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHead from '../../../components/PageHead.astro';
+import Photo from '../../../components/Photo.astro';
+import ConsultBand from '../../../components/ConsultBand.astro';
+import { VISIBLE_NOTES } from '../../../data/notes.js';
+---
+<Base title="Field notes · Commercial and land" description="Analysis from Dennis and Jaelly Prieto, Epique Realty: Live Local Act briefs, site studies and examples of our written work on land and commercial property in Miami-Dade.">
+  <PageHead title="Field notes" lede="How we think about land and commercial property, in writing: briefs on the rules that move value, studies of sites we are working on, and examples of what owners receive from us." crumbs={[['/commercial', 'Commercial and land'], ['/commercial/notes', 'Field notes']]} />
+
+  <section class="section">
+    <div class="wrap">
+      <ul class="notes">
+        {VISIBLE_NOTES.map((n) => (
+          <li>
+            <a href={`/commercial/notes/${n.slug}`}>
+              <div class="art"><Photo name={n.photo} ratio="16 / 10" caption={false} sizes="(max-width: 900px) 100vw, 33vw" /></div>
+              <p class="k">{n.kind}{n.status === 'draft' ? ' · draft' : ''}</p>
+              <h2 class="h3">{n.title}</h2>
+              <p class="d">{n.dek}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <ConsultBand heading="Have a site you want read?" />
+</Base>
+
+<style>
+  .notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 32px; }
+  @media (max-width: 960px) { .notes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { .notes { grid-template-columns: 1fr; } }
+  .notes a { display: block; color: var(--ink); text-decoration: none; }
+  .art { overflow: hidden; }
+  .art :global(img) { transition: transform 1.2s var(--ease); }
+  .notes a:hover .art :global(img) { transform: scale(1.03); }
+  .k { margin-top: 20px; font-family: var(--font-label); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--graphite); }
+  .notes .h3 { margin-top: 8px; }
+  .notes a:hover .h3 { text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 1.5px; text-underline-offset: 5px; }
+  .d { margin-top: 12px; font-size: 16px; line-height: 1.65; color: var(--ink-2); }
+</style>
