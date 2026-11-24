@@ -1,5 +1,5 @@
 ---
-import { WIDTH, HEIGHT, project, shorePath, landPath, islands, contours, soundings, PLACES, bayLabel, latTicks, lonTicks } from '../data/bay.js';
+import { WIDTH, HEIGHT, project, shorePath, landPath, islands, contours, soundings, PLACES, bayLabel, oceanLabel, latTicks, lonTicks } from '../data/bay.js';
 
 interface Props {
   focus?: string | null;
@@ -18,9 +18,9 @@ if (focus && PLACES[focus]) {
   const vy = Math.max(0, Math.min(HEIGHT - h, y - h * 0.5));
   vb = [vx, vy, w, h];
 }
-const fs = +(vb[2] / (focus ? 30 : 54)).toFixed(1);
-const places = Object.entries(PLACES).map(([slug, p]) => ({ slug, name: p.name, xy: project(p.at), dy: (p as any).dy || 0 }));
-const title = label || (focus ? `Schematic chart of Biscayne Bay centred on ${PLACES[focus]?.name}` : 'Schematic chart of Biscayne Bay showing Edgewater, Brickell, Coconut Grove, Coral Gables and Pinecrest');
+const fs = +(vb[2] / (focus ? 30 : 58)).toFixed(1);
+const places = Object.entries(PLACES).map(([slug, p]: [string, any]) => ({ slug, name: p.name, xy: project(p.at), dy: p.dy || 0, side: p.side || 'l' }));
+const title = label || (focus ? `Schematic chart of Biscayne Bay centred on ${PLACES[focus]?.name}` : `Schematic chart of the coast from Aventura to Gables by the Sea, marking ${Object.values(PLACES).map((p) => p.name).join(', ')}`);
 ---
 <figure class:list={['bay', `bay--${tone}`, { 'bay--animate': animate, 'bay--focus': !!focus }, cls]}>
   <svg viewBox={vb.join(' ')} preserveAspectRatio="xMidYMid slice" role="img" aria-label={title}>
@@ -35,13 +35,16 @@ const title = label || (focus ? `Schematic chart of Biscayne Bay centred on ${PL
     {islands.map((d) => <path d={d} class="bay-island" />)}
     <path d={shorePath} class="bay-shore" pathLength="1" />
     <text x={bayLabel[0]} y={bayLabel[1]} class="bay-name" font-size={fs * 1.5}>Biscayne Bay</text>
+    {!focus && <text x={oceanLabel[0]} y={oceanLabel[1]} class="bay-name" font-size={fs * 1.3} transform={`rotate(-90 ${oceanLabel[0]} ${oceanLabel[1]})`} text-anchor="middle">Atlantic Ocean</text>}
     <g class="bay-places" font-size={fs}>
       {places.map((p) => (
         <g class:list={['place', { 'is-focus': p.slug === focus }]}>
           <circle cx={p.xy[0]} cy={p.xy[1]} r={fs * (p.slug === focus ? 0.5 : 0.36)} />
           {p.slug === focus
             ? <text x={p.xy[0] + fs * 0.9} y={p.xy[1] + fs * 0.35} text-anchor="start">{p.name.toUpperCase()}</text>
-            : <text x={p.xy[0] - fs * 0.9} y={p.xy[1] + fs * (0.35 + p.dy)} text-anchor="end">{p.name.toUpperCase()}</text>}
+            : p.side === 'r'
+              ? <text x={p.xy[0] + fs * 0.8} y={p.xy[1] + fs * (0.35 + p.dy)} text-anchor="start">{p.name.toUpperCase()}</text>
+              : <text x={p.xy[0] - fs * 0.8} y={p.xy[1] + fs * (0.35 + p.dy)} text-anchor="end">{p.name.toUpperCase()}</text>}
         </g>
       ))}
     </g>
@@ -90,7 +93,7 @@ const title = label || (focus ? `Schematic chart of Biscayne Bay centred on ${PL
   .bay--animate .bay-places g:nth-child(2) { animation-delay: 1.3s; }
   .bay--animate .bay-places g:nth-child(3) { animation-delay: 1.5s; }
   .bay--animate .bay-places g:nth-child(4) { animation-delay: 1.7s; }
-  .bay--animate .bay-places g:nth-child(5) { animation-delay: 1.9s; }
+  .bay--animate .bay-places g:nth-child(n+5) { animation-delay: 1.9s; }
   @keyframes draw { to { stroke-dashoffset: 0; } }
   @keyframes fade { to { opacity: 1; } }
   @media (prefers-reduced-motion: reduce) {

@@ -7,6 +7,7 @@ import Testimonials from '../components/Testimonials.astro';
 import ConsultBand from '../components/ConsultBand.astro';
 import Arrow from '../components/Arrow.astro';
 import { NEIGHBORHOODS } from '../data/places.js';
+import { WIDTH as CW, HEIGHT as CH } from '../data/bay.js';
 
 const checks = [
   ['Municipality and folio', 'The address on the listing and the city on the tax roll do not always match. One wrong city can send a home to the wrong buyers for months.'],
@@ -35,14 +36,14 @@ const checks = [
   <section class="section chart-sec" aria-labelledby="chart-h">
     <div class="wrap chart-grid">
       <div class="chart-copy" data-reveal>
-        <h2 id="chart-h" class="h2">Five neighborhoods, one bay, and the land between them.</h2>
-        <p class="lede">From Edgewater to Pinecrest, most of the homes we work on sit within a few miles of Biscayne Bay. The commercial sites sit along the corridors and rail lines that feed it.</p>
+        <h2 id="chart-h" class="h2">From Aventura to Gables by the Sea.</h2>
+        <p class="lede">We work the whole coast between them: the barrier islands from Golden Beach to Fisher Island, the bayfront from Miami Shores to Brickell, and the estate communities of Coconut Grove, Coral Gables and Pinecrest. Commercial sites sit along the corridors and rail lines behind them.</p>
         <ul class="paths" aria-label="Choose a path">
           <li><a href="/residential"><span>Luxury residential</span><Arrow /></a></li>
           <li><a href="/commercial"><span>Commercial and land</span><Arrow /></a></li>
         </ul>
       </div>
-      <div class="hero-chart" data-reveal>
+      <div class="hero-chart" data-reveal style={`aspect-ratio:${CW} / ${CH}`}>
         <BayChart animate />
       </div>
     </div>
@@ -160,13 +161,13 @@ const checks = [
 
   .chart-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 40px 72px; align-items: center; }
   .chart-copy .lede { margin-top: 24px; }
-  .hero-chart { aspect-ratio: 1 / 1; max-height: 640px; }
+  .hero-chart { justify-self: center; width: 100%; max-width: 600px; }
   .hero-chart :global(.bay) { height: 100%; display: flex; flex-direction: column; }
   .hero-chart :global(.bay svg) { flex: 1; min-height: 0; border: 1px solid var(--rule); }
   .paths { margin-top: 40px; border-top: 1px solid var(--rule); }
   .paths a { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--rule); text-decoration: none; color: var(--ink); font-family: var(--font-display); font-size: 25px; font-weight: 500; transition: padding .4s var(--ease); }
   .paths a:hover { padding-left: 8px; }
-  @media (max-width: 960px) { .chart-grid { grid-template-columns: 1fr; } .hero-chart { aspect-ratio: 4 / 3; } }
+  @media (max-width: 960px) { .chart-grid { grid-template-columns: 1fr; } }
 
   .split { padding-top: 0; }
   .split-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0; border: 1px solid var(--rule); }
