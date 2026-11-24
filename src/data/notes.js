@@ -8,7 +8,7 @@ export const NOTES = [
     status: 'published',
     kind: 'Live Local Act brief',
     date: 'November 2026',
-    photo: 'live-local-act',
+    photo: 'dadeland',
     title: 'Live Local at Dadeland South',
     dek: 'What Florida’s Live Local Act allows at the southern end of Metrorail, where the County’s urban center rules and its new bus rapid transit line meet, and what we check first on a site there.',
     sections: [
