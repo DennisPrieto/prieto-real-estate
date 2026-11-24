@@ -6,6 +6,7 @@ export default function InquiryForm({ formId, subject, fields, submitLabel = 'Se
   const [v, setV] = useState(initial);
   const [errors, setErrors] = useState({});
   const [state, setState] = useState('idle'); // idle | sending | sent | failed
+  const [gotcha, setGotcha] = useState(''); // honeypot: real people never fill this in
 
   const set = (k, val) => { setV((p) => ({ ...p, [k]: val })); if (errors[k]) setErrors((e) => ({ ...e, [k]: undefined })); };
 
@@ -28,7 +29,7 @@ export default function InquiryForm({ formId, subject, fields, submitLabel = 'Se
       const res = await fetch(`https://formspree.io/f/${formId}`, {
         method: 'POST',
         headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...v, inquiry_type: inquiryType, page: window.location.pathname, _subject: `${subject}: ${v.name || 'New inquiry'}`, _replyto: v.email }),
+        body: JSON.stringify({ ...v, _gotcha: gotcha, inquiry_type: inquiryType, page: window.location.pathname, _subject: `${subject}: ${v.name || 'New inquiry'}`, _replyto: v.email }),
       });
       setState(res.ok ? 'sent' : 'failed');
     } catch {
@@ -89,6 +90,10 @@ export default function InquiryForm({ formId, subject, fields, submitLabel = 'Se
 
   return (
     <form className="form" onSubmit={submit} noValidate>
+      <div aria-hidden="true" style={{ position: 'absolute', left: '-10000px', width: 1, height: 1, overflow: 'hidden' }}>
+        <label htmlFor={`f-${formId}-gotcha`}>Leave this field empty</label>
+        <input id={`f-${formId}-gotcha`} type="text" tabIndex={-1} autoComplete="off" value={gotcha} onChange={(e) => setGotcha(e.target.value)} />
+      </div>
       {rows.map((r, i) => r.length === 2 ? <div className="form-row" key={i}>{r.map(renderField)}</div> : renderField(r[0]))}
       {state === 'failed' && (
         <p className="form-status form-status--error" role="alert">
