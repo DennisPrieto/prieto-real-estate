@@ -31,7 +31,7 @@ const own = (slug, max) => {
 };
 
 export const PHOTOS = {
-  hero: { ...unsplash('photo-1695776333029-d47e3f0f4e63', '5lTaDDeG9WU', 'Valeriia Neganova'), alt: 'Aerial view over Brickell Key and the Brickell skyline on Biscayne Bay, Miami', caption: 'Brickell Key and Brickell from above Biscayne Bay' },
+  hero: { ...own('hero', 1672), alt: 'The downtown Miami skyline at dusk, its lights reflected in Biscayne Bay', caption: 'Downtown Miami across Biscayne Bay at dusk' },
   'coral-gables': { ...unsplash('photo-1704236600122-56a1401023d3', '2_zGhTtzQII', 'Alexander Wark Feeney'), alt: 'Aerial view of Coral Gables looking toward the Biltmore Hotel tower', caption: 'Coral Gables, looking toward the Biltmore' },
   'coral-gables-2': { ...unsplash('photo-1560453206-259f358d64b6', '7neck4QUlT4', 'Armando Ching San'), alt: 'Coral rock entrance arch in Coral Gables', caption: 'A coral-rock entrance, Coral Gables' },
   biltmore: { ...unsplash('photo-1779650829639-f6a34d2d34a6', 'BVT-ZnecBNk', 'Hector Falcon'), alt: 'The Biltmore Hotel in Coral Gables, its tower and arches among tropical landscaping', caption: 'The Biltmore, Coral Gables' },

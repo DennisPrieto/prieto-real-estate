@@ -4,9 +4,9 @@ import Legal from '../components/Legal.astro';
 import { ALL_PHOTOS } from '../data/photos.js';
 ---
 <Base title="Photo credits" description="Credits and licenses for photographs used on this site.">
-  <Legal title="Photo credits" intro="Photographs of Miami and its neighborhoods on this site are by Dennis Prieto and the photographers below. They show public places and landmarks, not properties we are marketing.">
+  <Legal title="Photo credits" intro="Some photographs of Miami and its neighborhoods on this site are by the photographers below. They show public places and landmarks, not properties we are marketing.">
     <ul class="credits">
-      {ALL_PHOTOS.map((p) => (
+      {ALL_PHOTOS.filter((p) => p.kind !== 'own').map((p) => (
         <li>
           <span>{p.caption}</span>
           {p.creditUrl ? <a href={p.creditUrl} target="_blank" rel="noopener">{p.credit}</a> : <span>{p.credit}</span>}

@@ -19,11 +19,9 @@ const srcset = (p.widths || widths).map((w) => `${p.src(w)} ${w}w`).join(', ');
   <div class="frame">
     <img src={p.src(1600)} srcset={srcset} sizes={sizes} alt={p.alt} loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} decoding="async" style={`object-position:${position}`} referrerpolicy="no-referrer-when-downgrade" />
   </div>
-  {caption && (
+  {caption && !overlayCredit && (
     <figcaption>
       <span class="cap">{p.caption}</span>
-      {p.creditUrl ? <a class="cred" href={p.creditUrl} target="_blank" rel="noopener">{p.credit}</a> : <span class="cred">{p.credit}</span>}
-      {p.licenseUrl && <a class="cred" href={p.licenseUrl} target="_blank" rel="noopener license">License</a>}
     </figcaption>
   )}
 </figure>
