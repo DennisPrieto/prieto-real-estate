@@ -19,16 +19,14 @@ const commons = (file, by, license, licenseUrl) => ({
   licenseUrl,
 });
 
-// AI illustrations supplied by Dennis (generated with ChatGPT image generation).
-// They are mood images, not photographs of the named place or of any property,
-// and every one is labeled "AI illustration" on the image itself.
-const ai = (slug, max) => {
+// Dennis Prieto's own photographs (retouched), used with his permission.
+const own = (slug, max) => {
   const widths = [640, 960, 1280, max];
   return {
-    kind: 'ai',
+    kind: 'own',
     widths,
-    src: (w) => `/img/ai/${slug}-${widths.find((x) => x >= w) || max}.webp`,
-    credit: 'AI-generated illustration (not a photograph or a listing)',
+    src: (w) => `/img/own/${slug}-${widths.find((x) => x >= w) || max}.webp`,
+    credit: 'Photo: Dennis Prieto',
   };
 };
 
@@ -43,16 +41,17 @@ export const PHOTOS = {
   edgewater: { ...commons('Edgewater Miami Florida southern.jpg', 'Averette', 'CC BY 3.0', 'https://creativecommons.org/licenses/by/3.0/'), alt: 'Edgewater condominium towers rising behind palms against a blue sky', caption: 'The Edgewater towers along Biscayne Boulevard' },
   pinecrest: { ...commons('Pinecrest Gardens FL park entr04.jpg', 'Ebyabe', 'CC BY-SA 3.0', 'https://creativecommons.org/licenses/by-sa/3.0/'), alt: 'Coral-rock archway at the entrance to Pinecrest Gardens', caption: 'Pinecrest Gardens, Village of Pinecrest' },
   'sunny-isles': { ...unsplash('photo-1630612905242-8f1e6933cf3b', 'l1cORHsLqZ0', 'Avi Werde'), alt: 'Aerial view of Sunny Isles Beach towers along the shoreline', caption: 'Sunny Isles Beach from above' },
-  'bal-harbour': { ...ai('bal-harbour', 1536), alt: 'AI illustration: a glass oceanfront condominium tower above the beach', caption: 'Oceanfront living, Bal Harbour (AI illustration)' },
+  'bal-harbour': { ...own('bal-harbour', 1536), alt: 'A glass oceanfront condominium tower above the beach', caption: 'Oceanfront living, Bal Harbour' },
   surfside: { ...unsplash('photo-1748457440298-24f291aa9e24', 'RBQlvEWtQ7w', 'Austin Hervias'), alt: 'A dune path leading to the beach in Surfside', caption: 'A beach path in Surfside' },
   'key-biscayne': { ...unsplash('photo-1578318099733-19b4c9f575ca', 'AyupIb9O3Nc', 'Quick PS'), alt: 'The Cape Florida Lighthouse on Key Biscayne among palms', caption: 'Cape Florida Lighthouse, Key Biscayne' },
   'miami-beach': { ...unsplash('photo-1692403435670-c1894e770ecd', 'mw-n_aUlDtw', 'Nils Huenerfuerst'), alt: 'Art Deco buildings and palms on Ocean Drive, Miami Beach', caption: 'Ocean Drive, Miami Beach' },
   aventura: { ...commons('Aventura Florida along 183rd Street.jpg', 'Fredlyfish4', 'CC BY 4.0', 'https://creativecommons.org/licenses/by/4.0/'), alt: 'Aventura condominium towers across the water at dusk', caption: 'Aventura from the water' },
-  'golden-beach': { ...ai('golden-beach', 1536), alt: 'AI illustration: a Mediterranean-style beachfront estate on a wide beach, towers in the distance', caption: 'Beachfront estates, Golden Beach (AI illustration)' },
-  'bay-harbor': { ...ai('bay-harbor', 1535), alt: 'AI illustration: modern waterfront homes with docks and pools along a bay, towers beyond', caption: 'Waterfront living, Bay Harbor Islands (AI illustration)' },
-  'gables-by-the-sea': { ...ai('gables-by-the-sea', 1449), alt: 'AI illustration: waterfront homes along canals ending at a point on the bay', caption: 'Canal-front living, Gables by the Sea (AI illustration)' },
+  'golden-beach': { ...own('golden-beach', 1536), alt: 'A Mediterranean-style beachfront estate on a wide beach, towers in the distance', caption: 'Beachfront estates, Golden Beach' },
+  'bay-harbor': { ...own('bay-harbor', 1535), alt: 'Modern waterfront homes with docks and pools along a bay, towers beyond', caption: 'Waterfront living, Bay Harbor Islands' },
+  'gables-by-the-sea': { ...own('gables-by-the-sea', 1449), alt: 'Waterfront homes along canals ending at a point on the bay', caption: 'Canal-front living, Gables by the Sea' },
+  'indian-creek': { ...own('indian-creek', 1457), alt: 'A palm-lined reflecting pool leading to the entrance of a classical estate', caption: 'An Indian Creek estate (not a listing)' },
   'fisher-island': { ...commons('Fisher Island - panoramio (1).jpg', 'qwesy qwesy', 'CC BY 3.0', 'https://creativecommons.org/licenses/by/3.0/'), alt: 'Fisher Island seen across the water from Government Cut', caption: 'Fisher Island from Government Cut' },
-  'miami-shores': { ...ai('miami-shores', 1535), alt: 'AI illustration: a modern white house with a pool and lawn', caption: 'Modern living, Miami Shores (AI illustration)' },
+  'miami-shores': { ...own('miami-shores', 1535), alt: 'A modern white house with a pool and lawn', caption: 'Modern living, Miami Shores' },
   estate: { ...unsplash('photo-1779903726785-7cf25bed78f7', 'W3MckxPY6Mo', 'Caroline Badran'), alt: 'A glass-walled living and dining room opening onto the beach and ocean', caption: 'Floor-to-ceiling glass on the water (not a listing)' },
   downtown: { ...unsplash('photo-1586474714711-59ad5a5798bb', 'TxME_LN0o0c', 'Brian Lundquist'), alt: 'Aerial view of downtown Miami along Biscayne Boulevard and the bay', caption: 'Downtown Miami along the bay' },
 };
