@@ -2,7 +2,7 @@
 // Points are approximate (lat, lon) traced at neighborhood scale. This is an
 // illustration, not a navigational or survey-accurate map.
 
-const BOUNDS = { lonMin: -80.345, lonMax: -80.055, latMin: 25.625, latMax: 25.985 };
+export const BOUNDS = { lonMin: -80.362, lonMax: -80.045, latMin: 25.625, latMax: 25.985 };
 const K = 4000;
 const COS = Math.cos((25.75 * Math.PI) / 180);
 
@@ -84,9 +84,9 @@ export const PLACES = {
   'golden-beach': { name: 'Golden Beach', at: [25.967, -80.12], side: 'r', island: true },
   'sunny-isles': { name: 'Sunny Isles Beach', at: [25.935, -80.1205], side: 'r', island: true },
   'bal-harbour': { name: 'Bal Harbour', at: [25.893, -80.123], side: 'r', island: true },
-  'bay-harbor': { name: 'Bay Harbor Islands', at: [25.887, -80.134], side: 'l', island: true },
+  'bay-harbor': { name: 'Bay Harbor Islands', at: [25.887, -80.134], side: 'l', island: true, lead: 5.5 },
   surfside: { name: 'Surfside', at: [25.878, -80.1225], side: 'r', island: true },
-  'indian-creek': { name: 'Indian Creek', at: [25.873, -80.1335], side: 'l', dy: 1.1, island: true },
+  'indian-creek': { name: 'Indian Creek', at: [25.873, -80.1335], side: 'l', island: true, lead: 7 },
   'miami-shores': { name: 'Miami Shores', at: [25.863, -80.19], side: 'l' },
   'miami-beach': { name: 'Miami Beach', at: [25.815, -80.1265], side: 'r', island: true },
   edgewater: { name: 'Edgewater', at: [25.8, -80.1905], side: 'l' },
@@ -96,7 +96,7 @@ export const PLACES = {
   'coconut-grove': { name: 'Coconut Grove', at: [25.727, -80.2405], side: 'l' },
   'coral-gables': { name: 'Coral Gables', at: [25.721, -80.2684], side: 'l', dy: 1.4 },
   pinecrest: { name: 'Pinecrest', at: [25.665, -80.308], side: 'l' },
-  'gables-by-the-sea': { name: 'Gables by the Sea', at: [25.65, -80.2845], side: 'r' },
+  'gables-by-the-sea': { name: 'Gables by the Sea', at: [25.65, -80.2845], side: 'r', lead: 1.4 },
 };
 
 export const bayLabel = project([25.715, -80.215]);
@@ -104,4 +104,9 @@ export const oceanLabel = project([25.79, -80.082]);
 
 // Graticule ticks every 0.05 degrees.
 export const latTicks = [25.65, 25.7, 25.75, 25.8, 25.85, 25.9, 25.95].map((la) => ({ y: project([la, BOUNDS.lonMin])[1], label: `25°${Math.round((la - 25) * 60)}′N` }));
-export const lonTicks = [-80.3, -80.25, -80.2, -80.15, -80.1].map((lo) => ({ x: project([BOUNDS.latMax, lo])[0], label: `80°${Math.round((-lo - 80) * 60)}′W` }));
+export const lonTicks = [-80.3, -80.25, -80.2, -80.15, -80.1].map((lo) => ({ x: project([BOUNDS.latMax, lo])[0], label: `80°${Math.round((-lo - 80) * 60)}′W`, land: lo < -80.29 }));
+
+
+// Graduated chart border: one segment per minute of latitude and longitude.
+export const latMinutes = (() => { const out = []; for (let m = Math.ceil(BOUNDS.latMin * 60); m < BOUNDS.latMax * 60; m++) out.push({ y1: project([(m + 1) / 60, BOUNDS.lonMin])[1], y2: project([m / 60, BOUNDS.lonMin])[1], dark: m % 2 === 0 }); return out; })();
+export const lonMinutes = (() => { const out = []; for (let m = Math.ceil(-BOUNDS.lonMax * 60); m < -BOUNDS.lonMin * 60; m++) out.push({ x1: project([BOUNDS.latMax, -(m + 1) / 60])[0], x2: project([BOUNDS.latMax, -m / 60])[0], dark: m % 2 === 0 }); return out; })();
