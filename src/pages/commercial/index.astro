@@ -76,8 +76,8 @@ const services = [
 </Base>
 
 <style>
-  .band :global(.frame) { max-height: 560px; }
-  @media (max-width: 720px) { .band :global(.frame) { aspect-ratio: 4 / 3; } }
+  .band :global(.frame) { aspect-ratio: auto; width: 100%; height: min(560px, calc(100vw * 8 / 21)); }
+  @media (max-width: 720px) { .band :global(.frame) { height: 75vw; } }
   .practice { margin-top: 48px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid rgba(244,241,234,.16); }
   @media (max-width: 960px) { .practice { grid-template-columns: 1fr; } }
   .practice li + li { border-left: 1px solid rgba(244,241,234,.16); }
