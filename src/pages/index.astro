@@ -7,11 +7,10 @@ import Testimonials from '../components/Testimonials.astro';
 import ConsultBand from '../components/ConsultBand.astro';
 import Arrow from '../components/Arrow.astro';
 import { NEIGHBORHOODS } from '../data/places.js';
-import { WIDTH as CW, HEIGHT as CH } from '../data/bay.js';
+import { WIDTH as CW, HEIGHT as CH, PLACES } from '../data/bay.js';
 
-// Every neighborhood shows: Coral Gables leads large, the rest follow north to south.
-const LEAD = 'coral-gables';
-const TILES = [NEIGHBORHOODS.find((n) => n.slug === LEAD), ...NEIGHBORHOODS.filter((n) => n.slug !== LEAD)].filter(Boolean);
+// Every neighborhood, equal tiles, strictly north to south by latitude.
+const TILES = [...NEIGHBORHOODS].sort((a, b) => (PLACES[b.slug]?.at[0] ?? 0) - (PLACES[a.slug]?.at[0] ?? 0));
 
 const checks = [
   ['Municipality and folio', 'The address on the listing and the city on the tax roll do not always match. One wrong city can send a home to the wrong buyers for months.'],
@@ -101,10 +100,10 @@ const checks = [
         <a href="/residential" class="textlink textlink--light">All 17, north to south</a>
       </div>
       <ul class="nb-feature">
-        {TILES.map((n, i) => (
-          <li class={`nbf nbf-${i}`}>
+        {TILES.map((n) => (
+          <li class="nbf">
             <a href={`/neighborhoods/${n.slug}`}>
-              <PlaceImage slug={n.slug} sizes={i === 0 ? '(max-width: 760px) 100vw, 66vw' : '(max-width: 760px) 100vw, (max-width: 1080px) 50vw, 33vw'} />
+              <PlaceImage slug={n.slug} sizes="(max-width: 760px) 100vw, (max-width: 1080px) 50vw, 33vw" />
               <span class="nbf-label"><span class="nbf-name">{n.name}</span><span class="coord">{n.coord}</span></span>
             </a>
           </li>
@@ -203,7 +202,6 @@ const checks = [
   .nbx .nb-head .h2 { color: var(--ivory); }
   .textlink--light { color: var(--ivory); }
   .nb-feature { margin-top: 48px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: clamp(220px, 22vw, 320px); gap: 14px; }
-  .nbf-0 { grid-column: span 2; grid-row: span 2; }
   .nbf a { position: relative; display: block; height: 100%; overflow: hidden; color: var(--ivory); text-decoration: none; background: #1a1a1a; }
   .nbf a :global(.photo), .nbf a :global(.frame), .nbf a :global(.pi-chart), .nbf a :global(.bay) { height: 100%; }
   .nbf a :global(figcaption) { display: none; }
@@ -213,10 +211,9 @@ const checks = [
   .nbf a::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(11,11,11,.72) 0%, rgba(11,11,11,0) 48%); pointer-events: none; }
   .nbf-label { position: absolute; left: 22px; right: 22px; bottom: 18px; z-index: 1; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
   .nbf-name { font-family: var(--font-display); font-weight: 500; font-size: clamp(24px, 2.2vw, 32px); line-height: 1.05; }
-  .nbf-0 .nbf-name { font-size: clamp(32px, 3.4vw, 52px); }
   .nbf .coord { color: rgba(244,241,234,.72); }
   @media (max-width: 1080px) { .nb-feature { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 260px; } }
-  @media (max-width: 760px) { .nb-feature { grid-template-columns: 1fr; grid-auto-rows: 250px; } .nbf-0 { grid-column: auto; grid-row: span 1; } }
+  @media (max-width: 760px) { .nb-feature { grid-template-columns: 1fr; grid-auto-rows: 250px; } }
 
   .partners { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 48px 80px; align-items: center; }
   @media (max-width: 900px) { .partners { grid-template-columns: 1fr; } }
