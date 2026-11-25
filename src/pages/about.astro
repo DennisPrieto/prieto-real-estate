@@ -38,7 +38,8 @@ const beliefs = [
         <p class="label" style="margin-top:10px">{PEOPLE.dennis.role} · FL {PEOPLE.dennis.license}</p>
         <div class="prose" style="margin-top:24px">
           <p>Dennis and Jaelly built a construction company together, grew it and sold it before turning to real estate, and it shows in how he reads a property: permits, structure, zoning and what a site could become. He leads market analysis, commercial and land strategy, and investment work, and is completing the NAR Pricing Strategy Advisor certification.</p>
-          <p>As Epique’s Area Leader for Miami, he also mentors agents and builds the systems behind their businesses.</p>
+          <p>He puts his reasoning in writing: opinions of value that separate what a building earns today from what its land is worth to a developer, and <a class="inl" href="/commercial/notes">field notes</a> on the sites he follows, from Dadeland South to Edgewater.</p>
+          <p>As Epique’s Area Leader for Miami, he mentors agents and builds the systems behind their businesses, and he works in English and Spanish with buyers and investors from across Latin America.</p>
         </div>
         <p class="contact"><a href={`tel:${PEOPLE.dennis.tel}`}>{PEOPLE.dennis.phone}</a> · <a href={`mailto:${PEOPLE.dennis.email}`}>{PEOPLE.dennis.email}</a> · <a href={PEOPLE.dennis.linkedin} target="_blank" rel="noopener">LinkedIn</a></p>
       </article>
@@ -77,6 +78,7 @@ const beliefs = [
 </Base>
 
 <style>
+  .inl { color: inherit; text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 3px; }
   .portrait img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 15%; background: var(--shoal); }
   .story { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 40px 88px; align-items: start; }
   .story .prose p:first-child { margin-top: 6px; }
